@@ -1,8 +1,8 @@
 package org.example.logic.useCases
 
-import org.example.logic.MealsRepository
+import org.example.logic.RecipesRepository
 
-class UseCaseHolder(val repository:MealsRepository) {
+class UseCaseHolder(val repository:RecipesRepository) {
 
     fun useCaseImplementation(){
 
