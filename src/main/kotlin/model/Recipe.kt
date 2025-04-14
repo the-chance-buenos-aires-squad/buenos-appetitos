@@ -1,13 +1,11 @@
 package org.example.model
 
-import java.util.*
-
-data class MainMeal (
+data class Recipe (
     val name:String,
-    val id:Int,
+    val id:String,
     val minutes:Int,
-    val contributorId:Int,
-    val submitted: Date,
+    val contributorId:String,
+    val submitted: String,
     val tags:List<String>,
     val nutrition:List<Double>,
     val numberOfSteps:Int,
