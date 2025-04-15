@@ -1,16 +1,16 @@
 package org.example.presentation
 
-import org.example.logic.useCases.GuessGame
+import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
 
 class HolderCLi {
 
     // Play Guess Game Feature
     fun playGuessGame(useCases: UseCaseHolder) {
-        val guessGame = GuessGame(useCases.repository)
+        val guessGameUseCase = GuessGameUseCase(useCases.repository)
 
-        when (val gameResult = guessGame.playGuessGame()) {
-            is GuessGame.GameResult.Success -> {
+        when (val gameResult = guessGameUseCase.playGuessGame()) {
+            is GuessGameUseCase.GameResult.Success -> {
                 println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
                 println("Meal: ${gameResult.recipeName}")
 
@@ -24,13 +24,13 @@ class HolderCLi {
                         continue
                     }
 
-                    when (guessGame.checkGuess(guess, gameResult.correctTime)) {
-                        GuessGame.GuessResult.CORRECT -> {
+                    when (guessGameUseCase.checkGuess(guess, gameResult.correctTime)) {
+                        GuessGameUseCase.GuessResult.CORRECT -> {
                             println("🎉 Congratulations! That's correct! The preparation time is ${gameResult.correctTime} minutes.")
                             return
                         }
-                        GuessGame.GuessResult.TOO_LOW -> println("Too low! Try a higher number.")
-                        GuessGame.GuessResult.TOO_HIGH -> println("Too high! Try a lower number.")
+                        GuessGameUseCase.GuessResult.TOO_LOW -> println("Too low! Try a higher number.")
+                        GuessGameUseCase.GuessResult.TOO_HIGH -> println("Too high! Try a lower number.")
                     }
 
                     attemptsLeft--
@@ -38,7 +38,7 @@ class HolderCLi {
 
                 println("\nGame Over! The correct preparation time was ${gameResult.correctTime} minutes.")
             }
-            is GuessGame.GameResult.Error -> {
+            is GuessGameUseCase.GameResult.Error -> {
                 println("Error: ${gameResult.message}")
             }
         }

@@ -1,9 +1,8 @@
 package org.example.logic.useCases
 
 import org.example.logic.RecipesRepository
-import kotlin.random.Random
 
-class GuessGame(private val repository: RecipesRepository) {
+class GuessGameUseCase(private val repository: RecipesRepository) {
 
     fun playGuessGame(): GameResult {
         val recipes = repository.getRecipes()
@@ -11,7 +10,7 @@ class GuessGame(private val repository: RecipesRepository) {
             return GameResult.Error("No recipes available")
         }
 
-        val randomRecipe = recipes[Random.nextInt(recipes.size)]
+        val randomRecipe = recipes.random()
         val correctTime = randomRecipe.minutes
 
         return GameResult.Success(
