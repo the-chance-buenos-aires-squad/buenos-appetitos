@@ -5,7 +5,7 @@ import org.example.logic.useCases.UseCaseHolder
 
 class HolderCLi {
 
-    // Play Guess Game Function
+    // Play Guess Game Feature
     fun playGuessGame(useCases: UseCaseHolder) {
         val guessGame = GuessGame(useCases.repository)
 
