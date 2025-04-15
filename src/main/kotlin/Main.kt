@@ -1,6 +1,9 @@
+package org.example
+
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.logic.useCases.UseCaseHolder
+import org.example.presentation.HolderCLi
 import java.util.Scanner
 
 fun main() {
@@ -8,6 +11,7 @@ fun main() {
     val repository = CsvRecipesRepository(csvFileReader)
     val useCases = UseCaseHolder(repository)
     val scanner = Scanner(System.`in`)
+    val holderCli = HolderCLi()
 
     while (true) {
         println("\nFood Change Mood - Menu:")
@@ -31,21 +35,21 @@ fun main() {
         println("Enter your choice: ")
 
         when (scanner.nextLine()) {
-            "1" -> showHealthyFastFood(useCases)
-            "2" -> searchMealsByName(scanner, useCases)
-            "3" -> showIraqiMeals(useCases)
-            "4" -> showEasyFoodSuggestions(useCases)
-            "5" -> playGuessGame(useCases)
-            "6" -> findSweetWithOutEgg(useCases)
-            "7" -> ketoDietHelper(useCases)
-            "8" -> searchFoodsByDate(useCases)
-            "9" -> gymHelper(useCases)
-            "10" -> exploreFoodCultures(useCases)
-            "11" -> playIngredientGame(useCases)
-            "12" -> findPotatoDishes(useCases)
-            "13" -> highCalorieMeals(useCases)
-            "14" -> seafoodByProteinContent(useCases)
-            "15" -> italianGroupMeals(useCases)
+            "1" -> holderCli.showHealthyFastFood(useCases)
+            "2" -> holderCli.searchMealsByName(scanner, useCases)
+            "3" -> holderCli.showIraqiMeals(useCases)
+            "4" -> holderCli.showEasyFoodSuggestions(useCases)
+            "5" -> holderCli.playGuessGame(useCases)
+            "6" -> holderCli.findSweetWithOutEgg(useCases)
+            "7" -> holderCli.ketoDietHelper(useCases)
+            "8" -> holderCli.searchFoodsByDate(useCases)
+            "9" -> holderCli.gymHelper(useCases)
+            "10" -> holderCli.exploreFoodCultures(useCases)
+            "11" -> holderCli.playIngredientGame(useCases)
+            "12" -> holderCli.findPotatoDishes(useCases)
+            "13" -> holderCli.highCalorieMeals(useCases)
+            "14" -> holderCli.seafoodByProteinContent(useCases)
+            "15" -> holderCli.italianGroupMeals(useCases)
             "0" -> {
                 println("Thank you for using Food Change Mood!")
                 return
@@ -54,81 +58,3 @@ fun main() {
         }
     }
 }
-
-private fun showHealthyFastFood(useCases: UseCaseHolder) {
-    println("Healthy Fast Food Meals (15 minutes or less):")
-    /* TODO */
-
-}
-
-private fun searchMealsByName(scanner: Scanner, useCases: UseCaseHolder) {
-    print("Enter meal name to search: ")
-    /* TODO */
-
-}
-
-private fun showIraqiMeals(useCases: UseCaseHolder) {
-    println("Iraqi Meals:")
-    /* TODO */
-}
-
-private fun showEasyFoodSuggestions(useCases: UseCaseHolder) {
-    println("Easy Food Suggestions:")
-    /* TODO */
-}
-private fun playGuessGame(useCases: UseCaseHolder) {
-    println("Guess The Meal:")
-    /* TODO */
-
-}
-
-private fun findSweetWithOutEgg(useCases: UseCaseHolder) {
-    print("This is some meals without egg : ")
-    /* TODO */
-
-}
-
-private fun ketoDietHelper(useCases: UseCaseHolder) {
-    /* TODO */
-}
-
-private fun searchFoodsByDate(useCases: UseCaseHolder) {
-    /* TODO */
-}
-
-private fun gymHelper(useCases: UseCaseHolder) {
-    /* TODO */
-
-}
-
-private fun exploreFoodCultures(useCases: UseCaseHolder) {
-    /* TODO */
-
-}
-
-private fun playIngredientGame(useCases: UseCaseHolder) {
-    /* TODO */
-}
-
-private fun findPotatoDishes(useCases: UseCaseHolder) {
-    /* TODO */
-
-}
-
-private fun highCalorieMeals(useCases: UseCaseHolder) {
-    /* TODO */
-
-}
-
-private fun seafoodByProteinContent(useCases: UseCaseHolder) {
-    /* TODO */
-
-}
-
-private fun italianGroupMeals(useCases: UseCaseHolder) {
-    /* TODO */
-
-}
-
-
-
