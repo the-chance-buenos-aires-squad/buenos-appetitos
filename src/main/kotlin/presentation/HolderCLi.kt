@@ -1,5 +1,6 @@
 package org.example.presentation
 
+import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
@@ -69,7 +70,42 @@ class HolderCLi {
     }
 
     private fun playGuessGame(useCases: UseCaseHolder) {
-        /* TODO */
+        val guessGame = GuessGameUseCase(useCases.repository)
+
+        when (val gameResult = guessGame.getRandomRecipe()) {
+            is GuessGameUseCase.GameResult.Success -> {
+                println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
+                println("Meal: ${gameResult.recipeName}")
+
+                var attemptsLeft = GuessGameUseCase.MAX_ATTEMPTS
+                while (attemptsLeft > 0) {
+                    print("\nEnter your guess (minutes) [${attemptsLeft} attempts left]: ")
+
+                    when (val validationResult = guessGame.validateGuess(readLine())) {
+                        is GuessGameUseCase.GuessValidationResult.Valid -> {
+                            when (guessGame.checkGuess(validationResult.value, gameResult.correctTime)) {
+                                GuessGameUseCase.GuessResult.CORRECT -> {
+                                    println("🎉 Congratulations! That's correct! The preparation time is ${gameResult.correctTime} minutes.")
+                                    return
+                                }
+                                GuessGameUseCase.GuessResult.TOO_LOW -> println("Too low! Try a higher number.")
+                                GuessGameUseCase.GuessResult.TOO_HIGH -> println("Too high! Try a lower number.")
+                            }
+                            attemptsLeft--
+                        }
+                        is GuessGameUseCase.GuessValidationResult.Invalid -> {
+                            println(validationResult.message)
+                            continue
+                        }
+                    }
+                }
+
+                println("\nGame Over! The correct preparation time was ${gameResult.correctTime} minutes.")
+            }
+            is GuessGameUseCase.GameResult.Error -> {
+                println("Error: ${gameResult.message}")
+            }
+        }
     }
 
     private fun findSweetWithOutEgg(useCases: UseCaseHolder) {
