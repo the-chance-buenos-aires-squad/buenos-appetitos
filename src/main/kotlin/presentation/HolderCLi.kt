@@ -1,9 +1,11 @@
 package org.example.presentation
 
+import org.example.logic.useCases.SweetsWithNoEggsUseCase
 import org.example.logic.useCases.UseCaseHolder
+import org.example.model.Recipe
 import java.util.*
 
-class HolderCLi {
+class HolderCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase) {
 
     fun startCLI(useCases: UseCaseHolder){
         val scanner = Scanner(System.`in`)
@@ -34,7 +36,7 @@ class HolderCLi {
                 "3" -> showIraqiMeals(useCases)
                 "4" -> showEasyFoodSuggestions(useCases)
                 "5" -> playGuessGame(useCases)
-                "6" -> findSweetWithOutEgg(useCases)
+                "6" -> findSweetWithOutEgg()
                 "7" -> ketoDietHelper(useCases)
                 "8" -> searchFoodsByDate(useCases)
                 "9" -> gymHelper(useCases)
@@ -72,7 +74,13 @@ class HolderCLi {
         /* TODO */
     }
 
-    private fun findSweetWithOutEgg(useCases: UseCaseHolder) {
+    private fun findSweetWithOutEgg() {
+        try {
+            sweetsWithNoEggsUseCase.getRandomSweetsNoEggs()
+        }catch (exception: Exception){
+            println(exception.message)
+        }
+
         /* TODO */
     }
 
