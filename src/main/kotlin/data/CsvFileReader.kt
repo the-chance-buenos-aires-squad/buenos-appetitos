@@ -1,5 +1,6 @@
 package org.example.data
 
+import Nutrition
 import org.example.model.Recipe
 import java.io.BufferedReader
 import java.io.FileReader

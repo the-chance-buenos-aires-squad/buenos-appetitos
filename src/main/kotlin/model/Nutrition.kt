@@ -1,4 +1,3 @@
-
 data class Nutrition(
     val calories: Double,
     val fat: Double,
@@ -6,5 +5,6 @@ data class Nutrition(
     val sodium: Double,
     val protein: Double,
     val saturatedFat: Double,
-    val carbohydrates: Double
+    val carbohydrates: Double,
 )
+
