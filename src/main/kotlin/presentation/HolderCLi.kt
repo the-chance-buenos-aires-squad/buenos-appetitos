@@ -72,41 +72,39 @@ class HolderCLi {
     private fun playGuessGame(useCases: UseCaseHolder) {
         val guessGame = GuessGameUseCase(useCases.repository)
 
-        when (val gameResult = guessGame.getRandomRecipe()) {
-            is GuessGameUseCase.GameResult.Success -> {
-                println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
-                println("Meal: ${gameResult.recipeName}")
+        val recipe = guessGame.startGame()
+        if (recipe == null) {
+            println("Error: No recipes available")
+            return
+        }
 
-                while (guessGame.thereIsAttemptsLeft()) {
-                    print("\nEnter your guess (minutes) [${guessGame.getAttemptsLeft()} attempts left]: ")
+        println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
+        println("Meal: ${recipe.name}")
 
-                    when (val result = guessGame.handleGuess(readLine())) {
-                        is GuessGameUseCase.GuessAttemptResult.Correct -> {
-                            println("🎉 Congratulations! That's correct! The preparation time is ${result.correctTime} minutes.")
-                            return
-                        }
-                        is GuessGameUseCase.GuessAttemptResult.TooLow -> {
-                            println("Too low! Try a higher number.")
-                        }
-                        is GuessGameUseCase.GuessAttemptResult.TooHigh -> {
-                            println("Too high! Try a lower number.")
-                        }
-                        is GuessGameUseCase.GuessAttemptResult.InvalidInput -> {
-                            println(result.message)
-                        }
-                        is GuessGameUseCase.GuessAttemptResult.GameOver -> {
-                            println("\nGame Over! The correct preparation time was ${result.correctTime} minutes.")
-                            return
-                        }
-                    }
+        while (guessGame.thereIsAttemptsLeft()) {
+            print("\nEnter your guess (minutes) [${guessGame.getAttemptsLeft()} attempts left]: ")
+
+            when (val result = guessGame.handleGuess(readLine())) {
+                is GuessGameUseCase.GuessAttemptResult.Correct -> {
+                    println("🎉 Congratulations! That's correct! The preparation time is ${result.correctTime} minutes.")
+                    break
                 }
-
-                println("\nGame Over! The correct preparation time was ${gameResult.correctTime} minutes.")
-            }
-            is GuessGameUseCase.GameResult.Error -> {
-                println("Error: ${gameResult.message}")
+                is GuessGameUseCase.GuessAttemptResult.TooLow -> {
+                    println("Too low! Try a higher number.")
+                }
+                is GuessGameUseCase.GuessAttemptResult.TooHigh -> {
+                    println("Too high! Try a lower number.")
+                }
+                is GuessGameUseCase.GuessAttemptResult.InvalidInput -> {
+                    println(result.message)
+                }
+                is GuessGameUseCase.GuessAttemptResult.GameOver -> {
+                    println("\nGame Over! The correct preparation time was ${result.correctTime} minutes.")
+                    break
+                }
             }
         }
+
         guessGame.resetGame()
     }
 

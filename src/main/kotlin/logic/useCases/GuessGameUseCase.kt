@@ -9,20 +9,17 @@ class GuessGameUseCase(private val repository: RecipesRepository) {
     private var currentRecipe: Recipe? = null
     private var currentCorrectTime: Int? = null
 
-    fun getRandomRecipe(): GameResult {
+    fun startGame(): Recipe? {
         val recipes = repository.getRecipes()
         if (recipes.isEmpty()) {
-            return GameResult.Error("No recipes available")
+            return null
         }
 
         val randomRecipe = recipes.random()
         currentRecipe = randomRecipe
         currentCorrectTime = randomRecipe.minutes
 
-        return GameResult.Success(
-            recipeName = randomRecipe.name,
-            correctTime = randomRecipe.minutes
-        )
+        return randomRecipe
     }
 
     fun handleGuess(input: String?): GuessAttemptResult {
@@ -31,22 +28,18 @@ class GuessGameUseCase(private val repository: RecipesRepository) {
         }
 
         try {
-            val validationResult = validateGuess(input)
+            val validation = validateGuess(input)
             val correctTime = currentCorrectTime ?: throw IllegalStateException("Game not properly initialized")
 
-            when (validationResult) {
-                is GuessValidationResult.Valid -> {
-                    when (checkGuess(validationResult.value, correctTime)) {
-                        GuessResult.CORRECT -> return GuessAttemptResult.Correct(correctTime)
-                        GuessResult.TOO_LOW -> {
-                            decrementAttempts()
-                            return GuessAttemptResult.TooLow(attemptsLeft)
-                        }
-                        GuessResult.TOO_HIGH -> {
-                            decrementAttempts()
-                            return GuessAttemptResult.TooHigh(attemptsLeft)
-                        }
-                    }
+            when (checkGuess(validation.value, correctTime)) {
+                GuessResult.CORRECT -> return GuessAttemptResult.Correct(correctTime)
+                GuessResult.TOO_LOW -> {
+                    decrementAttempts()
+                    return GuessAttemptResult.TooLow(attemptsLeft)
+                }
+                GuessResult.TOO_HIGH -> {
+                    decrementAttempts()
+                    return GuessAttemptResult.TooHigh(attemptsLeft)
                 }
             }
         } catch (e: IllegalArgumentException) {
@@ -62,7 +55,7 @@ class GuessGameUseCase(private val repository: RecipesRepository) {
         }
     }
 
-    private fun validateGuess(input: String?): GuessValidationResult {
+    private fun validateGuess(input: String?): GuessValidation {
         if (input == null) {
             throw IllegalArgumentException("Input cannot be null")
         }
@@ -72,7 +65,7 @@ class GuessGameUseCase(private val repository: RecipesRepository) {
             if (number < 0) {
                 throw IllegalArgumentException("Preparation time cannot be negative")
             } else {
-                GuessValidationResult.Valid(number)
+                GuessValidation(number)
             }
         } catch (e: NumberFormatException) {
             throw IllegalArgumentException("Please enter a valid number")
@@ -93,18 +86,11 @@ class GuessGameUseCase(private val repository: RecipesRepository) {
         currentCorrectTime = null
     }
 
-    sealed class GameResult {
-        data class Success(val recipeName: String, val correctTime: Int) : GameResult()
-        data class Error(val message: String) : GameResult()
-    }
-
     private enum class GuessResult {
         CORRECT, TOO_LOW, TOO_HIGH
     }
 
-    private sealed class GuessValidationResult {
-        data class Valid(val value: Int) : GuessValidationResult()
-    }
+    data class GuessValidation(val value: Int)
 
     sealed class GuessAttemptResult {
         data class Correct(val correctTime: Int) : GuessAttemptResult()
