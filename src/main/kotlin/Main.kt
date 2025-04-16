@@ -2,6 +2,7 @@ package org.example
 
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
+import org.example.logic.useCases.SweetsWithNoEggsUseCase
 import org.example.logic.useCases.UseCaseHolder
 import org.example.presentation.HolderCLi
 
@@ -9,6 +10,7 @@ fun main() {
     val csvFileReader = CsvFileReader()
     val repository = CsvRecipesRepository(csvFileReader)
     val useCases = UseCaseHolder(repository)
-    val holderCli = HolderCLi()
+    val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
+    val holderCli = HolderCLi(sweetsWithNoEggsUseCase)
     holderCli.startCLI(useCases)
 }
