@@ -77,25 +77,26 @@ class HolderCLi {
                 println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
                 println("Meal: ${gameResult.recipeName}")
 
-                var attemptsLeft = GuessGameUseCase.MAX_ATTEMPTS
-                while (attemptsLeft > 0) {
-                    print("\nEnter your guess (minutes) [${attemptsLeft} attempts left]: ")
+                while (guessGame.thereIsAttemptsLeft()) {
+                    print("\nEnter your guess (minutes) [${guessGame.getAttemptsLeft()} attempts left]: ")
 
-                    when (val validationResult = guessGame.validateGuess(readLine())) {
-                        is GuessGameUseCase.GuessValidationResult.Valid -> {
-                            when (guessGame.checkGuess(validationResult.value, gameResult.correctTime)) {
-                                GuessGameUseCase.GuessResult.CORRECT -> {
-                                    println("🎉 Congratulations! That's correct! The preparation time is ${gameResult.correctTime} minutes.")
-                                    return
-                                }
-                                GuessGameUseCase.GuessResult.TOO_LOW -> println("Too low! Try a higher number.")
-                                GuessGameUseCase.GuessResult.TOO_HIGH -> println("Too high! Try a lower number.")
-                            }
-                            attemptsLeft--
+                    when (val result = guessGame.handleGuess(readLine())) {
+                        is GuessGameUseCase.GuessAttemptResult.Correct -> {
+                            println("🎉 Congratulations! That's correct! The preparation time is ${result.correctTime} minutes.")
+                            return
                         }
-                        is GuessGameUseCase.GuessValidationResult.Invalid -> {
-                            println(validationResult.message)
-                            continue
+                        is GuessGameUseCase.GuessAttemptResult.TooLow -> {
+                            println("Too low! Try a higher number.")
+                        }
+                        is GuessGameUseCase.GuessAttemptResult.TooHigh -> {
+                            println("Too high! Try a lower number.")
+                        }
+                        is GuessGameUseCase.GuessAttemptResult.InvalidInput -> {
+                            println(result.message)
+                        }
+                        is GuessGameUseCase.GuessAttemptResult.GameOver -> {
+                            println("\nGame Over! The correct preparation time was ${result.correctTime} minutes.")
+                            return
                         }
                     }
                 }
@@ -106,6 +107,7 @@ class HolderCLi {
                 println("Error: ${gameResult.message}")
             }
         }
+        guessGame.resetGame()
     }
 
     private fun findSweetWithOutEgg(useCases: UseCaseHolder) {
