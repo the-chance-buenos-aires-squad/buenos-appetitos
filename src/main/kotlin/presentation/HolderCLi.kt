@@ -7,7 +7,7 @@ import java.util.*
 
 class HolderCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase) {
 
-    fun startCLI(useCases: UseCaseHolder){
+    fun startCLI(useCases: UseCaseHolder) {
         val scanner = Scanner(System.`in`)
         while (true) {
             println("\nFood Change Mood - Menu:")
@@ -50,10 +50,12 @@ class HolderCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase) {
                     println("Thank you for using Food Change Mood!")
                     return
                 }
+
                 else -> println("Invalid option. Please try again.")
             }
         }
     }
+
     private fun showHealthyFastFood(useCases: UseCaseHolder) {
         /* TODO */
     }
@@ -75,13 +77,15 @@ class HolderCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase) {
     }
 
     private fun findSweetWithOutEgg() {
-        try {
-            sweetsWithNoEggsUseCase.getRandomSweetsNoEggs()
-        }catch (exception: Exception){
-            println(exception.message)
-        }
 
-        /* TODO */
+        println("\n------ Sweet without egg -----")
+        val meal = getSweetsWithNoEggs()
+        println("\n1 - Like this dessert")
+        println("2 - Dislike (show another option)")
+        println("3 - Exit")
+        print("Please choose (1-3): ")
+        checkInput(meal)
+
     }
 
     private fun ketoDietHelper(useCases: UseCaseHolder) {
@@ -119,4 +123,37 @@ class HolderCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase) {
     private fun italianGroupMeals(useCases: UseCaseHolder) {
         /* TODO */
     }
+
+    //region method helper for SweetWithNoEggs
+    private fun checkInput(meal: Recipe) {
+        val likeOrNoInput = readln().toIntOrNull()
+        when (likeOrNoInput) {
+            1 -> {
+                println("Thank you for your choice!")
+                println(meal)
+                return
+            }
+
+            2 -> findSweetWithOutEgg()
+            3 -> {
+                println("Exiting...")
+                return
+            }
+
+            else -> println("Invalid input. Please enter 1, 2, or 3.")
+        }
+    }
+
+    private fun getSweetsWithNoEggs(): Recipe {
+        return try {
+            val meal = sweetsWithNoEggsUseCase.getRandomSweetsNoEggs()
+            println("|| Name: ${meal.name} || Description: ${meal.description}")
+            meal
+        } catch (exception: Exception) {
+            println("Error: ${exception.message}")
+            throw exception
+        }
+    }
+    //endregion
+
 }
