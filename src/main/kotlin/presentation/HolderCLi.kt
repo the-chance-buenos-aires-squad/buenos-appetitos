@@ -85,7 +85,7 @@ class HolderCLi {
     }
 
     private fun gymHelper(useCases: UseCaseHolder) {
-        /* TODO */
+      useCases.runGymHelper()
     }
 
     private fun exploreFoodCultures(useCases: UseCaseHolder) {
