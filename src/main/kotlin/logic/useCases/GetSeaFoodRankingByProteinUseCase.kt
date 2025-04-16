@@ -7,42 +7,39 @@ import org.example.model.Recipe
 class GetSeaFoodRankingByProteinUseCase(
     private val recipesRepository: RecipesRepository
 ) {
-    fun getSeaFoodRanking(count:Int):List<String>{
+    fun getSeaFoodRanking():List<SeaFoodInfo>{
         val allRecipes=recipesRepository.getRecipes()
-        val isSeaFood=allRecipes
+        val seaFoodMeals =allRecipes
             .filter (::isSeaFood)
             .sortedByDescending {
             it.nutrition[4]
-        }.take(count)
+        }.take(10)
             .mapIndexed { index, recipe ->
-            "ranking is ${index+1} - name is ${recipe.name} and protein amount ${recipe.nutrition[4]}"
+            SeaFoodInfo(index+1,recipe.name,recipe.nutrition[4])
         }
-        return isSeaFood
+        return seaFoodMeals
     }
-    fun isSeaFood(recipe: Recipe):Boolean{
-            return recipe.tags.any {
-                it.contains("seafood", ignoreCase = true)||
-                it.contains("fish",ignoreCase = true)||
-                it.contains("shrimp",ignoreCase = true)||
-                it.contains("crab",ignoreCase = true)||
-                it.contains("lobster",ignoreCase = true)||
-                it.contains("salmon",ignoreCase = true)||
-                it.contains("tuna", ignoreCase = true) ||
-                it.contains("mackerel", ignoreCase = true) ||
-                it.contains("sardine", ignoreCase = true) ||
-                it.contains("oyster", ignoreCase = true)
-            }||
-            recipe.ingredients.any {
-                it.contains("seafood", ignoreCase = true)||
-                it.contains("fish",ignoreCase = true)||
-                it.contains("shrimp",ignoreCase = true)||
-                it.contains("crab",ignoreCase = true)||
-                it.contains("lobster",ignoreCase = true)||
-                it.contains("salmon",ignoreCase = true)||
-                it.contains("tuna", ignoreCase = true) ||
-                it.contains("mackerel", ignoreCase = true) ||
-                it.contains("sardine", ignoreCase = true) ||
-                it.contains("oyster", ignoreCase = true)
-                    }
+    private fun isSeaFood(recipe: Recipe):Boolean{
+        return recipe.tags.containsSeaFood()||recipe.ingredients.containsSeaFood()
+    }
+    private fun List<String>.containsSeaFood():Boolean{
+        return this.any {
+            it.contains("seafood", ignoreCase = true)||
+                    it.contains("fish",ignoreCase = true)||
+                    it.contains("shrimp",ignoreCase = true)||
+                    it.contains("crab",ignoreCase = true)||
+                    it.contains("lobster",ignoreCase = true)||
+                    it.contains("salmon",ignoreCase = true)||
+                    it.contains("tuna", ignoreCase = true) ||
+                    it.contains("mackerel", ignoreCase = true) ||
+                    it.contains("sardine", ignoreCase = true) ||
+                    it.contains("oyster", ignoreCase = true)
+        }
     }
 }
+
+data class SeaFoodInfo(
+    val rank:Int,
+    val name:String,
+    val amountOfProtein:Double
+)
