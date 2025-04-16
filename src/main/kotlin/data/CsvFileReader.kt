@@ -150,18 +150,27 @@ class CsvFileReader {
     private fun parseIngredients(input: String): List<String> =
         try { parseList(input) } catch (e: Exception) { emptyList() }
 
-    private fun parseNutrition(input: String): List<Double> {
-        return try {
-            val stringList = parseList(input)
-            stringList.mapNotNull {
-                it.toDoubleOrNull() ?: run {
-                    val cleaned = it.trim().replace("[^0-9.]".toRegex(), "")
-                    if (cleaned.isNotEmpty()) cleaned.toDoubleOrNull() else 0.0
-                }
+private fun parseNutrition(input: String): Nutrition {
+    return try {
+        val stringList = parseList(input)
+        val values = stringList.mapNotNull {
+            it.toDoubleOrNull() ?: run {
+                val cleaned = it.trim().replace("[^0-9.]".toRegex(), "")
+                if (cleaned.isNotEmpty()) cleaned.toDoubleOrNull() else null
             }
-        } catch (e: Exception) {
-            emptyList()
         }
+        Nutrition(
+           calories = values[0],
+            fat = values[1],
+            sugar = values[2],
+            sodium = values[3],
+            protein = values[4],
+            saturatedFat = values[5],
+            carbohydrates = values[6]
+        )
+    } catch (e: Exception) {
+        Nutrition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
     }
+}
 
 }

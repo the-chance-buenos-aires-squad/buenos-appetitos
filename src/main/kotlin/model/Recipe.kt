@@ -1,5 +1,5 @@
 package org.example.model
-
+import Nutrition
 data class Recipe (
     val name:String,
     val id:String,
@@ -7,7 +7,7 @@ data class Recipe (
     val contributorId:String,
     val submitted: String,
     val tags:List<String>,
-    val nutrition:List<Double>,
+    val nutrition:Nutrition,
     val numberOfSteps:Int,
     val steps:List<String>,
     val description:String?,
