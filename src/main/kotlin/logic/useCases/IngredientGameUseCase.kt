@@ -28,4 +28,7 @@ class IngredientGameUseCase(private val repository: RecipesRepository) {
             correct = correct
         )
     }
+    fun checkAnswer(selected: String?, correct: String): Boolean {
+        return selected?.equals(correct, ignoreCase = true) == true
+    }
 }
