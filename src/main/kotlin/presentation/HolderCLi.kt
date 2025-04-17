@@ -1,5 +1,6 @@
 package org.example.presentation
 
+import org.example.logic.useCases.SuggestMealsUseCases
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
@@ -65,7 +66,12 @@ class HolderCLi {
     }
 
     private fun showEasyFoodSuggestions(useCases: UseCaseHolder) {
-        /* TODO */
+        val suggestedmeals = SuggestMealsUseCases(useCases.repository)
+        var meals = suggestedmeals.suggestRandomMeals()
+        if (meals.isEmpty())
+            println("No suitable meals found.")
+        else
+            println("Suggested meals: $meals")
     }
 
     private fun playGuessGame(useCases: UseCaseHolder) {
