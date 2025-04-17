@@ -12,10 +12,10 @@ class GetSeaFoodRankingByProteinUseCase(
         val seaFoodMeals =allRecipes
             .filter (::isSeaFood)
             .sortedByDescending {
-            it.nutrition[4]
+            it.nutrition.protein
         }.take(10)
             .mapIndexed { index, recipe ->
-            SeaFoodInfo(index+1,recipe.name,recipe.nutrition[4])
+            SeaFoodInfo(index+1,recipe.name,recipe.nutrition.protein)
         }
         return seaFoodMeals
     }
