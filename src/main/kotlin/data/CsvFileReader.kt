@@ -160,13 +160,13 @@ private fun parseNutrition(input: String): Nutrition {
             }
         }
         Nutrition(
-           calories = values[0],
-            fat = values[1],
-            sugar = values[2],
-            sodium = values[3],
-            protein = values[4],
-            saturatedFat = values[5],
-            carbohydrates = values[6]
+            calories = values[NutritionIndices.CALORIES_INDEX],
+            fat = values[NutritionIndices.FAT_INDEX],
+            sugar = values[NutritionIndices.SUGAR_INDEX],
+            sodium = values[NutritionIndices.SODIUM_INDEX],
+            protein = values[NutritionIndices.PROTEIN_INDEX],
+            saturatedFat = values[NutritionIndices.SATURATED_FAT_INDEX],
+            carbohydrates = values[NutritionIndices.CARBOHYDRATES_INDEX]
         )
     } catch (e: Exception) {
         Nutrition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
