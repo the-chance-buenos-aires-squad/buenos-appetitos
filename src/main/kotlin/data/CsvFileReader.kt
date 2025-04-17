@@ -1,7 +1,9 @@
 package org.example.data
 
-import Nutrition
+import model.Nutrition
+import model.NutritionIndices
 import org.example.model.Recipe
+import org.example.model.RecipeIndices
 import java.io.BufferedReader
 import java.io.FileReader
 
@@ -20,18 +22,18 @@ class CsvFileReader {
                 try {
                     if (fields.size >= 12) {
                         val recipe = Recipe(
-                            name = fields[0],
-                            id = fields[1],
-                            minutes = fields[2].toIntOrNull() ?: 0,
-                            contributorId = fields[3],
-                            submitted = fields[4],
-                            tags = parseTags(fields[5]),
-                            nutrition = parseNutrition(fields[6]),
-                            numberOfSteps = fields[7].toIntOrNull() ?: 0,
-                            steps = parseSteps(fields[8]),
-                            description = parseNullableField(fields[9]),
-                            ingredients = parseIngredients(fields[10]),
-                            numberOfIngredients = fields[11].toIntOrNull() ?: 0
+                            name = fields[RecipeIndices.NAME_INDEX],
+                            id = fields[RecipeIndices.ID_INDEX],
+                            minutes = fields[RecipeIndices.MINUTES_INDEX].toIntOrNull() ?: 0,
+                            contributorId = fields[RecipeIndices.CONTRIBUTOR_ID_INDEX],
+                            submitted = fields[RecipeIndices.SUBMITTED_INDEX],
+                            tags = parseTags(fields[RecipeIndices.TAGS_INDEX]),
+                            nutrition = parseNutrition(fields[RecipeIndices.NUTRITION_INDEX]),
+                            numberOfSteps = fields[RecipeIndices.NUMBER_OF_STEPS_INDEX].toIntOrNull() ?: 0,
+                            steps = parseSteps(fields[RecipeIndices.STEPS_INDEX]),
+                            description = parseNullableField(fields[RecipeIndices.DESCRIPTION_INDEX]),
+                            ingredients = parseIngredients(fields[RecipeIndices.INGREDIENTS_INDEX]),
+                            numberOfIngredients = fields[RecipeIndices.NUMBER_OF_INGREDIENTS_INDEX].toIntOrNull() ?: 0
                         )
                         recipes.add(recipe)
                     }

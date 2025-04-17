@@ -1,3 +1,5 @@
+package model
+
 data class Nutrition(
     val calories: Double,
     val fat: Double,
