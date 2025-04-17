@@ -10,22 +10,22 @@ class GymMealsUseCase(private val repository: RecipesRepository) {
         tolerance: Int = 50
     ): List<Recipe> {
         return repository.getRecipes().filter { recipe ->
-            val calories = recipe.nutrition.getOrNull(0)?.toInt() ?: return@filter false
-            val protein = recipe.nutrition.getOrNull(4) ?: return@filter false
+            val calories = recipe.nutrition.calories
+            val protein = recipe.nutrition.protein
 
             abs(calories - targetCalories) <= tolerance &&
                     abs(protein - targetProtein) <= tolerance
         }.sortedBy {
-            val calories = it.nutrition.getOrNull(0)?.toInt() ?: 0
-            val protein = it.nutrition.getOrNull(4) ?: 0.0
+            val calories = it.nutrition.calories
+            val protein = it.nutrition.protein
             abs(calories - targetCalories) + abs(protein - targetProtein)
         }
     }
     fun printMealList(meals: List<Recipe>) {
         meals.forEachIndexed { index, meal ->
-            val cals = meal.nutrition.getOrNull(0)?.toInt() ?: 0
-            val prot = meal.nutrition.getOrNull(4) ?: 0.0
-            println("${index + 1}. ${meal.name} — Calories: $cals, Protein: ${"%.1f".format(prot)}g")
+            val cals = meal.nutrition.calories
+            val prot = meal.nutrition.protein
+            println("${index + 1}. ${meal.name} — Calories: ${cals.toInt()}, Protein: ${"%.1f".format(prot)}g")
         }
     }
 
