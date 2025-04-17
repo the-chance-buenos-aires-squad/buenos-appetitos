@@ -2,15 +2,17 @@ package org.example
 
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
-import org.example.logic.useCases.KetoMealsHelperUseCase
+import org.example.logic.useCases.GetKetoMealsUseCase
+
+
 
 fun main() {
     val csvFileReader = CsvFileReader ()
     val recipesRepository = CsvRecipesRepository(csvFileReader)
-    val recipes = recipesRepository.getRecipes()
-    val result = KetoMealsHelperUseCase().execute(recipes)
+    val useCase = GetKetoMealsUseCase(recipesRepository)
+    val ketoMeals = useCase.execute()
     println("Keto-friendly meals: ")
-    result.forEach {
+    ketoMeals.forEach {
         ("${it.name} - ${it.nutrition}")
 
     }
