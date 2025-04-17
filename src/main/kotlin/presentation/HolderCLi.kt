@@ -137,7 +137,18 @@ class HolderCLi {
     }
 
     private fun highCalorieMeals(useCases: UseCaseHolder) {
-        /* TODO */
+        val highCalorieUseCase = HighCalorieUseCase(useCases.repository)
+        val highCalorieRecipe = highCalorieUseCase.getRandomHighCalorieRecipe()
+
+        println("High Calories Recipe")
+        println("============================================")
+
+        if (highCalorieRecipe.isNotEmpty()) {
+            highCalorieRecipe.forEach { recipe ->
+                println("Suggested Recipe: ${recipe.name} with ${recipe.nutrition.calories} calories")
+            }
+        } else println("No meals found with more than 700 calories.")
+
     }
 
     private fun seafoodByProteinContent(useCases: UseCaseHolder) {
