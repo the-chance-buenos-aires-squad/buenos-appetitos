@@ -1,6 +1,7 @@
 package org.example.presentation
 
 import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.SuggestItalianMealsForLargeGroupsUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
@@ -145,6 +146,9 @@ class HolderCLi {
     }
 
     private fun italianGroupMeals(useCases: UseCaseHolder) {
-        /* TODO */
+        val italianMealsForLargeGroup=SuggestItalianMealsForLargeGroupsUseCase(useCases.repository)
+        italianMealsForLargeGroup.getItalianMealsForLargeGroups().forEach {
+            println(it.name)
+        }
     }
 }
