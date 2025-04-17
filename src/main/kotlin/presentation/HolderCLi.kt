@@ -1,5 +1,6 @@
 package org.example.presentation
 
+import LovePotatoUseCase
 import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
