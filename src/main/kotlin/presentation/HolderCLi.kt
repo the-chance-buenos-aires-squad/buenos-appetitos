@@ -133,7 +133,16 @@ class HolderCLi {
     }
 
     private fun findPotatoDishes(useCases: UseCaseHolder) {
-        /* TODO */
+        val lovePotatoUseCase = LovePotatoUseCase(useCases.repository)
+        val randomPotatoRecipes = lovePotatoUseCase.getRandomPotatoRecipes()
+
+        println("I Love Potato: 10 Random Recipes with Potatoes")
+        println("============================================")
+        randomPotatoRecipes.forEachIndexed { index, recipe ->
+            println("${index + 1}. ${recipe.name}")
+            println("   Cooking Time: ${recipe.minutes} minutes")
+            println("   Ingredients: ${recipe.ingredients}")
+        }
     }
 
     private fun highCalorieMeals(useCases: UseCaseHolder) {
