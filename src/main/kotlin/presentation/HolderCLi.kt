@@ -1,6 +1,7 @@
 package org.example.presentation
 
 import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.GymMealsUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
@@ -121,8 +122,33 @@ class HolderCLi {
     }
 
     private fun gymHelper(useCases: UseCaseHolder) {
-      useCases.runGymHelper()
-    }
+        val gymMealsUseCase = GymMealsUseCase(useCases.repository)
+            val scanner = Scanner(System.`in`)
+
+            println("🏋️ Welcome to the Gym Helper!")
+
+            try {
+                print("Enter desired calories: ")
+                val caloriesInput = scanner.nextLine()
+                val calories = caloriesInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid calories input.")
+
+                print("Enter desired protein (grams): ")
+                val proteinInput = scanner.nextLine()
+                val protein = proteinInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid protein input.")
+
+                val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
+
+                if (meals.isEmpty()) {
+                    println("❌ No meals found matching your fitness needs.")
+                } else {
+                    println("✅ Meals matching your goals:")
+                  gymMealsUseCase.printMealList(meals)
+                }
+
+            } catch (e: Exception) {
+                println("⚠️ Error: ${e.message}")
+            }
+        }
 
     private fun exploreFoodCultures(useCases: UseCaseHolder) {
         /* TODO */
