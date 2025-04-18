@@ -38,7 +38,7 @@ class HolderCLi(
             println("Enter your choice: ")
 
             when (scanner.nextLine()) {
-                "1" -> showHealthyFastFood()
+                "1" -> GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase).start()
                 "2" -> searchMealsByName(scanner)
                 "3" -> showIraqiMeals()
                 "4" -> showEasyFoodSuggestions()
@@ -60,12 +60,6 @@ class HolderCLi(
 
                 else -> println("Invalid option. Please try again.")
             }
-        }
-    }
-
-    private fun showHealthyFastFood() {
-        getHealthyFastFoodMealsUseCase.getHealthyFastFood().forEach {
-            println(it.name)
         }
     }
 
