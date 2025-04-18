@@ -1,7 +1,8 @@
 package org.example.presentation
 
-import org.example.logic.useCases.*
-import org.example.model.Recipe
+import LovePotatoUseCase
+import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
 class HolderCLi(
@@ -38,21 +39,21 @@ class HolderCLi(
             println("Enter your choice: ")
 
             when (scanner.nextLine()) {
-                "1" -> showHealthyFastFood()
-                "2" -> searchMealsByName(scanner)
-                "3" -> showIraqiMeals()
-                "4" -> showEasyFoodSuggestions()
-                "5" -> playGuessGame()
-                "6" -> findSweetWithOutEgg()
-                "7" -> ketoDietHelper()
-                "8" -> searchFoodsByDate()
-                "9" -> gymHelper()
-                "10" -> exploreFoodCultures()
-                "11" -> playIngredientGame()
+                "1" -> showHealthyFastFood(useCases)
+                "2" -> searchMealsByName(scanner, useCases)
+                "3" -> showIraqiMeals(useCases)
+                "4" -> showEasyFoodSuggestions(useCases)
+                "5" -> playGuessGame(useCases)
+                "6" -> findSweetWithOutEgg(useCases)
+                "7" -> ketoDietHelper(useCases)
+                "8" -> searchFoodsByDate(useCases)
+                "9" -> gymHelper(useCases)
+                "10" -> exploreFoodCultures(useCases)
+                "11" -> playIngredientGame(useCases)
                 "12" -> findPotatoDishes()
-                "13" -> highCalorieMeals()
-                "14" -> seafoodByProteinContent()
-                "15" -> italianGroupMeals()
+                "13" -> highCalorieMeals(useCases)
+                "14" -> seafoodByProteinContent(useCases)
+                "15" -> italianGroupMeals(useCases)
                 "0" -> {
                     println("Thank you for using Food Change Mood!")
                     return
@@ -177,9 +178,22 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun highCalorieMeals() {
-        /* TODO */
-    }
+    private fun findPotatoDishes() {
+        try{
+            val randomPotatoRecipes = lovePotatoUseCase.getRandomPotatoRecipes()
+            println("\nI Love Potato: 10 Random Recipes with Potatoes")
+            println("============================================")
+            randomPotatoRecipes.forEachIndexed { index, recipe ->
+                println("${index + 1}. ${recipe.name}")
+                println("   Cooking Time: ${recipe.minutes} minutes")
+                println("   Ingredients: ${recipe.ingredients}")
+            }
+
+        }catch (exception: Exception){
+            println("Error: ${exception.message}")
+            throw exception
+        }
+
 
     private fun seafoodByProteinContent() {
         getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
