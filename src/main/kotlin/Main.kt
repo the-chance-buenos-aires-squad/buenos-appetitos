@@ -3,13 +3,15 @@ package org.example
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.logic.useCases.SweetsWithNoEggsUseCase
+import org.example.data.RecipeParser
 import org.example.logic.useCases.UseCaseHolder
 import org.example.presentation.HolderCLi
 
 fun main() {
-    val csvFileReader = CsvFileReader()
-    val repository = CsvRecipesRepository(csvFileReader)
-    val useCases = UseCaseHolder(repository)
+    val filePath = "src/main/kotlin/data/food.csv"
+    val csvFileReader = CsvFileReader(filePath)
+    val recipeParser = RecipeParser()
+    val repository = CsvRecipesRepository(csvFileReader, recipeParser)
     val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
     val holderCli = HolderCLi(sweetsWithNoEggsUseCase)
     holderCli.startCLI(useCases)
