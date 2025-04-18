@@ -5,7 +5,7 @@ import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
-class HolderCLi {
+class HolderCLi(private val highCalorieUseCase: HighCalorieUseCase) {
 
     fun startCLI(useCases: UseCaseHolder){
         val scanner = Scanner(System.`in`)
@@ -42,7 +42,7 @@ class HolderCLi {
                 "9" -> gymHelper(useCases)
                 "10" -> exploreFoodCultures(useCases)
                 "11" -> playIngredientGame(useCases)
-                "12" -> findPotatoDishes(useCases)
+                "12" -> findPotatoDishes()
                 "13" -> highCalorieMeals(useCases)
                 "14" -> seafoodByProteinContent(useCases)
                 "15" -> italianGroupMeals(useCases)
@@ -138,8 +138,6 @@ class HolderCLi {
     }
 
     private fun highCalorieMeals(useCases: UseCaseHolder) {
-        val highCalorieUseCase = HighCalorieUseCase(useCases.repository)
-
         println("\nHigh Calories Recipe")
         println("======================")
         try{
