@@ -55,7 +55,10 @@ class HolderCLi {
         }
     }
     private fun showHealthyFastFood(useCases: UseCaseHolder) {
-        /* TODO */
+        val healthyFastFoodMeals=GetHealthyFastFoodMealsUseCase(useCases.repository)
+        healthyFastFoodMeals.getHealthyFastFood().forEach {
+            println(it.name)
+        }
     }
 
     private fun searchMealsByName(scanner: Scanner, useCases: UseCaseHolder) {
@@ -63,11 +66,22 @@ class HolderCLi {
     }
 
     private fun showIraqiMeals(useCases: UseCaseHolder) {
-        /* TODO */
-    }
+
+        val iraqiMealsUseCase = GetIraqiMealsUseCase(useCases.repository)
+        val iraqiMeals = iraqiMealsUseCase.execute()
+
+        println("Iraqi Meals:")
+        iraqiMeals.forEach {
+            println(it.name)
+        }    }
 
     private fun showEasyFoodSuggestions(useCases: UseCaseHolder) {
-        /* TODO */
+        val suggestedmeals = SuggestMealsUseCases(useCases.repository)
+        var meals = suggestedmeals.suggestRandomMeals()
+        if (meals.isEmpty())
+            println("No suitable meals found.")
+        else
+            println("Suggested meals: $meals")
     }
 
     private fun playGuessGame(useCases: UseCaseHolder) {
@@ -150,7 +164,6 @@ class HolderCLi {
         }
     }
 
-
     private fun exploreFoodCultures(useCases: UseCaseHolder) {
         /* TODO */
     }
@@ -168,10 +181,16 @@ class HolderCLi {
     }
 
     private fun seafoodByProteinContent(useCases: UseCaseHolder) {
-        /* TODO */
+        val seaFoodRankingByProtein=GetSeaFoodRankingByProteinUseCase(useCases.repository)
+        seaFoodRankingByProtein.getSeaFoodRanking().forEach {
+            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
+        }
     }
 
     private fun italianGroupMeals(useCases: UseCaseHolder) {
-        /* TODO */
+        val italianMealsForLargeGroup=SuggestItalianMealsForLargeGroupsUseCase(useCases.repository)
+        italianMealsForLargeGroup.getItalianMealsForLargeGroups().forEach {
+            println(it.name)
+        }
     }
 }
