@@ -1,6 +1,5 @@
 package org.example.presentation
 
-import HighCalorieUseCase
 import org.example.logic.useCases.*
 import org.example.model.Recipe
 import LovePotatoUseCase
@@ -15,9 +14,9 @@ class HolderCLi(
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
-    private val highCalorieUseCase: HighCalorieUseCase,
+    private val getHighCalorieCli: GetHighCalorieCli,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
-    private val LovePotatoUseCase: LovePotatoUseCase
+    private val lovePotatoUseCase: LovePotatoUseCase
 ) {
 
     fun startCLI() {
@@ -56,7 +55,7 @@ class HolderCLi(
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
                 "12" -> findPotatoDishes()
-                "13" -> highCalorieMeals()
+                "13" -> getHighCalorieCli.start()
                 "14" -> seafoodByProteinContent()
                 "15" -> italianGroupMeals()
                 "0" -> {
@@ -182,7 +181,7 @@ class HolderCLi(
 
     private fun findPotatoDishes() {
         try {
-            val randomPotatoRecipes = LovePotatoUseCase.getRandomPotatoRecipes()
+            val randomPotatoRecipes = lovePotatoUseCase.getRandomPotatoRecipes()
             println("\nI Love Potato: 10 Random Recipes with Potatoes")
             println("============================================")
             randomPotatoRecipes.forEachIndexed { index, recipe ->
@@ -198,18 +197,6 @@ class HolderCLi(
     }
 
 
-    private fun highCalorieMeals() {
-        println("\nHigh Calories Recipe")
-        println("======================")
-        try{
-            val highCalorieRecipe = highCalorieUseCase.getRandomHighCalorieRecipe()
-            println("Suggested Recipe Name: ${highCalorieRecipe.name} with ${highCalorieRecipe.nutrition.calories} calories")
-
-        }catch (exception: Exception){
-            println("Error: ${exception.message}")
-            throw exception
-        }
-    }
     private fun seafoodByProteinContent() {
         getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
             println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")

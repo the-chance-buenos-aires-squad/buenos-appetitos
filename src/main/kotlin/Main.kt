@@ -1,6 +1,5 @@
 package org.example
 
-import HighCalorieUseCase
 import LovePotatoUseCase
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
@@ -20,7 +19,7 @@ fun main() {
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
     val suggestMealsUseCases = SuggestMealsUseCases(repository)
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
-    val highCalorieUseCase = HighCalorieUseCase(repository)
+    val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
     val lovePotatoUseCase = LovePotatoUseCase(repository)
     val holderCli = HolderCLi(
@@ -31,7 +30,7 @@ fun main() {
         suggestItalianMealsForLargeGroupsUseCase,
         suggestMealsUseCases,
         getIraqiMealsUseCase,
-        highCalorieUseCase,
+        getHighCalorieUseCase,
         exploreOtherCountriesFoodUseCase,
         lovePotatoUseCase
     )
