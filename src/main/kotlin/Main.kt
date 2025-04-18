@@ -2,29 +2,13 @@ package org.example
 
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
-import org.example.logic.useCases.GetKetoMealsUseCase
-import org.example.model.Recipe
-import org.example.KetoMealSuggester
-
+import org.example.logic.useCases.UseCaseHolder
+import org.example.presentation.HolderCLi
 
 fun main() {
-    val csvFileReader = CsvFileReader ()
-    val recipesRepository = CsvRecipesRepository(csvFileReader)
-    val useCase = GetKetoMealsUseCase(recipesRepository)
-    val ketoMeals = useCase.execute()
-    println("Keto-friendly meals: ")
-    ketoMeals.forEach {
-        println("${it.name} - ${it.nutrition}")
-
-    }
-    val suggester = KetoMealSuggester(ketoMeals)
-    println("Keto-friendly meals:")
-    var meal = suggester.suggestNext()
-    while (meal != null) {
-        meal?.let {
-            println("${meal.name} - ${meal.nutrition}")
-        }
-        meal = suggester.suggestNext()
-    }
-
+    val csvFileReader = CsvFileReader()
+    val repository = CsvRecipesRepository(csvFileReader)
+    val useCases = UseCaseHolder(repository)
+    val holderCli = HolderCLi()
+    holderCli.startCLI(useCases)
 }
