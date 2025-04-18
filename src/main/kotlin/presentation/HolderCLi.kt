@@ -1,6 +1,10 @@
 package org.example.presentation
 
 import org.example.logic.useCases.SuggestMealsUseCases
+import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
+import org.example.logic.useCases.GetHealthyFastFoodMealsUseCase
+import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.SuggestItalianMealsForLargeGroupsUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
@@ -54,7 +58,10 @@ class HolderCLi {
         }
     }
     private fun showHealthyFastFood(useCases: UseCaseHolder) {
-        /* TODO */
+        val healthyFastFoodMeals=GetHealthyFastFoodMealsUseCase(useCases.repository)
+        healthyFastFoodMeals.getHealthyFastFood().forEach {
+            println(it.name)
+        }
     }
 
     private fun searchMealsByName(scanner: Scanner, useCases: UseCaseHolder) {
@@ -75,7 +82,42 @@ class HolderCLi {
     }
 
     private fun playGuessGame(useCases: UseCaseHolder) {
-        /* TODO */
+        val guessGame = GuessGameUseCase(useCases.repository)
+
+        val recipe = guessGame.startGame()
+        if (recipe == null) {
+            println("Error: No recipes available")
+            return
+        }
+
+        println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
+        println("Meal: ${recipe.name}")
+
+        while (guessGame.thereIsAttemptsLeft()) {
+            print("\nEnter your guess (minutes) [${guessGame.getAttemptsLeft()} attempts left]: ")
+
+            when (val result = guessGame.handleGuess(readLine())) {
+                is GuessGameUseCase.GuessAttemptResult.Correct -> {
+                    println("🎉 Congratulations! That's correct! The preparation time is ${result.correctTime} minutes.")
+                    break
+                }
+                is GuessGameUseCase.GuessAttemptResult.TooLow -> {
+                    println("Too low! Try a higher number.")
+                }
+                is GuessGameUseCase.GuessAttemptResult.TooHigh -> {
+                    println("Too high! Try a lower number.")
+                }
+                is GuessGameUseCase.GuessAttemptResult.InvalidInput -> {
+                    println(result.message)
+                }
+                is GuessGameUseCase.GuessAttemptResult.GameOver -> {
+                    println("\nGame Over! The correct preparation time was ${result.correctTime} minutes.")
+                    break
+                }
+            }
+        }
+
+        guessGame.resetGame()
     }
 
     private fun findSweetWithOutEgg(useCases: UseCaseHolder) {
@@ -111,10 +153,16 @@ class HolderCLi {
     }
 
     private fun seafoodByProteinContent(useCases: UseCaseHolder) {
-        /* TODO */
+        val seaFoodRankingByProtein=GetSeaFoodRankingByProteinUseCase(useCases.repository)
+        seaFoodRankingByProtein.getSeaFoodRanking().forEach {
+            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
+        }
     }
 
     private fun italianGroupMeals(useCases: UseCaseHolder) {
-        /* TODO */
+        val italianMealsForLargeGroup=SuggestItalianMealsForLargeGroupsUseCase(useCases.repository)
+        italianMealsForLargeGroup.getItalianMealsForLargeGroups().forEach {
+            println(it.name)
+        }
     }
 }
