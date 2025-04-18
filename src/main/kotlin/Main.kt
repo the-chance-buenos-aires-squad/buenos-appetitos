@@ -24,6 +24,7 @@ fun main() {
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
     val lovePotatoUseCase = LovePotatoUseCase(repository)
     val  gymMealsUseCase= GymMealsUseCase(repository)
+    val ingredientGameUseCase=IngredientGameUseCase(repository)
 
     val holderCli = HolderCLi(
         sweetsWithNoEggsUseCase,
@@ -36,7 +37,8 @@ fun main() {
         highCalorieUseCase,
         exploreOtherCountriesFoodUseCase,
         lovePotatoUseCase,
-        gymMealsUseCase
+        gymMealsUseCase,
+        ingredientGameUseCase
     )
     holderCli.startCLI()
 

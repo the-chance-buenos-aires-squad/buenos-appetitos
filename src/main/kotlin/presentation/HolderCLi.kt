@@ -1,10 +1,12 @@
 package org.example.presentation
 
+import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import HighCalorieUseCase
 import org.example.logic.useCases.*
 import org.example.model.Recipe
 import LovePotatoUseCase
 import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
 class HolderCLi(
@@ -19,6 +21,7 @@ class HolderCLi(
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val LovePotatoUseCase: LovePotatoUseCase,
     private val gymMealsUseCase: GymMealsUseCase,
+    private  val ingredientGameUseCase:IngredientGameUseCase
 ) {
 
     fun startCLI() {
@@ -156,6 +159,39 @@ class HolderCLi(
     private fun searchFoodsByDate() {
         /* TODO */
     }
+    private fun playIngredientGame() {
+        val scanner = Scanner(System.`in`)
+        var score = 0
+
+        println("🎮 Welcome to the INGREDIENT GAME!")
+        println("✅ One point per correct answer. ❌ Game ends on wrong answer.")
+
+        repeat(15) {
+            val round = ingredientGameUseCase.generateRound()
+
+            println("\n🍽️ Meal: ${round.meal.name}")
+            println("Which of the following is an ingredient?")
+            round.options.forEachIndexed { index, option ->
+                println("${index + 1}. $option")
+            }
+
+            print("Your choice (1–3): ")
+            val choice = scanner.nextLine().toIntOrNull()
+            val selected = round.options.getOrNull((choice ?: 0) - 1)
+
+            if (ingredientGameUseCase.checkAnswer(selected, round.correct)) {
+                score += 1000
+                println("✅ Correct! Your score: $score")
+            } else {
+                println("❌ Wrong! The correct answer was: ${round.correct}")
+                println("🎯 Final Score: $score")
+                return
+            }
+        }
+
+        println("\n🎉 You completed all rounds! Final Score: $score")
+    }
+
 
 
 
@@ -199,12 +235,6 @@ class HolderCLi(
             println("Error: ${exception.message}")
         }
     }
-
-
-    private fun playIngredientGame() {
-        /* TODO */
-    }
-
 
     private fun findPotatoDishes() {
         try {
