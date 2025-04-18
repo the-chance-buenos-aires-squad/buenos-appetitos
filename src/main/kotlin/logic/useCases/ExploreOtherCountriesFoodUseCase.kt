@@ -8,7 +8,7 @@ class ExploreOtherCountriesFoodUseCase(private val repository: RecipesRepository
     fun searchCountryName(userInput: String): List<Recipe> {
         val country = userInput.trim().lowercase()
         val allRecipes = repository.getRecipes()
-        if (allRecipes.isEmpty()) throw Exception("Country name cannot be empty")
+        if (country.isEmpty()) throw Exception("Country name cannot be empty")
         val matchedRecipes = allRecipes.countryNamesList(country)
         if (matchedRecipes.isEmpty()) throw Exception("No meals found for '$country")
         return matchedRecipes.shuffled().take(20)

@@ -1,7 +1,9 @@
 package org.example.presentation
 
+import org.example.logic.useCases.ExploreOtherCountriesFoodUseCase
 import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
+import org.example.model.Recipe
 import java.util.*
 
 class HolderCLi {
@@ -125,7 +127,18 @@ class HolderCLi {
     }
 
     private fun exploreFoodCultures(useCases: UseCaseHolder) {
-        /* TODO */
+        println("\n------ Explore countries food by there name -----")
+        println("Enter the country name:")
+        val userInput = readlnOrNull()?.trim() ?: ""
+        try {
+            val meal = ExploreOtherCountriesFoodUseCase(useCases.repository)
+            meal.searchCountryName(userInput).forEach{
+                println(it.name)
+            }
+        } catch (exception :Exception){
+            println("Error: ${exception.message}")
+        }
+
     }
 
     private fun playIngredientGame(useCases: UseCaseHolder) {
@@ -147,4 +160,5 @@ class HolderCLi {
     private fun italianGroupMeals(useCases: UseCaseHolder) {
         /* TODO */
     }
+
 }
