@@ -17,7 +17,8 @@ class HolderCLi(
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
     private val highCalorieUseCase: HighCalorieUseCase,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
-    private val LovePotatoUseCase: LovePotatoUseCase
+    private val LovePotatoUseCase: LovePotatoUseCase,
+    private val gymMealsUseCase: GymMealsUseCase,
 ) {
 
     fun startCLI() {
@@ -63,9 +64,14 @@ class HolderCLi(
                     println("Thank you for using Food Change Mood!")
                     return
                 }
-
                 else -> println("Invalid option. Please try again.")
             }
+        }
+    }
+    private fun showHealthyFastFood(useCases: UseCaseHolder) {
+        val healthyFastFoodMeals= GetHealthyFastFoodMealsUseCase(useCases.repository)
+        healthyFastFoodMeals.getHealthyFastFood().forEach {
+            println(it.name)
         }
     }
 
@@ -151,8 +157,34 @@ class HolderCLi(
         /* TODO */
     }
 
+
+
     private fun gymHelper() {
-        /* TODO */
+        val scanner = Scanner(System.`in`)
+
+        println("🏋️ Welcome to the Gym Helper!")
+
+        try {
+            print("Enter desired calories: ")
+            val caloriesInput = scanner.nextLine()
+            val calories = caloriesInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid calories input.")
+
+            print("Enter desired protein (grams): ")
+            val proteinInput = scanner.nextLine()
+            val protein = proteinInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid protein input.")
+
+            val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
+
+            if (meals.isEmpty()) {
+                println("❌ No meals found matching your fitness needs.")
+            } else {
+                println("✅ Meals matching your goals:")
+                gymMealsUseCase.printMealList(meals)
+            }
+
+        } catch (e: Exception) {
+            println("⚠️ Error: ${e.message}")
+        }
     }
 
     private fun exploreFoodCultures() {
