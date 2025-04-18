@@ -7,7 +7,8 @@ import org.example.logic.useCases.UseCaseHolder
 import org.example.presentation.HolderCLi
 
 fun main() {
-    val csvFileReader = CsvFileReader()
+    val filePath = "src/main/kotlin/data/food.csv"
+    val csvFileReader = CsvFileReader(filePath)
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
 }
