@@ -11,4 +11,6 @@ fun main() {
     val csvFileReader = CsvFileReader(filePath)
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
+    val useCaseHolder = UseCaseHolder(repository)
+    val cli = HolderCLi().startCLI(useCaseHolder)
 }
