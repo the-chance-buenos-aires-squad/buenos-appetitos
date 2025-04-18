@@ -1,4 +1,5 @@
-package model
+package org.example.data
+
 object NutritionIndices {
     const val CALORIES_INDEX = 0
     const val FAT_INDEX = 1
