@@ -1,8 +1,10 @@
 package org.example.presentation
 
+import HighCalorieUseCase
+import org.example.logic.useCases.*
+import org.example.model.Recipe
 import LovePotatoUseCase
 import org.example.logic.useCases.GuessGameUseCase
-import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
 class HolderCLi(
@@ -13,6 +15,9 @@ class HolderCLi(
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
+    private val highCalorieUseCase: HighCalorieUseCase,
+    private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
+    private val LovePotatoUseCase: LovePotatoUseCase
 ) {
 
     fun startCLI() {
@@ -39,21 +44,21 @@ class HolderCLi(
             println("Enter your choice: ")
 
             when (scanner.nextLine()) {
-                "1" -> showHealthyFastFood(useCases)
-                "2" -> searchMealsByName(scanner, useCases)
-                "3" -> showIraqiMeals(useCases)
-                "4" -> showEasyFoodSuggestions(useCases)
-                "5" -> playGuessGame(useCases)
-                "6" -> findSweetWithOutEgg(useCases)
-                "7" -> ketoDietHelper(useCases)
-                "8" -> searchFoodsByDate(useCases)
-                "9" -> gymHelper(useCases)
-                "10" -> exploreFoodCultures(useCases)
-                "11" -> playIngredientGame(useCases)
+                "1" -> showHealthyFastFood()
+                "2" -> searchMealsByName(scanner)
+                "3" -> showIraqiMeals()
+                "4" -> showEasyFoodSuggestions()
+                "5" -> playGuessGame()
+                "6" -> findSweetWithOutEgg()
+                "7" -> ketoDietHelper()
+                "8" -> searchFoodsByDate()
+                "9" -> gymHelper()
+                "10" -> exploreFoodCultures()
+                "11" -> playIngredientGame()
                 "12" -> findPotatoDishes()
-                "13" -> highCalorieMeals(useCases)
-                "14" -> seafoodByProteinContent(useCases)
-                "15" -> italianGroupMeals(useCases)
+                "13" -> highCalorieMeals()
+                "14" -> seafoodByProteinContent()
+                "15" -> italianGroupMeals()
                 "0" -> {
                     println("Thank you for using Food Change Mood!")
                     return
@@ -80,7 +85,8 @@ class HolderCLi(
         println("Iraqi Meals:")
         iraqiMeals.forEach {
             println(it.name)
-        }    }
+        }
+    }
 
     private fun showEasyFoodSuggestions() {
         var meals = suggestMealsUseCases.suggestRandomMeals()
@@ -155,16 +161,15 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun exploreFoodCultures(useCases: UseCaseHolder) {
+    private fun exploreFoodCultures() {
         println("\n------ Explore countries food by there name -----")
         println("Enter the country name:")
         val userInput = readlnOrNull()?.trim() ?: ""
         try {
-            val meal = ExploreOtherCountriesFoodUseCase(useCases.repository)
-            meal.searchCountryName(userInput).forEach{
+            exploreOtherCountriesFoodUseCase.searchCountryName(userInput).forEach {
                 println(it.name)
             }
-        } catch (exception :Exception){
+        } catch (exception: Exception) {
             println("Error: ${exception.message}")
         }
     }
@@ -174,13 +179,10 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun findPotatoDishes() {
-        /* TODO */
-    }
 
     private fun findPotatoDishes() {
-        try{
-            val randomPotatoRecipes = lovePotatoUseCase.getRandomPotatoRecipes()
+        try {
+            val randomPotatoRecipes = LovePotatoUseCase.getRandomPotatoRecipes()
             println("\nI Love Potato: 10 Random Recipes with Potatoes")
             println("============================================")
             randomPotatoRecipes.forEachIndexed { index, recipe ->
@@ -189,17 +191,14 @@ class HolderCLi(
                 println("   Ingredients: ${recipe.ingredients}")
             }
 
-        }catch (exception: Exception){
+        } catch (exception: Exception) {
             println("Error: ${exception.message}")
             throw exception
         }
+    }
 
 
-    private fun seafoodByProteinContent() {
-        getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
-            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
-        }
-    private fun highCalorieMeals(useCases: UseCaseHolder) {
+    private fun highCalorieMeals() {
         println("\nHigh Calories Recipe")
         println("======================")
         try{
@@ -211,6 +210,12 @@ class HolderCLi(
             throw exception
         }
     }
+    private fun seafoodByProteinContent() {
+        getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
+            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
+        }
+    }
+
 
     private fun italianGroupMeals() {
         suggestItalianMealsForLargeGroupsUseCase.getItalianMealsForLargeGroups().forEach {
@@ -253,8 +258,10 @@ class HolderCLi(
 
     private fun displayLikedDessertDetails(dessert: Recipe) {
         println("Thank you for your choice!")
-        println("|| Dessert Name : ${dessert.name} \n|| Dessert Description : ${dessert.description}" +
-                    " \n|| Preparation Time: ${dessert.minutes} minutes \n|| Ingredients : ${dessert.ingredients}")
+        println(
+            "|| Dessert Name : ${dessert.name} \n|| Dessert Description : ${dessert.description}" +
+                    " \n|| Preparation Time: ${dessert.minutes} minutes \n|| Ingredients : ${dessert.ingredients}"
+        )
         /*println("Desert ${dessert.name}")*/
     }
 }
