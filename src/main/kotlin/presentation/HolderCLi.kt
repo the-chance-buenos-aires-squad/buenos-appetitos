@@ -1,5 +1,6 @@
 package org.example.presentation
 
+import org.example.logic.useCases.SuggestMealsUseCases
 import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.GetHealthyFastFoodMealsUseCase
 import org.example.logic.useCases.GuessGameUseCase
@@ -79,8 +80,13 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun showEasyFoodSuggestions() {
-        /* TODO */
+    private fun showEasyFoodSuggestions(useCases: UseCaseHolder) {
+        val suggestedmeals = SuggestMealsUseCases(useCases.repository)
+        var meals = suggestedmeals.suggestRandomMeals()
+        if (meals.isEmpty())
+            println("No suitable meals found.")
+        else
+            println("Suggested meals: $meals")
     }
 
     private fun playGuessGame() {
