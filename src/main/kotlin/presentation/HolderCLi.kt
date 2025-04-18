@@ -15,6 +15,7 @@ class HolderCLi(
     private val guessGameUseCase: GuessGameUseCase,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
+    private val suggestMealsUseCases: SuggestMealsUseCases,
 ) {
 
     fun startCLI() {
@@ -80,9 +81,8 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun showEasyFoodSuggestions(useCases: UseCaseHolder) {
-        val suggestedmeals = SuggestMealsUseCases(useCases.repository)
-        var meals = suggestedmeals.suggestRandomMeals()
+    private fun showEasyFoodSuggestions() {
+        var meals = suggestMealsUseCases.suggestRandomMeals()
         if (meals.isEmpty())
             println("No suitable meals found.")
         else
