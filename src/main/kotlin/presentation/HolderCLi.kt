@@ -1,8 +1,5 @@
 package org.example.presentation
 
-import org.example.logic.useCases.ExploreOtherCountriesFoodUseCase
-import org.example.logic.useCases.GuessGameUseCase
-import org.example.logic.useCases.UseCaseHolder
 import org.example.logic.useCases.*
 import org.example.model.Recipe
 import java.util.*
@@ -187,6 +184,17 @@ class HolderCLi(
     private fun seafoodByProteinContent() {
         getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
             println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
+        }
+    private fun highCalorieMeals(useCases: UseCaseHolder) {
+        println("\nHigh Calories Recipe")
+        println("======================")
+        try{
+            val highCalorieRecipe = highCalorieUseCase.getRandomHighCalorieRecipe()
+            println("Suggested Recipe Name: ${highCalorieRecipe.name} with ${highCalorieRecipe.nutrition.calories} calories")
+
+        }catch (exception: Exception){
+            println("Error: ${exception.message}")
+            throw exception
         }
     }
 
