@@ -10,9 +10,9 @@ class GetKetoMealsUseCase (
         val recipes = repository.getRecipes()
         return recipes.filter { recipe ->
 
-            val carbs = recipe.nutrition.getOrNull(6) ?: 0.0
-            val fat = recipe.nutrition.getOrNull(1) ?: 0.0
-            val protein = recipe.nutrition.getOrNull(4) ?: 0.0
+            val carbs = recipe.nutrition.carbohydrates
+            val fat = recipe.nutrition.fat
+            val protein = recipe.nutrition.protein
             carbs <= 5 || fat >= 70 || protein >= 25
 
         }
