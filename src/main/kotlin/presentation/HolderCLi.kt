@@ -77,9 +77,15 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun showIraqiMeals() {
-        /* TODO */
-    }
+    private fun showIraqiMeals(useCases: UseCaseHolder) {
+
+        val iraqiMealsUseCase = GetIraqiMealsUseCase(useCases.repository)
+        val iraqiMeals = iraqiMealsUseCase.execute()
+
+        println("Iraqi Meals:")
+        iraqiMeals.forEach {
+            println(it.name)
+        }    }
 
     private fun showEasyFoodSuggestions() {
         var meals = suggestMealsUseCases.suggestRandomMeals()

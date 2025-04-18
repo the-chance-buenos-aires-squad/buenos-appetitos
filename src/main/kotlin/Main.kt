@@ -24,4 +24,6 @@ fun main() {
         suggestItalianMealsForLargeGroupsUseCase
     )
     holderCli.startCLI()
+    val useCaseHolder = UseCaseHolder(repository)
+    val cli = HolderCLi().startCLI(useCaseHolder)
 }
