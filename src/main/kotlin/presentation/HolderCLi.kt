@@ -14,6 +14,7 @@ class HolderCLi(
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
+    private val searchFoodByAddDateUseCase: SearchFoodByAddDateUseCase,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
     private val highCalorieUseCase: HighCalorieUseCase,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
@@ -51,7 +52,7 @@ class HolderCLi(
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
                 "7" -> ketoDietHelper()
-                "8" -> searchFoodsByDate()
+                "8" -> SearchFoodByDateCLI(searchFoodByAddDateUseCase).start()
                 "9" -> gymHelper()
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
@@ -147,9 +148,6 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun searchFoodsByDate() {
-        /* TODO */
-    }
 
     private fun gymHelper() {
         /* TODO */

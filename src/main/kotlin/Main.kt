@@ -19,6 +19,7 @@ fun main() {
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
     val suggestMealsUseCases = SuggestMealsUseCases(repository)
+    val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val highCalorieUseCase = HighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
@@ -30,6 +31,7 @@ fun main() {
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
         suggestMealsUseCases,
+        searchFoodByAddDateUseCase,
         getIraqiMealsUseCase,
         highCalorieUseCase,
         exploreOtherCountriesFoodUseCase,
