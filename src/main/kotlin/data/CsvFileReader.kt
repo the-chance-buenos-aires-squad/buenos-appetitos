@@ -4,17 +4,16 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.stream.Collectors
 
-class CsvFileReader {
+class CsvFileReader(val filePath: String ) {
     
       fun readCsvFile(): List<List<String>> {
-        val filePath = "src/main/kotlin/data/food.csv"
-        
+
         return Files.lines(Paths.get(filePath))
             .skip(1) 
             .collect(Collectors.joining("\n"))
-            .let { parseCSVWithMultilineFields(it) }
+            .let { readCSVWithMultilineFields(it) }
     }
-    private fun parseCSVWithMultilineFields(content: String): List<List<String>> {
+    private fun readCSVWithMultilineFields(content: String): List<List<String>> {
         val records = mutableListOf<List<String>>()
         val fields = mutableListOf<String>()
         val currentField = StringBuilder()
