@@ -17,7 +17,8 @@ class HolderCLi(
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
     private val highCalorieUseCase: HighCalorieUseCase,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
-    private val LovePotatoUseCase: LovePotatoUseCase
+    private val LovePotatoUseCase: LovePotatoUseCase,
+    private val gymMealsUseCase: GymMealsUseCase,
 ) {
 
     fun startCLI() {
@@ -156,12 +157,9 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun gymHelper() {
-        /* TODO */
-    }
 
-    private fun gymHelper(useCases: UseCaseHolder) {
-        val gymMealsUseCase = GymMealsUseCase(useCases.repository)
+
+    private fun gymHelper() {
         val scanner = Scanner(System.`in`)
 
         println("🏋️ Welcome to the Gym Helper!")
@@ -187,6 +185,8 @@ class HolderCLi(
         } catch (e: Exception) {
             println("⚠️ Error: ${e.message}")
         }
+    }
+
     private fun exploreFoodCultures() {
         println("\n------ Explore countries food by there name -----")
         println("Enter the country name:")
