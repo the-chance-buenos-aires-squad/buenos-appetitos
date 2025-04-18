@@ -1,5 +1,6 @@
 package org.example.presentation
 
+import org.example.logic.useCases.GetHealthyFastFoodMealsUseCase
 import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
@@ -54,7 +55,10 @@ class HolderCLi {
         }
     }
     private fun showHealthyFastFood(useCases: UseCaseHolder) {
-        /* TODO */
+        val healthyFastFoodMeals=GetHealthyFastFoodMealsUseCase(useCases.repository)
+        healthyFastFoodMeals.getHealthyFastFood().forEach {
+            println(it.name)
+        }
     }
 
     private fun searchMealsByName(scanner: Scanner, useCases: UseCaseHolder) {

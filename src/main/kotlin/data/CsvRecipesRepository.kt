@@ -8,6 +8,9 @@ class CsvRecipesRepository( val csvFileReader: CsvFileReader, val recipeParser: 
          val rowsRecord= csvFileReader.readCsvFile()
         return  recipeParser.parseRecipes(rowsRecord)
     }
-
+    fun getAllRecipes(): List<Recipe> {
+        val filePath = "src/main/kotlin/data/food.csv"
+        return csvFileReader.parseRecipesCsv(filePath)
+    }
 
 }
