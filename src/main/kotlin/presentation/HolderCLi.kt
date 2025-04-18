@@ -1,5 +1,8 @@
 package org.example.presentation
 
+import org.example.logic.useCases.ExploreOtherCountriesFoodUseCase
+import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.UseCaseHolder
 import org.example.logic.useCases.*
 import org.example.model.Recipe
 import java.util.*
@@ -154,9 +157,20 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun exploreFoodCultures() {
-        /* TODO */
+    private fun exploreFoodCultures(useCases: UseCaseHolder) {
+        println("\n------ Explore countries food by there name -----")
+        println("Enter the country name:")
+        val userInput = readlnOrNull()?.trim() ?: ""
+        try {
+            val meal = ExploreOtherCountriesFoodUseCase(useCases.repository)
+            meal.searchCountryName(userInput).forEach{
+                println(it.name)
+            }
+        } catch (exception :Exception){
+            println("Error: ${exception.message}")
+        }
     }
+
 
     private fun playIngredientGame() {
         /* TODO */
@@ -221,6 +235,4 @@ class HolderCLi(
                     " \n|| Preparation Time: ${dessert.minutes} minutes \n|| Ingredients : ${dessert.ingredients}")
         /*println("Desert ${dessert.name}")*/
     }
-    //endregion
-
 }
