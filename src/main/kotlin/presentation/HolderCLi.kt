@@ -1,7 +1,6 @@
 package org.example.presentation
 
 import org.example.logic.useCases.GuessGameUseCase
-import org.example.logic.useCases.GymMealsUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
@@ -122,70 +121,15 @@ class HolderCLi {
     }
 
     private fun gymHelper(useCases: UseCaseHolder) {
-        val gymMealsUseCase = GymMealsUseCase(useCases.repository)
-            val scanner = Scanner(System.`in`)
-
-            println("🏋️ Welcome to the Gym Helper!")
-
-            try {
-                print("Enter desired calories: ")
-                val caloriesInput = scanner.nextLine()
-                val calories = caloriesInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid calories input.")
-
-                print("Enter desired protein (grams): ")
-                val proteinInput = scanner.nextLine()
-                val protein = proteinInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid protein input.")
-
-                val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
-
-                if (meals.isEmpty()) {
-                    println("❌ No meals found matching your fitness needs.")
-                } else {
-                    println("✅ Meals matching your goals:")
-                  gymMealsUseCase.printMealList(meals)
-                }
-
-            } catch (e: Exception) {
-                println("⚠️ Error: ${e.message}")
-            }
-        }
+        /* TODO */
+    }
 
     private fun exploreFoodCultures(useCases: UseCaseHolder) {
         /* TODO */
     }
 
     private fun playIngredientGame(useCases: UseCaseHolder) {
-        val game = useCases.ingredientGameUseCase
-        val scanner = Scanner(System.`in`)
-        var score = 0
-
-        println("🎮 Welcome to the INGREDIENT GAME!")
-        println("✅ One point per correct answer. ❌ Game ends on wrong answer.")
-
-        repeat(15) {
-            val round = game.generateRound()
-
-            println("\n🍽️ Meal: ${round.meal.name}")
-            println("Which of the following is an ingredient?")
-            round.options.forEachIndexed { index, option ->
-                println("${index + 1}. $option")
-            }
-
-            print("Your choice (1–3): ")
-            val choice = scanner.nextLine().toIntOrNull()
-            val selected = round.options.getOrNull((choice ?: 0) - 1)
-
-            if (game.checkAnswer(selected, round.correct)) {
-                score += 1000
-                println("✅ Correct! Your score: $score")
-            } else {
-                println("❌ Wrong! The correct answer was: ${round.correct}")
-                println("🎯 Final Score: $score")
-                return
-            }
-        }
-
-        println("\n🎉 You completed all rounds! Final Score: $score")
+        /* TODO */
     }
 
     private fun findPotatoDishes(useCases: UseCaseHolder) {
