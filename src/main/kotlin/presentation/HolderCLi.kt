@@ -1,5 +1,6 @@
 package org.example.presentation
 
+import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
 import java.util.*
@@ -172,7 +173,10 @@ class HolderCLi {
     }
 
     private fun seafoodByProteinContent(useCases: UseCaseHolder) {
-        /* TODO */
+        val seaFoodRankingByProtein= GetSeaFoodRankingByProteinUseCase(useCases.repository)
+        seaFoodRankingByProtein.getSeaFoodRanking().forEach {
+            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
+        }
     }
 
     private fun italianGroupMeals(useCases: UseCaseHolder) {
