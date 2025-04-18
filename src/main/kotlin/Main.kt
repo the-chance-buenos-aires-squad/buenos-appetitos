@@ -8,7 +8,7 @@ import org.example.presentation.HolderCLi
 fun main() {
     val csvFileReader = CsvFileReader()
     val repository = CsvRecipesRepository(csvFileReader)
-    val useCases = UseCaseHolder(repository)
-    val holderCli = HolderCLi()
+    val lovePotatoUseCase = LovePotatoUseCase(repository)
+    val holderCli = HolderCLi(lovePotatoUseCase)
     holderCli.startCLI(useCases)
 }
