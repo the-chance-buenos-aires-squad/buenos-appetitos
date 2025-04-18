@@ -1,11 +1,6 @@
 package org.example.presentation
 
-import org.example.logic.useCases.SuggestMealsUseCases
-import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
-import org.example.logic.useCases.GetHealthyFastFoodMealsUseCase
-import org.example.logic.useCases.GuessGameUseCase
-import org.example.logic.useCases.SweetsWithNoEggsUseCase
-import org.example.logic.useCases.SuggestItalianMealsForLargeGroupsUseCase
+import org.example.logic.useCases.*
 import org.example.model.Recipe
 import java.util.*
 
@@ -16,6 +11,7 @@ class HolderCLi(
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
+    private val iraqiMealsUseCase: GetIraqiMealsUseCase,
 ) {
 
     fun startCLI() {
@@ -77,11 +73,9 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun showIraqiMeals(useCases: UseCaseHolder) {
+    private fun showIraqiMeals() {
 
-        val iraqiMealsUseCase = GetIraqiMealsUseCase(useCases.repository)
         val iraqiMeals = iraqiMealsUseCase.execute()
-
         println("Iraqi Meals:")
         iraqiMeals.forEach {
             println(it.name)

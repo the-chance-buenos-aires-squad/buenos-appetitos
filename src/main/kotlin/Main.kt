@@ -16,14 +16,17 @@ fun main() {
     val guessGameUseCase = GuessGameUseCase(repository)
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
+    val suggestMealsUseCases = SuggestMealsUseCases(repository)
+    val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val holderCli = HolderCLi(
         sweetsWithNoEggsUseCase,
         getHealthyFastFoodMealsUseCase,
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
-        suggestItalianMealsForLargeGroupsUseCase
+        suggestItalianMealsForLargeGroupsUseCase,
+        suggestMealsUseCases,
+        getIraqiMealsUseCase
     )
     holderCli.startCLI()
-    val useCaseHolder = UseCaseHolder(repository)
-    val cli = HolderCLi().startCLI(useCaseHolder)
+
 }
