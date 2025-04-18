@@ -3,12 +3,21 @@ package org.example.presentation
 import org.example.logic.useCases.ExploreOtherCountriesFoodUseCase
 import org.example.logic.useCases.GuessGameUseCase
 import org.example.logic.useCases.UseCaseHolder
+import org.example.logic.useCases.*
 import org.example.model.Recipe
 import java.util.*
 
-class HolderCLi {
+class HolderCLi(
+    private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
+    private val getHealthyFastFoodMealsUseCase: GetHealthyFastFoodMealsUseCase,
+    private val guessGameUseCase: GuessGameUseCase,
+    private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
+    private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
+    private val suggestMealsUseCases: SuggestMealsUseCases,
+    private val iraqiMealsUseCase: GetIraqiMealsUseCase,
+) {
 
-    fun startCLI(useCases: UseCaseHolder){
+    fun startCLI() {
         val scanner = Scanner(System.`in`)
         while (true) {
             println("\nFood Change Mood - Menu:")
@@ -32,49 +41,60 @@ class HolderCLi {
             println("Enter your choice: ")
 
             when (scanner.nextLine()) {
-                "1" -> showHealthyFastFood(useCases)
-                "2" -> searchMealsByName(scanner, useCases)
-                "3" -> showIraqiMeals(useCases)
-                "4" -> showEasyFoodSuggestions(useCases)
-                "5" -> playGuessGame(useCases)
-                "6" -> findSweetWithOutEgg(useCases)
-                "7" -> ketoDietHelper(useCases)
-                "8" -> searchFoodsByDate(useCases)
-                "9" -> gymHelper(useCases)
-                "10" -> exploreFoodCultures(useCases)
-                "11" -> playIngredientGame(useCases)
-                "12" -> findPotatoDishes(useCases)
-                "13" -> highCalorieMeals(useCases)
-                "14" -> seafoodByProteinContent(useCases)
-                "15" -> italianGroupMeals(useCases)
+                "1" -> showHealthyFastFood()
+                "2" -> searchMealsByName(scanner)
+                "3" -> showIraqiMeals()
+                "4" -> showEasyFoodSuggestions()
+                "5" -> playGuessGame()
+                "6" -> findSweetWithOutEgg()
+                "7" -> ketoDietHelper()
+                "8" -> searchFoodsByDate()
+                "9" -> gymHelper()
+                "10" -> exploreFoodCultures()
+                "11" -> playIngredientGame()
+                "12" -> findPotatoDishes()
+                "13" -> highCalorieMeals()
+                "14" -> seafoodByProteinContent()
+                "15" -> italianGroupMeals()
                 "0" -> {
                     println("Thank you for using Food Change Mood!")
                     return
                 }
+
                 else -> println("Invalid option. Please try again.")
             }
         }
     }
-    private fun showHealthyFastFood(useCases: UseCaseHolder) {
+
+    private fun showHealthyFastFood() {
+        getHealthyFastFoodMealsUseCase.getHealthyFastFood().forEach {
+            println(it.name)
+        }
+    }
+
+    private fun searchMealsByName(scanner: Scanner) {
         /* TODO */
     }
 
-    private fun searchMealsByName(scanner: Scanner, useCases: UseCaseHolder) {
-        /* TODO */
+    private fun showIraqiMeals() {
+
+        val iraqiMeals = iraqiMealsUseCase.execute()
+        println("Iraqi Meals:")
+        iraqiMeals.forEach {
+            println(it.name)
+        }    }
+
+    private fun showEasyFoodSuggestions() {
+        var meals = suggestMealsUseCases.suggestRandomMeals()
+        if (meals.isEmpty())
+            println("No suitable meals found.")
+        else
+            println("Suggested meals: $meals")
     }
 
-    private fun showIraqiMeals(useCases: UseCaseHolder) {
-        /* TODO */
-    }
+    private fun playGuessGame() {
 
-    private fun showEasyFoodSuggestions(useCases: UseCaseHolder) {
-        /* TODO */
-    }
-
-    private fun playGuessGame(useCases: UseCaseHolder) {
-        val guessGame = GuessGameUseCase(useCases.repository)
-
-        val recipe = guessGame.startGame()
+        val recipe = guessGameUseCase.startGame()
         if (recipe == null) {
             println("Error: No recipes available")
             return
@@ -83,23 +103,27 @@ class HolderCLi {
         println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
         println("Meal: ${recipe.name}")
 
-        while (guessGame.thereIsAttemptsLeft()) {
-            print("\nEnter your guess (minutes) [${guessGame.getAttemptsLeft()} attempts left]: ")
+        while (guessGameUseCase.thereIsAttemptsLeft()) {
+            print("\nEnter your guess (minutes) [${guessGameUseCase.getAttemptsLeft()} attempts left]: ")
 
-            when (val result = guessGame.handleGuess(readLine())) {
+            when (val result = guessGameUseCase.handleGuess(readLine())) {
                 is GuessGameUseCase.GuessAttemptResult.Correct -> {
                     println("🎉 Congratulations! That's correct! The preparation time is ${result.correctTime} minutes.")
                     break
                 }
+
                 is GuessGameUseCase.GuessAttemptResult.TooLow -> {
                     println("Too low! Try a higher number.")
                 }
+
                 is GuessGameUseCase.GuessAttemptResult.TooHigh -> {
                     println("Too high! Try a lower number.")
                 }
+
                 is GuessGameUseCase.GuessAttemptResult.InvalidInput -> {
                     println(result.message)
                 }
+
                 is GuessGameUseCase.GuessAttemptResult.GameOver -> {
                     println("\nGame Over! The correct preparation time was ${result.correctTime} minutes.")
                     break
@@ -107,22 +131,29 @@ class HolderCLi {
             }
         }
 
-        guessGame.resetGame()
+        guessGameUseCase.resetGame()
     }
 
-    private fun findSweetWithOutEgg(useCases: UseCaseHolder) {
+    private fun findSweetWithOutEgg() {
+
+        println("\n------ Sweet without egg -----")
+        val dessert = getRandomEggFreeDessert()
+        println("\n1 - Like this dessert")
+        println("2 - Dislike (show another option)")
+        println("3 - Exit")
+        handleDessertUserChoice(dessert)
+
+    }
+
+    private fun ketoDietHelper() {
         /* TODO */
     }
 
-    private fun ketoDietHelper(useCases: UseCaseHolder) {
+    private fun searchFoodsByDate() {
         /* TODO */
     }
 
-    private fun searchFoodsByDate(useCases: UseCaseHolder) {
-        /* TODO */
-    }
-
-    private fun gymHelper(useCases: UseCaseHolder) {
+    private fun gymHelper() {
         /* TODO */
     }
 
@@ -138,27 +169,70 @@ class HolderCLi {
         } catch (exception :Exception){
             println("Error: ${exception.message}")
         }
-
     }
 
-    private fun playIngredientGame(useCases: UseCaseHolder) {
+
+    private fun playIngredientGame() {
         /* TODO */
     }
 
-    private fun findPotatoDishes(useCases: UseCaseHolder) {
+    private fun findPotatoDishes() {
         /* TODO */
     }
 
-    private fun highCalorieMeals(useCases: UseCaseHolder) {
+    private fun highCalorieMeals() {
         /* TODO */
     }
 
-    private fun seafoodByProteinContent(useCases: UseCaseHolder) {
-        /* TODO */
+    private fun seafoodByProteinContent() {
+        getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
+            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
+        }
     }
 
-    private fun italianGroupMeals(useCases: UseCaseHolder) {
-        /* TODO */
+    private fun italianGroupMeals() {
+        suggestItalianMealsForLargeGroupsUseCase.getItalianMealsForLargeGroups().forEach {
+            println(it.name)
+        }
     }
 
+    //region method helper for SweetWithNoEggs
+    private fun getRandomEggFreeDessert(): Recipe {
+        return try {
+            val meal = sweetsWithNoEggsUseCase.getRandomSweetsNoEggs()
+            println("|| Name: ${meal.name} || Description: ${meal.description}")
+            meal
+        } catch (exception: Exception) {
+            println("Error: ${exception.message}")
+            throw exception
+        }
+    }
+
+    private fun handleDessertUserChoice(dessert: Recipe) {
+        print("Please choose (1-3): ")
+        while (true) {
+            val likeOrNoInput = readln().toIntOrNull()
+            when (likeOrNoInput) {
+                1 -> {
+                    displayLikedDessertDetails(dessert)
+                    return
+                }
+
+                2 -> findSweetWithOutEgg()
+                3 -> {
+                    println("Exiting...")
+                    return
+                }
+
+                else -> println("Invalid input. Please enter 1 = Like , 2 = Dislike, or 3 = Exit.")
+            }
+        }
+    }
+
+    private fun displayLikedDessertDetails(dessert: Recipe) {
+        println("Thank you for your choice!")
+        println("|| Dessert Name : ${dessert.name} \n|| Dessert Description : ${dessert.description}" +
+                    " \n|| Preparation Time: ${dessert.minutes} minutes \n|| Ingredients : ${dessert.ingredients}")
+        /*println("Desert ${dessert.name}")*/
+    }
 }
