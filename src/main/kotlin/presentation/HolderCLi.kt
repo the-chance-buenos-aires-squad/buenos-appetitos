@@ -129,8 +129,39 @@ class HolderCLi {
     }
 
     private fun playIngredientGame(useCases: UseCaseHolder) {
-        /* TODO */
+        val game = useCases.ingredientGameUseCase
+        val scanner = Scanner(System.`in`)
+        var score = 0
+
+        println("🎮 Welcome to the INGREDIENT GAME!")
+        println("✅ One point per correct answer. ❌ Game ends on wrong answer.")
+
+        repeat(15) {
+            val round = game.generateRound()
+
+            println("\n🍽️ Meal: ${round.meal.name}")
+            println("Which of the following is an ingredient?")
+            round.options.forEachIndexed { index, option ->
+                println("${index + 1}. $option")
+            }
+
+            print("Your choice (1–3): ")
+            val choice = scanner.nextLine().toIntOrNull()
+            val selected = round.options.getOrNull((choice ?: 0) - 1)
+
+            if (game.checkAnswer(selected, round.correct)) {
+                score += 1000
+                println("✅ Correct! Your score: $score")
+            } else {
+                println("❌ Wrong! The correct answer was: ${round.correct}")
+                println("🎯 Final Score: $score")
+                return
+            }
+        }
+
+        println("\n🎉 You completed all rounds! Final Score: $score")
     }
+
 
     private fun findPotatoDishes(useCases: UseCaseHolder) {
         /* TODO */
