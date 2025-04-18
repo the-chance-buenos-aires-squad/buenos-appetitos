@@ -21,6 +21,7 @@ class HolderCLi(
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val LovePotatoUseCase: LovePotatoUseCase,
     private val gymMealsUseCase: GymMealsUseCase,
+    private  val ingredientGameUseCase:IngredientGameUseCase
 ) {
 
     fun startCLI() {
@@ -157,8 +158,8 @@ class HolderCLi(
 
     private fun searchFoodsByDate() {
         /* TODO */
-    private fun playIngredientGame(useCases: UseCaseHolder) {
-        val game = useCases.ingredientGameUseCase
+    }
+    private fun playIngredientGame() {
         val scanner = Scanner(System.`in`)
         var score = 0
 
@@ -166,7 +167,7 @@ class HolderCLi(
         println("✅ One point per correct answer. ❌ Game ends on wrong answer.")
 
         repeat(15) {
-            val round = game.generateRound()
+            val round = ingredientGameUseCase.generateRound()
 
             println("\n🍽️ Meal: ${round.meal.name}")
             println("Which of the following is an ingredient?")
@@ -178,7 +179,7 @@ class HolderCLi(
             val choice = scanner.nextLine().toIntOrNull()
             val selected = round.options.getOrNull((choice ?: 0) - 1)
 
-            if (game.checkAnswer(selected, round.correct)) {
+            if (ingredientGameUseCase.checkAnswer(selected, round.correct)) {
                 score += 1000
                 println("✅ Correct! Your score: $score")
             } else {
@@ -234,12 +235,6 @@ class HolderCLi(
             println("Error: ${exception.message}")
         }
     }
-
-
-    private fun playIngredientGame() {
-        /* TODO */
-    }
-
 
     private fun findPotatoDishes() {
         try {
