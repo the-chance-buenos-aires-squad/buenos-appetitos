@@ -191,7 +191,7 @@ class HolderCLi(
 
     private fun gymHelper() {
         println("🏋️ Starting Gym Meals CLI...")
-        val cli = GymMealsCLI()
+        val cli = GymMealsCLI(gymMealsUseCase)
         cli.run()
         println("✅ Gym Meals CLI completed.")
     }

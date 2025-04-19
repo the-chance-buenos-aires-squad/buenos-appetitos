@@ -1,56 +1,38 @@
 package org.example.presentation
 
 import org.example.logic.useCases.GymMealsUseCase
-import org.example.data.CsvFileReader
-import org.example.data.RecipeParser
-import org.example.data.CsvRecipesRepository
-import java.io.File
+import org.example.model.Recipe
 import java.util.*
 
-class GymMealsCLI {
+class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
 
     private val scanner = Scanner(System.`in`)
+    private val form = RecipesForm()
 
     fun run() {
         println("🍽️ Welcome to the Gym Helper!")
 
         try {
-            val calories = promptCalories()
-            val protein = promptProtein()
+            val calories = prompt("Enter desired calories: ")
+            val protein = prompt("Enter desired protein (grams): ")
 
-            val recipes = loadRecipes()
-            val meals = GymMealsUseCase(recipes).findMealsByNutrition(calories, protein)
+            val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
 
-            printMealResults(meals)
+            if (meals.isEmpty()) {
+                println("❌ No meals found matching your fitness needs.")
+            } else {
+                println("✅ Meals matching your goals:")
+                meals.forEach { form.printingRecipes(it) }
+            }
 
         } catch (e: Exception) {
             println("⚠️ Error: ${e.message}")
         }
     }
 
-    private fun promptCalories(): Int {
-        print("Enter desired calories: ")
+    private fun prompt(message: String): Int {
+        print(message)
         return scanner.nextLine().toIntOrNull()
-            ?: throw IllegalArgumentException("Invalid calories input.")
-    }
-
-    private fun promptProtein(): Int {
-        print("Enter desired protein (grams): ")
-        return scanner.nextLine().toIntOrNull()
-            ?: throw IllegalArgumentException("Invalid protein input.")
-    }
-
-    private fun loadRecipes() = CsvRecipesRepository(
-        CsvFileReader(File("data/food.csv")),
-        RecipeParser()
-    ).getRecipes()
-
-    private fun printMealResults(meals: List<org.example.model.Recipe>) {
-        if (meals.isEmpty()) {
-            println("❌ No meals found matching your fitness needs.")
-        } else {
-            println("✅ Meals matching your goals:")
-            GymMealsUseCase(meals).printMealList(meals)
-        }
+            ?: throw IllegalArgumentException("Invalid input.")
     }
 }
