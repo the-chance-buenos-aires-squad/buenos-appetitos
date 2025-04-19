@@ -9,10 +9,12 @@ import org.example.presentation.GetHealthyFoodMealsCLI
 import org.example.presentation.HolderCLi
 import org.example.presentation.SearchFoodByDateCLI
 import org.example.presentation.SearchMealsByNameCLI
+import java.io.File
 
 fun main() {
     val filePath = "src/main/kotlin/data/food.csv"
-    val csvFileReader = CsvFileReader(filePath)
+    val foodFile = File(filePath)
+    val csvFileReader = CsvFileReader(foodFile)
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
     val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
@@ -31,7 +33,6 @@ fun main() {
     val kmpSearchUseCase = KmpSearchUseCase()
     val fuzzySearchUseCase = FuzzySearchUseCase(kmpSearchUseCase)
     val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase,kmpSearchUseCase)
-
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
