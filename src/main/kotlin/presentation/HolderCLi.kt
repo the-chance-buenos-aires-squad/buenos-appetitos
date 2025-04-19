@@ -1,9 +1,11 @@
 package org.example.presentation
 
+import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.*
 import org.example.model.Recipe
 import LovePotatoUseCase
 import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
 class HolderCLi(
@@ -14,9 +16,11 @@ class HolderCLi(
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
-    private val getHighCalorieCli: GetHighCalorieCli,
+    private val getHighCalorieUseCase: GetHighCalorieUseCase,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
-    private val lovePotatoUseCase: LovePotatoUseCase
+    private val lovePotatoUseCase: LovePotatoUseCase,
+    private val gymMealsUseCase: GymMealsUseCase,
+    private val ingredientGameUseCase: IngredientGameUseCase
 ) {
 
     fun startCLI() {
@@ -43,7 +47,7 @@ class HolderCLi(
             println("Enter your choice: ")
 
             when (scanner.nextLine()) {
-                "1" -> showHealthyFastFood()
+                "1" -> GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase).start()
                 "2" -> searchMealsByName(scanner)
                 "3" -> showIraqiMeals()
                 "4" -> showEasyFoodSuggestions()
@@ -55,7 +59,7 @@ class HolderCLi(
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
                 "12" -> findPotatoDishes()
-                "13" -> getHighCalorieCli.start()
+                "13" -> GetHighCalorieCli(getHighCalorieUseCase).start()
                 "14" -> seafoodByProteinContent()
                 "15" -> italianGroupMeals()
                 "0" -> {
@@ -68,8 +72,9 @@ class HolderCLi(
         }
     }
 
-    private fun showHealthyFastFood() {
-        getHealthyFastFoodMealsUseCase.getHealthyFastFood().forEach {
+    private fun showHealthyFastFood(useCases: UseCaseHolder) {
+        val healthyFastFoodMeals = GetHealthyFastFoodMealsUseCase(useCases.repository)
+        healthyFastFoodMeals.getHealthyFastFood().forEach {
             println(it.name)
         }
     }
@@ -156,8 +161,66 @@ class HolderCLi(
         /* TODO */
     }
 
+    private fun playIngredientGame() {
+        val scanner = Scanner(System.`in`)
+        var score = 0
+
+        println("🎮 Welcome to the INGREDIENT GAME!")
+        println("✅ One point per correct answer. ❌ Game ends on wrong answer.")
+
+        repeat(15) {
+            val round = ingredientGameUseCase.generateRound()
+
+            println("\n🍽️ Meal: ${round.meal.name}")
+            println("Which of the following is an ingredient?")
+            round.options.forEachIndexed { index, option ->
+                println("${index + 1}. $option")
+            }
+
+            print("Your choice (1–3): ")
+            val choice = scanner.nextLine().toIntOrNull()
+            val selected = round.options.getOrNull((choice ?: 0) - 1)
+
+            if (ingredientGameUseCase.checkAnswer(selected, round.correct)) {
+                score += 1000
+                println("✅ Correct! Your score: $score")
+            } else {
+                println("❌ Wrong! The correct answer was: ${round.correct}")
+                println("🎯 Final Score: $score")
+                return
+            }
+        }
+
+        println("\n🎉 You completed all rounds! Final Score: $score")
+    }
+
+
     private fun gymHelper() {
-        /* TODO */
+        val scanner = Scanner(System.`in`)
+
+        println("🏋️ Welcome to the Gym Helper!")
+
+        try {
+            print("Enter desired calories: ")
+            val caloriesInput = scanner.nextLine()
+            val calories = caloriesInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid calories input.")
+
+            print("Enter desired protein (grams): ")
+            val proteinInput = scanner.nextLine()
+            val protein = proteinInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid protein input.")
+
+            val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
+
+            if (meals.isEmpty()) {
+                println("❌ No meals found matching your fitness needs.")
+            } else {
+                println("✅ Meals matching your goals:")
+                gymMealsUseCase.printMealList(meals)
+            }
+
+        } catch (e: Exception) {
+            println("⚠️ Error: ${e.message}")
+        }
     }
 
     private fun exploreFoodCultures() {
@@ -172,12 +235,6 @@ class HolderCLi(
             println("Error: ${exception.message}")
         }
     }
-
-
-    private fun playIngredientGame() {
-        /* TODO */
-    }
-
 
     private fun findPotatoDishes() {
         try {
