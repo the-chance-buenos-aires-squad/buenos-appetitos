@@ -3,7 +3,6 @@ package org.example.presentation
 import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.*
 import org.example.model.Recipe
-import LovePotatoUseCase
 import org.example.logic.useCases.GuessGameUseCase
 import java.util.*
 
@@ -11,14 +10,16 @@ class HolderCLi(
     private val searchFoodByAddDateClI: SearchFoodByDateCLI,
     private val healthyFoodMealsCLI: GetHealthyFoodMealsCLI,
     private val guessGameCli: GuessGameCli,
+    private val searchMealsByNameCLI: SearchMealsByNameCLI,
+    private val guessGameUseCase: GuessGameUseCase,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
-    private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
+    private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianRecipesForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
-    private val getHighCalorieUseCase: GetHighCalorieUseCase,
+    private val highCalorieCli: GetHighCalorieCli,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
-    private val lovePotatoUseCase: LovePotatoUseCase,
+    private val getLovePotatoCLI: GetLovePotatoCLI,
     private val gymMealsUseCase: GymMealsUseCase,
     private val ingredientGameUseCase: IngredientGameUseCase
 ) {
@@ -48,7 +49,7 @@ class HolderCLi(
 
             when (scanner.nextLine()) {
                 "1" -> healthyFoodMealsCLI.start()
-                "2" -> searchMealsByName(scanner)
+                "2" -> searchMealsByNameCLI.start()
                 "3" -> showIraqiMeals()
                 "4" -> showEasyFoodSuggestions()
                 "5" -> guessGameCli.play()
@@ -58,10 +59,10 @@ class HolderCLi(
                 "9" -> gymHelper()
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
-                "12" -> findPotatoDishes()
-                "13" -> GetHighCalorieCli(getHighCalorieUseCase).start()
+                "12" -> getLovePotatoCLI.start()
+                "13" -> highCalorieCli.start()
                 "14" -> seafoodByProteinContent()
-                "15" -> italianGroupMeals()
+                "15" -> GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase).start()
                 "0" -> {
                     println("Thank you for using Food Change Mood!")
                     return
@@ -72,10 +73,6 @@ class HolderCLi(
         }
     }
 
-
-    private fun searchMealsByName(scanner: Scanner) {
-        /* TODO */
-    }
 
     private fun showIraqiMeals() {
 
@@ -106,10 +103,6 @@ class HolderCLi(
     }
 
     private fun ketoDietHelper() {
-        /* TODO */
-    }
-
-    private fun searchFoodsByDate() {
         /* TODO */
     }
 
@@ -188,34 +181,12 @@ class HolderCLi(
         }
     }
 
-    private fun findPotatoDishes() {
-        try {
-            val randomPotatoRecipes = lovePotatoUseCase.getRandomPotatoRecipes()
-            println("\nI Love Potato: 10 Random Recipes with Potatoes")
-            println("============================================")
-            randomPotatoRecipes.forEachIndexed { index, recipe ->
-                println("${index + 1}. ${recipe.name}")
-                println("   Cooking Time: ${recipe.minutes} minutes")
-                println("   Ingredients: ${recipe.ingredients}")
-            }
 
-        } catch (exception: Exception) {
-            println("Error: ${exception.message}")
-            throw exception
-        }
-    }
 
 
     private fun seafoodByProteinContent() {
         getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
             println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
-        }
-    }
-
-
-    private fun italianGroupMeals() {
-        suggestItalianMealsForLargeGroupsUseCase.getItalianMealsForLargeGroups().forEach {
-            println(it.name)
         }
     }
 
