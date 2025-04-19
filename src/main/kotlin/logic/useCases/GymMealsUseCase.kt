@@ -9,17 +9,9 @@ class GymMealsUseCase(private val repository: RecipesRepository) {
         targetProtein: Int,
         tolerance: Int = 50
     ): List<Recipe> {
-        return repository.getRecipes().filter { recipe ->
-            val calories = recipe.nutrition.calories
-            val protein = recipe.nutrition.protein
-
-            abs(calories - targetCalories) <= tolerance &&
-                    abs(protein - targetProtein) <= tolerance
-        }.sortedBy {
-            val calories = it.nutrition.calories
-            val protein = it.nutrition.protein
-            abs(calories - targetCalories) + abs(protein - targetProtein)
-        }
+        return repository.getRecipes()
+            .filter { it.matchesNutritionTarget(targetCalories, targetProtein, tolerance) }
+            .sortedBy { it.nutritionDifferenceScore(targetCalories, targetProtein) }
     }
     fun printMealList(meals: List<Recipe>) {
         meals.forEachIndexed { index, meal ->
@@ -28,5 +20,24 @@ class GymMealsUseCase(private val repository: RecipesRepository) {
             println("${index + 1}. ${meal.name} — Calories: ${cals.toInt()}, Protein: ${"%.1f".format(prot)}g")
         }
     }
+    private fun Recipe.matchesNutritionTarget(
+        targetCalories: Int,
+        targetProtein: Int,
+        tolerance: Int
+    ): Boolean {
+        val cal = this.nutrition.calories
+        val prot = this.nutrition.protein
+        return abs(cal - targetCalories) <= tolerance &&
+                abs(prot - targetProtein) <= tolerance
+    }
 
+
+    private fun Recipe.nutritionDifferenceScore(
+        targetCalories: Int,
+        targetProtein: Int
+    ): Double {
+        val cal = this.nutrition.calories
+        val prot = this.nutrition.protein
+        return abs(cal - targetCalories) + abs(prot - targetProtein)
+    }
 }
