@@ -2,9 +2,6 @@ import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 
 class GetLovePotatoUseCase (private val repository: RecipesRepository) {
-    companion object {
-        private const val MAX_POTATO_MEALS = 10
-    }
 
     fun getRandomPotatoRecipes(): List<Recipe> {
         val allRecipes = repository.getRecipes()
@@ -16,6 +13,10 @@ class GetLovePotatoUseCase (private val repository: RecipesRepository) {
         return if (potatoRecipes.size <= MAX_POTATO_MEALS) potatoRecipes
         else potatoRecipes.shuffled().take(MAX_POTATO_MEALS)
     }
+
+    companion object {
+        private const val MAX_POTATO_MEALS = 10
+    }
 }
 
 private fun List<Recipe>.potatoLoverList(): List<Recipe> {
@@ -25,4 +26,5 @@ private fun List<Recipe>.potatoLoverList(): List<Recipe> {
                     ingredient.contains("potatoes", ignoreCase = true)
         }
     }
+
 }
