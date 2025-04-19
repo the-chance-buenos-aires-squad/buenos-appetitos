@@ -1,14 +1,12 @@
 package org.example
 
-import LovePotatoUseCase
+
+import GetLovePotatoUseCase
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
 import org.example.logic.useCases.*
-import org.example.presentation.GetHealthyFoodMealsCLI
-import org.example.presentation.GetHighCalorieCli
-import org.example.presentation.HolderCLi
-import org.example.presentation.SearchFoodByDateCLI
+import org.example.presentation.*
 import java.io.File
 
 fun main() {
@@ -27,13 +25,14 @@ fun main() {
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
-    val lovePotatoUseCase = LovePotatoUseCase(repository)
+    val lovePotatoUseCase = GetLovePotatoUseCase(repository)
     val gymMealsUseCase = GymMealsUseCase(repository)
     val ingredientGameUseCase = IngredientGameUseCase(repository)
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
     val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
+    val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -46,7 +45,7 @@ fun main() {
         getIraqiMealsUseCase,
         highCalorieCli,
         exploreOtherCountriesFoodUseCase,
-        lovePotatoUseCase,
+        lovePotatoCLI,
         gymMealsUseCase,
         ingredientGameUseCase
     )

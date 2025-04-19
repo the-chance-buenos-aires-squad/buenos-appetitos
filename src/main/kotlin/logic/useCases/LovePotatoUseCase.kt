@@ -1,17 +1,20 @@
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 
-class LovePotatoUseCase(private val repository: RecipesRepository) {
+class GetLovePotatoUseCase (private val repository: RecipesRepository) {
+    companion object {
+        private const val MAX_POTATO_MEALS = 10
+    }
 
     fun getRandomPotatoRecipes(): List<Recipe> {
         val allRecipes = repository.getRecipes()
 
-        if (allRecipes.isEmpty()) throw Exception("No recipes found")
+        if (allRecipes.isEmpty()) return emptyList()
 
         val potatoRecipes = allRecipes.potatoLoverList()
 
-        return if (potatoRecipes.size <= 10) potatoRecipes
-        else potatoRecipes.shuffled().take(10)
+        return if (potatoRecipes.size <= MAX_POTATO_MEALS) potatoRecipes
+        else potatoRecipes.shuffled().take(MAX_POTATO_MEALS)
     }
 }
 

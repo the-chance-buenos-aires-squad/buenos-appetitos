@@ -3,7 +3,6 @@ package org.example.presentation
 import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.*
 import org.example.model.Recipe
-import LovePotatoUseCase
 import org.example.logic.useCases.GuessGameUseCase
 import java.util.*
 
@@ -18,7 +17,7 @@ class HolderCLi(
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
     private val highCalorieCli: GetHighCalorieCli,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
-    private val lovePotatoUseCase: LovePotatoUseCase,
+    private val getLovePotatoCLI: GetLovePotatoCLI,
     private val gymMealsUseCase: GymMealsUseCase,
     private val ingredientGameUseCase: IngredientGameUseCase
 ) {
@@ -58,7 +57,7 @@ class HolderCLi(
                 "9" -> gymHelper()
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
-                "12" -> findPotatoDishes()
+                "12" -> getLovePotatoCLI.start()
                 "13" -> highCalorieCli.start()
                 "14" -> seafoodByProteinContent()
                 "15" -> italianGroupMeals()
@@ -226,22 +225,7 @@ class HolderCLi(
         }
     }
 
-    private fun findPotatoDishes() {
-        try {
-            val randomPotatoRecipes = lovePotatoUseCase.getRandomPotatoRecipes()
-            println("\nI Love Potato: 10 Random Recipes with Potatoes")
-            println("============================================")
-            randomPotatoRecipes.forEachIndexed { index, recipe ->
-                println("${index + 1}. ${recipe.name}")
-                println("   Cooking Time: ${recipe.minutes} minutes")
-                println("   Ingredients: ${recipe.ingredients}")
-            }
 
-        } catch (exception: Exception) {
-            println("Error: ${exception.message}")
-            throw exception
-        }
-    }
 
 
     private fun seafoodByProteinContent() {
