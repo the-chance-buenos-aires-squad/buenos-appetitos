@@ -34,7 +34,6 @@ fun main() {
     val kmpSearchUseCase = KmpSearchUseCase()
     val fuzzySearchUseCase = FuzzySearchUseCase()
     val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase,kmpSearchUseCase)
-
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
     val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
