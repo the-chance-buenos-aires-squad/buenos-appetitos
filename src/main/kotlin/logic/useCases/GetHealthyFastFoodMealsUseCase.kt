@@ -7,7 +7,7 @@ import org.example.model.Recipe
 class GetHealthyFastFoodMealsUseCase(
     private val recipesRepository:RecipesRepository
 ) {
-    fun getHealthyFastFood( numOfRecipe: Int = CommonUtilizes().defaultNumOfRecipes):List<Recipe>{
+    fun getHealthyFastFood( numOfRecipe: Int = CommonUtilizes.defaultNumOfRecipes):List<Recipe>{
         val allRecipes=recipesRepository.getRecipes()
         val recipesPreparedInFiftyMinutesOrLess= allRecipes
             .filter { healthyFastFoodConstraints(it) }
