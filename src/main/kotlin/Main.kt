@@ -9,6 +9,7 @@ import org.example.logic.useCases.*
 import org.example.presentation.GetHealthyFoodMealsCLI
 import org.example.presentation.HolderCLi
 import org.example.presentation.SearchFoodByDateCLI
+import org.example.presentation.SearchMealsByNameCLI
 
 fun main() {
     val filePath = "src/main/kotlin/data/food.csv"
@@ -26,15 +27,21 @@ fun main() {
     val highCalorieUseCase = HighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
     val lovePotatoUseCase = LovePotatoUseCase(repository)
-    val  gymMealsUseCase= GymMealsUseCase(repository)
-    val ingredientGameUseCase=IngredientGameUseCase(repository)
+    val gymMealsUseCase = GymMealsUseCase(repository)
+    val ingredientGameUseCase = IngredientGameUseCase(repository)
+    val kmpSearchUseCase = KmpSearchUseCase()
+    val fuzzySearchUseCase = FuzzySearchUseCase(kmpSearchUseCase)
+    val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase,kmpSearchUseCase)
+
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
+    val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
         getHealthyFoodMealsCLI,
+        searchMealsByNameCLI,
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
