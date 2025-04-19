@@ -1,4 +1,4 @@
-package org.example.model
+package org.example.data
 
 object RecipeIndices {
     const val NAME_INDEX = 0
