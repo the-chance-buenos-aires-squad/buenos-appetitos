@@ -5,10 +5,7 @@ import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
 import org.example.logic.useCases.*
-import org.example.presentation.GetHealthyFoodMealsCLI
-import org.example.presentation.HolderCLi
-import org.example.presentation.SearchFoodByDateCLI
-import org.example.presentation.SearchMealsByNameCLI
+import org.example.presentation.*
 import java.io.File
 
 fun main() {
@@ -37,6 +34,7 @@ fun main() {
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
     val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
+    val getHighCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -48,7 +46,7 @@ fun main() {
         suggestMealsUseCases,
         sweetsWithNoEggsUseCase,
         getIraqiMealsUseCase,
-        getHighCalorieUseCase,
+        getHighCalorieCli,
         exploreOtherCountriesFoodUseCase,
         lovePotatoUseCase,
         gymMealsUseCase,

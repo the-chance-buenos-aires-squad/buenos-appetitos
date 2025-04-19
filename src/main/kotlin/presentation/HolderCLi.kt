@@ -17,7 +17,7 @@ class HolderCLi(
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
-    private val getHighCalorieUseCase: GetHighCalorieUseCase,
+    private val getHighCalorieCli: GetHighCalorieCli,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val lovePotatoUseCase: LovePotatoUseCase,
     private val gymMealsUseCase: GymMealsUseCase,
@@ -60,7 +60,7 @@ class HolderCLi(
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
                 "12" -> findPotatoDishes()
-                "13" -> GetHighCalorieCli(getHighCalorieUseCase).start()
+                "13" -> getHighCalorieCli.start()
                 "14" -> seafoodByProteinContent()
                 "15" -> italianGroupMeals()
                 "0" -> {
