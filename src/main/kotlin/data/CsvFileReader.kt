@@ -8,7 +8,7 @@ class CsvFileReader(
 
     fun readCsvFile(): List<List<String>> {
 
-        return readCSVWithMultilineFields(csvDataFile.readText())
+        return readCSVWithMultilineFields(csvDataFile.readText()).drop(1)
     }
 
     private fun readCSVWithMultilineFields(content: String): List<List<String>> {
