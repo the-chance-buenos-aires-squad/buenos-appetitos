@@ -8,7 +8,9 @@ class SuggestItalianRecipesForLargeGroupsUseCase(
     private val recipesRepository: RecipesRepository
 ) {
 
-    fun getItalianRecipesForLargeGroups(count: Int = 10): List<Recipe> =
+
+
+    fun getItalianRecipesForLargeGroups(count: Int = CommonUtilizes.defaultNumOfRecipes): List<Recipe> =
         recipesRepository.getRecipes()
             .filterItalianRecipesForLargeGroups()
             .take(count)

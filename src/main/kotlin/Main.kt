@@ -9,6 +9,10 @@ import org.example.logic.useCases.*
 import org.example.presentation.GetHealthyFoodMealsCLI
 import org.example.presentation.HolderCLi
 import org.example.presentation.SearchFoodByDateCLI
+
+
+import org.example.presentation.*
+
 import java.io.File
 import org.example.presentation.*
 
@@ -34,6 +38,7 @@ fun main() {
     val ingredientGameUseCase = IngredientGameUseCase(repository)
     val kmpSearchUseCase = KmpSearchUseCase()
     val fuzzySearchUseCase = FuzzySearchUseCase()
+
     val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase, kmpSearchUseCase)
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
