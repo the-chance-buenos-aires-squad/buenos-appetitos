@@ -1,13 +1,13 @@
 package org.example.logic.useCases
 
 import org.example.logic.RecipesRepository
-import org.example.logic.utili.CommonUtilizes
+import org.example.logic.utili.CommonUtilizes.DEFAULT_NUM_OF_RECIPES
 import org.example.model.Recipe
 
 class GetHealthyFastFoodMealsUseCase(
     private val recipesRepository:RecipesRepository
 ) {
-    fun getHealthyFastFood( numOfRecipe: Int = CommonUtilizes.DEFAULT_NUM_OF_RECIPES):List<Recipe>{
+    fun getHealthyFastFood( numOfRecipe: Int = DEFAULT_NUM_OF_RECIPES):List<Recipe>{
         val allRecipes=recipesRepository.getRecipes()
         val recipesPreparedInFiftyMinutesOrLess= allRecipes
             .filter { healthyFastFoodConstraints(it) }
