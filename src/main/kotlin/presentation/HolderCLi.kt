@@ -10,7 +10,7 @@ import java.util.*
 class HolderCLi(
     private val searchFoodByAddDateClI: SearchFoodByDateCLI,
     private val healthyFoodMealsCLI: GetHealthyFoodMealsCLI,
-    private val guessGameUseCase: GuessGameUseCase,
+    private val guessGameCli: GuessGameCli,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
@@ -51,7 +51,7 @@ class HolderCLi(
                 "2" -> searchMealsByName(scanner)
                 "3" -> showIraqiMeals()
                 "4" -> showEasyFoodSuggestions()
-                "5" -> playGuessGame()
+                "5" -> guessGameCli.play()
                 "6" -> findSweetWithOutEgg()
                 "7" -> ketoDietHelper()
                 "8" -> searchFoodByAddDateClI.start()
@@ -92,48 +92,6 @@ class HolderCLi(
             println("No suitable meals found.")
         else
             println("Suggested meals: $meals")
-    }
-
-    private fun playGuessGame() {
-
-        val recipe = guessGameUseCase.startGame()
-        if (recipe == null) {
-            println("Error: No recipes available")
-            return
-        }
-
-        println("\nGuess Game: Try to guess the preparation time (in minutes) for this meal!")
-        println("Meal: ${recipe.name}")
-
-        while (guessGameUseCase.thereIsAttemptsLeft()) {
-            print("\nEnter your guess (minutes) [${guessGameUseCase.getAttemptsLeft()} attempts left]: ")
-
-            when (val result = guessGameUseCase.handleGuess(readLine())) {
-                is GuessGameUseCase.GuessAttemptResult.Correct -> {
-                    println("🎉 Congratulations! That's correct! The preparation time is ${result.correctTime} minutes.")
-                    break
-                }
-
-                is GuessGameUseCase.GuessAttemptResult.TooLow -> {
-                    println("Too low! Try a higher number.")
-                }
-
-                is GuessGameUseCase.GuessAttemptResult.TooHigh -> {
-                    println("Too high! Try a lower number.")
-                }
-
-                is GuessGameUseCase.GuessAttemptResult.InvalidInput -> {
-                    println(result.message)
-                }
-
-                is GuessGameUseCase.GuessAttemptResult.GameOver -> {
-                    println("\nGame Over! The correct preparation time was ${result.correctTime} minutes.")
-                    break
-                }
-            }
-        }
-
-        guessGameUseCase.resetGame()
     }
 
     private fun findSweetWithOutEgg() {
