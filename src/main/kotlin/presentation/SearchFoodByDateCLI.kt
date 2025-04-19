@@ -2,8 +2,8 @@ package org.example.presentation
 
 import org.example.logic.useCases.SearchFoodByAddDateUseCase
 import org.example.logic.useCases.SearchFoodByAddDateUseCase.Companion.DailyRecipe
-import org.example.logic.useCases.SearchFoodByAddDateUseCase.Companion.NoInputException
-import org.example.logic.useCases.SearchFoodByAddDateUseCase.Companion.NoMealFoundException
+import org.example.presentation.customExceptions.EmptyInputException
+import org.example.presentation.customExceptions.NoRecipeFoundException
 import java.time.DateTimeException
 
 class SearchFoodByDateCLI(
@@ -36,7 +36,7 @@ class SearchFoodByDateCLI(
         try {
             val dailyRecipeResult: List<DailyRecipe> = searchFoodByAddDateUseCase.searchFoodByDate(dateQuery)
             return dailyRecipeResult
-        } catch (e: NoMealFoundException) {
+        } catch (e: NoRecipeFoundException) {
             println("${e.message}")
             return emptyList()
         } catch (e: DateTimeException) {
@@ -47,7 +47,7 @@ class SearchFoodByDateCLI(
 
     private fun handleUserInput() = try {
         readUserInput()
-    } catch (e: NoInputException) {
+    } catch (e: EmptyInputException) {
         println("you didn't enter anything redirecting back to main menu")
         ""
     }
@@ -65,7 +65,7 @@ class SearchFoodByDateCLI(
 
     private fun readUserInput(): String {
         val userInput = readln()
-        if (userInput.trim().isEmpty()) throw NoInputException()
+        if (userInput.trim().isEmpty()) throw EmptyInputException()
         return userInput
     }
 
