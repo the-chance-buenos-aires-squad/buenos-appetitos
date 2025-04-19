@@ -18,7 +18,7 @@ fun main() {
     val guessGameUseCase = GuessGameUseCase(repository)
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
-    val suggestMealsUseCases = SuggestMealsUseCases(repository)
+    val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val highCalorieUseCase = HighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
@@ -32,7 +32,7 @@ fun main() {
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
-        suggestMealsUseCases,
+        getRandomEasyRecipesUseCase,
         getIraqiMealsUseCase,
         highCalorieUseCase,
         exploreOtherCountriesFoodUseCase,

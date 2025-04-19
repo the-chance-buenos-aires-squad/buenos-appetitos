@@ -15,7 +15,7 @@ class HolderCLi(
     private val guessGameUseCase: GuessGameUseCase,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
-    private val suggestMealsUseCases: SuggestMealsUseCases,
+    private val getRandomEasyRecipesUseCase: GetRandomEasyRecipesUseCase,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
     private val highCalorieUseCase: HighCalorieUseCase,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
@@ -92,7 +92,7 @@ class HolderCLi(
     }
 
     private fun showEasyFoodSuggestions() {
-        var meals = suggestMealsUseCases.suggestRandomMeals()
+        var meals = getRandomEasyRecipesUseCase.suggest()
         if (meals.isEmpty())
             println("No suitable meals found.")
         else
