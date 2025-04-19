@@ -1,6 +1,7 @@
 package org.example
 
-import LovePotatoUseCase
+
+import GetLovePotatoUseCase
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
@@ -9,16 +10,22 @@ import org.example.presentation.GetHealthyFoodMealsCLI
 import org.example.presentation.HolderCLi
 import org.example.presentation.SearchFoodByDateCLI
 
+
+import org.example.presentation.*
+
+import java.io.File
+
 fun main() {
     val filePath = "src/main/kotlin/data/food.csv"
-    val csvFileReader = CsvFileReader(filePath)
+    val file = File(filePath)
+    val csvFileReader = CsvFileReader(file)
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
     val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
     val getHealthyFastFoodMealsUseCase = GetHealthyFastFoodMealsUseCase(repository)
     val guessGameUseCase = GuessGameUseCase(repository)
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
-    val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
+    val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(repository)
     val suggestMealsUseCases = SuggestMealsUseCases(repository)
     val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
@@ -28,22 +35,33 @@ fun main() {
     val  gymMealsUseCase= GymMealsUseCase(repository)
     val ingredientGameUseCase=IngredientGameUseCase(repository)
     val getKetoRecipeUseCase=GetKetoRecipeUseCase(repository)
+    val lovePotatoUseCase = GetLovePotatoUseCase(repository)
+    val gymMealsUseCase = GymMealsUseCase(repository)
+    val ingredientGameUseCase = IngredientGameUseCase(repository)
+    val kmpSearchUseCase = KmpSearchUseCase()
+    val fuzzySearchUseCase = FuzzySearchUseCase()
+
+    val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase, kmpSearchUseCase)
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
+    val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
+    val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
+    val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
         getHealthyFoodMealsCLI,
+        searchMealsByNameCLI,
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
         suggestMealsUseCases,
         sweetsWithNoEggsUseCase,
         getIraqiMealsUseCase,
-        getHighCalorieUseCase,
+        highCalorieCli,
         exploreOtherCountriesFoodUseCase,
-        lovePotatoUseCase,
+        lovePotatoCLI,
         gymMealsUseCase,
         ingredientGameUseCase,
         getKetoRecipeUseCase
