@@ -1,6 +1,5 @@
 package org.example.presentation
 
-import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.*
 import org.example.model.Recipe
 import org.example.logic.useCases.GuessGameUseCase
@@ -11,8 +10,8 @@ class HolderCLi(
     private val healthyFoodMealsCLI: GetHealthyFoodMealsCLI,
     private val searchMealsByNameCLI: SearchMealsByNameCLI,
     private val guessGameUseCase: GuessGameUseCase,
-    private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
-    private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianRecipesForLargeGroupsUseCase,
+    private val seaFoodRankingCLI: SeaFoodRankingCLI,
+    private val suggestItalianRecipesForLargeGroupsCLI: GetSuggestItalianRecipesForLargeGroupsCLI,
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
@@ -60,8 +59,8 @@ class HolderCLi(
                 "11" -> playIngredientGame()
                 "12" -> getLovePotatoCLI.start()
                 "13" -> highCalorieCli.start()
-                "14" -> seafoodByProteinContent()
-                "15" -> GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase).start()
+                "14" -> seaFoodRankingCLI.start()
+                "15" -> suggestItalianRecipesForLargeGroupsCLI.start()
                 "0" -> {
                     println("Thank you for using Food Change Mood!")
                     return
@@ -222,14 +221,6 @@ class HolderCLi(
         }
     }
 
-
-
-
-    private fun seafoodByProteinContent() {
-        getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
-            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
-        }
-    }
 
     //region method helper for SweetWithNoEggs
     private fun getRandomEggFreeDessert(): Recipe {

@@ -44,14 +44,16 @@ fun main() {
     val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
     val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
     val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
+    val seaFoodRankingCLI = SeaFoodRankingCLI(getSeaFoodRankingByProteinUseCase)
+    val suggestItalianRecipesForLargeGroupsCLI = GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
         getHealthyFoodMealsCLI,
         searchMealsByNameCLI,
         guessGameUseCase,
-        getSeaFoodRankingByProteinUseCase,
-        suggestItalianMealsForLargeGroupsUseCase,
+        seaFoodRankingCLI,
+        suggestItalianRecipesForLargeGroupsCLI,
         suggestMealsUseCases,
         sweetsWithNoEggsUseCase,
         getIraqiMealsUseCase,
