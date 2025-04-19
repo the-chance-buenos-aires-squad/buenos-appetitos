@@ -7,7 +7,7 @@ import org.example.model.Recipe
 class GetRandomEasyRecipesUseCase(private val repository: RecipesRepository) {
     private val recipes = repository.getRecipes()
 
-    fun suggest(): List<Recipe> {
+    fun suggestEasyRecipes(): List<Recipe> {
         return recipes.getEasyRecipeList()
     }
 
