@@ -7,6 +7,7 @@ import org.example.model.Recipe
 class SuggestItalianRecipesForLargeGroupsUseCase(
     private val recipesRepository: RecipesRepository
 ) {
+
     fun getItalianRecipesForLargeGroups(count: Int = 10): List<Recipe> =
         recipesRepository.getRecipes()
             .filterItalianRecipesForLargeGroups()
