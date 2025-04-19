@@ -272,13 +272,6 @@ class HolderCLi(
         }
     }
 
-
-    private fun italianGroupMeals() {
-        suggestItalianMealsForLargeGroupsUseCase.getItalianRecipesForLargeGroups().forEach {
-            println(it.name)
-        }
-    }
-
     //region method helper for SweetWithNoEggs
     private fun getRandomEggFreeDessert(): Recipe {
         return try {

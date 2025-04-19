@@ -1,12 +1,13 @@
 package org.example.logic.useCases
 
 import org.example.logic.RecipesRepository
+import org.example.logic.utili.CommonUtilizes
 import org.example.model.Recipe
 
 class SuggestItalianRecipesForLargeGroupsUseCase(
     private val recipesRepository: RecipesRepository
 ) {
-    fun getItalianRecipesForLargeGroups(count: Int = 10): List<Recipe> =
+    fun getItalianRecipesForLargeGroups(count: Int = CommonUtilizes().defaultNumOfRecipes): List<Recipe> =
         recipesRepository.getRecipes()
             .filterItalianRecipesForLargeGroups()
             .take(count)
