@@ -1,10 +1,13 @@
-package presentation
+package org.example.presentation
 
 import org.example.logic.useCases.GymMealsUseCase
-import org.example.model.Recipe
+import org.example.data.CsvFileReader
+import org.example.data.RecipeParser
+import org.example.data.CsvRecipesRepository
+import java.io.File
 import java.util.*
 
-class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
+class GymMealsCLI {
 
     private val scanner = Scanner(System.`in`)
 
@@ -15,7 +18,8 @@ class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
             val calories = promptCalories()
             val protein = promptProtein()
 
-            val meals = fetchMatchingMeals(calories, protein)
+            val recipes = loadRecipes()
+            val meals = GymMealsUseCase(recipes).findMealsByNutrition(calories, protein)
 
             printMealResults(meals)
 
@@ -26,31 +30,27 @@ class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
 
     private fun promptCalories(): Int {
         print("Enter desired calories: ")
-        val input = scanner.nextLine()
-        return input.toIntOrNull() ?: throw IllegalArgumentException("Invalid calories input.")
+        return scanner.nextLine().toIntOrNull()
+            ?: throw IllegalArgumentException("Invalid calories input.")
     }
 
     private fun promptProtein(): Int {
         print("Enter desired protein (grams): ")
-        val input = scanner.nextLine()
-        return input.toIntOrNull() ?: throw IllegalArgumentException("Invalid protein input.")
+        return scanner.nextLine().toIntOrNull()
+            ?: throw IllegalArgumentException("Invalid protein input.")
     }
 
-    private fun fetchMatchingMeals(calories: Int, protein: Int): List<Recipe> {
-        return gymMealsUseCase.findMealsByNutrition(calories, protein)
-    }
+    private fun loadRecipes() = CsvRecipesRepository(
+        CsvFileReader(File("data/food.csv")),
+        RecipeParser()
+    ).getRecipes()
 
-    private fun printMealResults(meals: List<Recipe>) {
+    private fun printMealResults(meals: List<org.example.model.Recipe>) {
         if (meals.isEmpty()) {
             println("❌ No meals found matching your fitness needs.")
-            return
-        }
-
-        println("✅ Meals matching your goals:")
-        meals.forEachIndexed { index, meal ->
-            val cals = meal.nutrition.calories.toInt()
-            val prot = meal.nutrition.protein
-            println("${index + 1}. ${meal.name} — Calories: $cals, Protein: ${"%.1f".format(prot)}g")
+        } else {
+            println("✅ Meals matching your goals:")
+            GymMealsUseCase(meals).printMealList(meals)
         }
     }
 }

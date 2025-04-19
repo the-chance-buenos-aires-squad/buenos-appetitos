@@ -190,34 +190,13 @@ class HolderCLi(
 
 
     private fun gymHelper() {
-        val scanner = Scanner(System.`in`)
-
-        println("🏋️ Welcome to the Gym Helper!")
-
-        try {
-            print("Enter desired calories: ")
-            val caloriesInput = scanner.nextLine()
-            val calories = caloriesInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid calories input.")
-
-            print("Enter desired protein (grams): ")
-            val proteinInput = scanner.nextLine()
-            val protein = proteinInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid protein input.")
-
-            val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
-
-            if (meals.isEmpty()) {
-                println("❌ No meals found matching your fitness needs.")
-            } else {
-                println("✅ Meals matching your goals:")
-                gymMealsUseCase.printMealList(meals)
-            }
-
-        } catch (e: Exception) {
-            println("⚠️ Error: ${e.message}")
-        }
+        println("🏋️ Starting Gym Meals CLI...")
+        val cli = GymMealsCLI()
+        cli.run()
+        println("✅ Gym Meals CLI completed.")
     }
 
-    private fun exploreFoodCultures() {
+        private fun exploreFoodCultures() {
         println("\n------ Explore countries food by there name -----")
         println("Enter the country name:")
         val userInput = readlnOrNull()?.trim() ?: ""
