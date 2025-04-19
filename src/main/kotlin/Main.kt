@@ -1,6 +1,7 @@
 package org.example
 
-import LovePotatoUseCase
+
+import GetLovePotatoUseCase
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
@@ -18,13 +19,13 @@ fun main() {
     val getHealthyFastFoodMealsUseCase = GetHealthyFastFoodMealsUseCase(repository)
     val guessGameUseCase = GuessGameUseCase(repository)
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
-    val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
+    val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(repository)
     val suggestMealsUseCases = SuggestMealsUseCases(repository)
     val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
-    val lovePotatoUseCase = LovePotatoUseCase(repository)
+    val lovePotatoUseCase = GetLovePotatoUseCase(repository)
     val gymMealsUseCase = GymMealsUseCase(repository)
     val ingredientGameUseCase = IngredientGameUseCase(repository)
     val kmpSearchUseCase = KmpSearchUseCase()
@@ -33,8 +34,9 @@ fun main() {
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
+    val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
+    val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
     val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
-    val getHighCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -46,9 +48,9 @@ fun main() {
         suggestMealsUseCases,
         sweetsWithNoEggsUseCase,
         getIraqiMealsUseCase,
-        getHighCalorieCli,
+        highCalorieCli,
         exploreOtherCountriesFoodUseCase,
-        lovePotatoUseCase,
+        lovePotatoCLI,
         gymMealsUseCase,
         ingredientGameUseCase
     )
