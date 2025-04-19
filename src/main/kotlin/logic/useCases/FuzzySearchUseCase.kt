@@ -1,14 +1,10 @@
 package org.example.logic.useCases
 
-class FuzzySearchUseCase(private val kmpSearchUseCase: KmpSearchUseCase) {
+class FuzzySearchUseCase {
 
      fun isFuzzyMatch(text: String, query: String, maxDistance: Int = 2): Boolean {
         if (query.isEmpty()) return false
 
-        // Check for direct substring match first (optimization)
-        if (query.length <= text.length && kmpSearchUseCase.kmp(text, query) != -1) {
-            return true
-        }
 
         // Calculate Levenshtein distance
         val dp = Array(query.length + 1) { IntArray(text.length + 1) }

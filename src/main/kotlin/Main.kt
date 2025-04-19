@@ -28,7 +28,7 @@ fun main() {
     val gymMealsUseCase = GymMealsUseCase(repository)
     val ingredientGameUseCase = IngredientGameUseCase(repository)
     val kmpSearchUseCase = KmpSearchUseCase()
-    val fuzzySearchUseCase = FuzzySearchUseCase(kmpSearchUseCase)
+    val fuzzySearchUseCase = FuzzySearchUseCase()
     val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase,kmpSearchUseCase)
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
