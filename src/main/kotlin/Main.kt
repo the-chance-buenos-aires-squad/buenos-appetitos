@@ -9,9 +9,11 @@ import org.example.presentation.GetHealthyFoodMealsCLI
 import org.example.presentation.HolderCLi
 import org.example.presentation.SearchFoodByDateCLI
 import java.io.File
+import org.example.presentation.*
 
 fun main() {
     val filePath = "src/main/kotlin/data/food.csv"
+    val foodFile = File(filePath)
     val file = File(filePath)
     val csvFileReader = CsvFileReader(file)
     val recipeParser = RecipeParser()
@@ -29,20 +31,26 @@ fun main() {
     val lovePotatoUseCase = LovePotatoUseCase(repository)
     val gymMealsUseCase = GymMealsUseCase(repository)
     val ingredientGameUseCase = IngredientGameUseCase(repository)
+    val kmpSearchUseCase = KmpSearchUseCase()
+    val fuzzySearchUseCase = FuzzySearchUseCase()
+    val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase, kmpSearchUseCase)
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
+    val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
+    val getHighCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
         getHealthyFoodMealsCLI,
+        searchMealsByNameCLI,
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
         suggestMealsUseCases,
         sweetsWithNoEggsUseCase,
         getIraqiMealsUseCase,
-        getHighCalorieUseCase,
+        getHighCalorieCli,
         exploreOtherCountriesFoodUseCase,
         lovePotatoUseCase,
         gymMealsUseCase,

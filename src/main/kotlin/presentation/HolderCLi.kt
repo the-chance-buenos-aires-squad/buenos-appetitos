@@ -10,13 +10,14 @@ import java.util.*
 class HolderCLi(
     private val searchFoodByAddDateClI: SearchFoodByDateCLI,
     private val healthyFoodMealsCLI: GetHealthyFoodMealsCLI,
+    private val searchMealsByNameCLI: SearchMealsByNameCLI,
     private val guessGameUseCase: GuessGameUseCase,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianRecipesForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
-    private val getHighCalorieUseCase: GetHighCalorieUseCase,
+    private val getHighCalorieCli: GetHighCalorieCli,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val lovePotatoUseCase: LovePotatoUseCase,
     private val gymMealsUseCase: GymMealsUseCase,
@@ -48,7 +49,7 @@ class HolderCLi(
 
             when (scanner.nextLine()) {
                 "1" -> healthyFoodMealsCLI.start()
-                "2" -> searchMealsByName(scanner)
+                "2" -> searchMealsByNameCLI.start()
                 "3" -> showIraqiMeals()
                 "4" -> showEasyFoodSuggestions()
                 "5" -> playGuessGame()
@@ -59,7 +60,7 @@ class HolderCLi(
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
                 "12" -> findPotatoDishes()
-                "13" -> GetHighCalorieCli(getHighCalorieUseCase).start()
+                "13" -> getHighCalorieCli.start()
                 "14" -> seafoodByProteinContent()
                 "15" -> GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase).start()
                 "0" -> {
@@ -72,10 +73,6 @@ class HolderCLi(
         }
     }
 
-
-    private fun searchMealsByName(scanner: Scanner) {
-        /* TODO */
-    }
 
     private fun showIraqiMeals() {
 
@@ -148,10 +145,6 @@ class HolderCLi(
     }
 
     private fun ketoDietHelper() {
-        /* TODO */
-    }
-
-    private fun searchFoodsByDate() {
         /* TODO */
     }
 
