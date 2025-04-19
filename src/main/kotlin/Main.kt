@@ -6,6 +6,7 @@ import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
 import org.example.logic.useCases.*
+import org.example.presentation.GetRandomEasyRecipesCLi
 import org.example.presentation.HolderCLi
 
 fun main() {
@@ -18,7 +19,10 @@ fun main() {
     val guessGameUseCase = GuessGameUseCase(repository)
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
+
     val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
+    val getRandomEasyRecipesCLi = GetRandomEasyRecipesCLi(getRandomEasyRecipesUseCase)
+
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val highCalorieUseCase = HighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
@@ -32,7 +36,9 @@ fun main() {
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
-        getRandomEasyRecipesUseCase,
+
+        getRandomEasyRecipesCLi,
+
         getIraqiMealsUseCase,
         highCalorieUseCase,
         exploreOtherCountriesFoodUseCase,
