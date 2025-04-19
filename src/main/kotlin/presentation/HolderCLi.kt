@@ -6,16 +6,17 @@ import org.example.logic.useCases.*
 import org.example.model.Recipe
 import LovePotatoUseCase
 import org.example.logic.useCases.GuessGameUseCase
-import org.example.logic.useCases.UseCaseHolder
 import java.util.*
 
 class HolderCLi(
-    private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
-    private val getHealthyFastFoodMealsUseCase: GetHealthyFastFoodMealsUseCase,
+    private val searchFoodByAddDateClI: SearchFoodByDateCLI,
+    private val healthyFoodMealsCLI: GetHealthyFoodMealsCLI,
+
     private val guessGameUseCase: GuessGameUseCase,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianMealsForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
+    private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val iraqiMealsUseCase: GetIraqiMealsUseCase,
     private val highCalorieUseCase: HighCalorieUseCase,
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
@@ -48,14 +49,14 @@ class HolderCLi(
             println("Enter your choice: ")
 
             when (scanner.nextLine()) {
-                "1" -> GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase).start()
+                "1" -> healthyFoodMealsCLI.start()
                 "2" -> searchMealsByName(scanner)
                 "3" -> showIraqiMeals()
                 "4" -> showEasyFoodSuggestions()
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
                 "7" -> ketoDietHelper()
-                "8" -> searchFoodsByDate()
+                "8" -> searchFoodByAddDateClI.start()
                 "9" -> gymHelper()
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
@@ -69,12 +70,6 @@ class HolderCLi(
                 }
                 else -> println("Invalid option. Please try again.")
             }
-        }
-    }
-    private fun showHealthyFastFood(useCases: UseCaseHolder) {
-        val healthyFastFoodMeals= GetHealthyFastFoodMealsUseCase(useCases.repository)
-        healthyFastFoodMeals.getHealthyFastFood().forEach {
-            println(it.name)
         }
     }
 
@@ -156,9 +151,6 @@ class HolderCLi(
         /* TODO */
     }
 
-    private fun searchFoodsByDate() {
-        /* TODO */
-    }
     private fun playIngredientGame() {
         val scanner = Scanner(System.`in`)
         var score = 0

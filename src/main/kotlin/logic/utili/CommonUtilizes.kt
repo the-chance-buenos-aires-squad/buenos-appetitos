@@ -1,5 +1,5 @@
 package org.example.logic.utili
 
-class CommonUtilizes {
+object CommonUtilizes {
     val defaultNumOfRecipes = 50
 }
