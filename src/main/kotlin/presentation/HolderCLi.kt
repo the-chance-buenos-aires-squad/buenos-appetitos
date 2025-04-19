@@ -20,7 +20,7 @@ class HolderCLi(
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val lovePotatoUseCase: LovePotatoUseCase,
     private val gymMealsUseCase: GymMealsUseCase,
-    private val ingredientGameUseCase: IngredientGameUseCase
+    private  val ingredientGameUseCase:IngredientGameUseCase
 ) {
 
     fun startCLI() {
@@ -54,7 +54,7 @@ class HolderCLi(
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
                 "7" -> ketoDietHelper()
-                "8" -> searchFoodByAddDateClI.start()
+                "8" -> searchFoodsByDate()
                 "9" -> gymHelper()
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
@@ -294,5 +294,11 @@ class HolderCLi(
                     " \n|| Preparation Time: ${dessert.minutes} minutes \n|| Ingredients : ${dessert.ingredients}"
         )
         /*println("Desert ${dessert.name}")*/
+    }
+    private fun List<Recipe>.SwweetNoEggsList(suggestedId: Set<String>): List<Recipe> {
+        return this.filter { it.tags.any { tag -> tag.contains("dessert", ignoreCase = true) } }
+            .filter { !it.ingredients.any { ingredient -> ingredient.contains("egg", ignoreCase = true) } }
+            .filter { it.id !in suggestedId }
+
     }
 }
