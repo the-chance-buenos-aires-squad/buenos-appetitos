@@ -1,17 +1,19 @@
 package org.example
-
 import LovePotatoUseCase
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
 import org.example.logic.useCases.*
 import org.example.presentation.GetHealthyFoodMealsCLI
+import org.example.presentation.GuessGameCli
 import org.example.presentation.HolderCLi
 import org.example.presentation.SearchFoodByDateCLI
+import java.io.File
 
 fun main() {
     val filePath = "src/main/kotlin/data/food.csv"
-    val csvFileReader = CsvFileReader(filePath)
+    val file = File(filePath)
+    val csvFileReader = CsvFileReader(file)
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
     val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
@@ -30,11 +32,12 @@ fun main() {
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
-
+    val randomRecipeUseCase =RandomRecipeUseCase(repository)
+    val guessGameCli = GuessGameCli(guessGameUseCase ,randomRecipeUseCase )
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
         getHealthyFoodMealsCLI,
-        guessGameUseCase,
+        guessGameCli,
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
         suggestMealsUseCases,
