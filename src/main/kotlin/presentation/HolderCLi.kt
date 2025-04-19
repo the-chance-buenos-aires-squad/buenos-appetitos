@@ -20,8 +20,8 @@ class HolderCLi(
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val getLovePotatoCLI: GetLovePotatoCLI,
     private val gymMealsUseCase: GymMealsUseCase,
-    private val ingredientGameUseCase:IngredientGameUseCase,
-    private val getKetoRecipeUseCase: GetKetoRecipeUseCase
+    private  val ingredientGameUseCase:IngredientGameUseCase,
+    private val getKetoDietRecipeHelperCLI: GetKetoDietRecipeHelperCLI
 ) {
 
     fun startCLI() {
@@ -54,8 +54,8 @@ class HolderCLi(
                 "4" -> showEasyFoodSuggestions()
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
-                "7" -> GetKetoDietRecipeHelperCLI(getKetoRecipeUseCase).start()
-                "8" -> searchFoodsByDate()
+                "7" -> getKetoDietRecipeHelperCLI.start()
+                "8" -> searchFoodByAddDateClI.start()
                 "9" -> gymHelper()
                 "10" -> exploreFoodCultures()
                 "11" -> playIngredientGame()
@@ -144,9 +144,7 @@ class HolderCLi(
 
     }
 
-    private fun ketoDietHelper() {
-        /* TODO */
-    }
+
 
     private fun playIngredientGame() {
         val scanner = Scanner(System.`in`)

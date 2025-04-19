@@ -45,6 +45,7 @@ fun main() {
     val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
     val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
     val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
+    val getKetoDietRecipeHelperCLI = GetKetoDietRecipeHelperCLI(getKetoRecipeUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -61,7 +62,7 @@ fun main() {
         lovePotatoCLI,
         gymMealsUseCase,
         ingredientGameUseCase,
-        getKetoRecipeUseCase
+        getKetoDietRecipeHelperCLI
 
     )
 
