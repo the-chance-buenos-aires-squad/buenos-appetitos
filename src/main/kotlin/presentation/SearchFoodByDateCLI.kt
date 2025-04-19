@@ -1,7 +1,8 @@
 package org.example.presentation
 
 import org.example.logic.useCases.SearchFoodByAddDateUseCase
-import org.example.logic.useCases.SearchFoodByAddDateUseCase.Companion.DailyRecipe
+import org.example.logic.useCases.SearchFoodByAddDateUseCase.DailyRecipe
+import org.example.model.Recipe
 import org.example.presentation.customExceptions.EmptyInputException
 import org.example.presentation.customExceptions.NoRecipeFoundException
 import java.time.DateTimeException
@@ -56,7 +57,8 @@ class SearchFoodByDateCLI(
     private fun getChosenRecipe() {
         println("please choose which recipe you want to show more details....\n:")
         val chosenRecipeId: String = handleUserInput()
-        val detailedRecipe = searchFoodByAddDateUseCase.repository.getRecipes().find { it.id == chosenRecipeId }
+        val detailedRecipe:Recipe = searchFoodByAddDateUseCase.getDetailedRecipeById(chosenRecipeId)
+//        println(detailedRecipe)
         TODO("use extension display function from Amr4X4")
     }
 

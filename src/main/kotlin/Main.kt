@@ -7,6 +7,7 @@ import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
 import org.example.logic.useCases.*
 import org.example.presentation.HolderCLi
+import org.example.presentation.SearchFoodByDateCLI
 
 fun main() {
     val filePath = "src/main/kotlin/data/food.csv"
@@ -20,6 +21,7 @@ fun main() {
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
     val suggestMealsUseCases = SuggestMealsUseCases(repository)
     val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
+    val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val highCalorieUseCase = HighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
@@ -31,7 +33,7 @@ fun main() {
         getSeaFoodRankingByProteinUseCase,
         suggestItalianMealsForLargeGroupsUseCase,
         suggestMealsUseCases,
-        searchFoodByAddDateUseCase,
+        searchFoodByDateCLI,
         getIraqiMealsUseCase,
         highCalorieUseCase,
         exploreOtherCountriesFoodUseCase,
