@@ -21,7 +21,10 @@ class HolderCLi(
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val LovePotatoUseCase: LovePotatoUseCase,
     private val gymMealsUseCase: GymMealsUseCase,
-    private  val ingredientGameUseCase:IngredientGameUseCase
+    private  val ingredientGameUseCase:IngredientGameUseCase,
+
+    private val exploreRecipesByCountryCli: ExploreRecipesByCountryCli,
+    private val iraqiRecipesCli: IraqiRecipesCli
 ) {
 
     fun startCLI() {
@@ -50,14 +53,14 @@ class HolderCLi(
             when (scanner.nextLine()) {
                 "1" -> GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase).start()
                 "2" -> searchMealsByName(scanner)
-                "3" -> showIraqiMeals()
+                "3" -> iraqiRecipesCli.startCli()
                 "4" -> showEasyFoodSuggestions()
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
                 "7" -> ketoDietHelper()
                 "8" -> searchFoodsByDate()
                 "9" -> gymHelper()
-                "10" -> exploreFoodCultures()
+                "10" -> exploreRecipesByCountryCli.startCli()
                 "11" -> playIngredientGame()
                 "12" -> findPotatoDishes()
                 "13" -> highCalorieMeals()

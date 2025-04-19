@@ -26,6 +26,12 @@ fun main() {
     val  gymMealsUseCase= GymMealsUseCase(repository)
     val ingredientGameUseCase=IngredientGameUseCase(repository)
 
+    val exploreRecipesByCountryUseCase = ExploreRecipesByCountryUseCase(repository)
+    val exploreRecipesByCountryCli = ExploreRecipesByCountryCli(exploreRecipesByCountryUseCase)
+
+    val iraqiRecipesUseCase = IdentifyIraqiRecipesUseCase(repository)
+    val iraqiRecipesCli = IraqiRecipesCli(iraqiRecipesUseCase)
+
     val holderCli = HolderCLi(
         sweetsWithNoEggsUseCase,
         getHealthyFastFoodMealsUseCase,
@@ -38,7 +44,9 @@ fun main() {
         exploreOtherCountriesFoodUseCase,
         lovePotatoUseCase,
         gymMealsUseCase,
-        ingredientGameUseCase
+        ingredientGameUseCase,
+        exploreRecipesByCountryCli,
+        iraqiRecipesCli
     )
     holderCli.startCLI()
 
