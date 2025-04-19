@@ -9,6 +9,7 @@ import java.util.*
 class HolderCLi(
     private val searchFoodByAddDateClI: SearchFoodByDateCLI,
     private val healthyFoodMealsCLI: GetHealthyFoodMealsCLI,
+    private val searchMealsByNameCLI: SearchMealsByNameCLI,
     private val guessGameUseCase: GuessGameUseCase,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianRecipesForLargeGroupsUseCase,
@@ -47,7 +48,7 @@ class HolderCLi(
 
             when (scanner.nextLine()) {
                 "1" -> healthyFoodMealsCLI.start()
-                "2" -> searchMealsByName(scanner)
+                "2" -> searchMealsByNameCLI.start()
                 "3" -> showIraqiMeals()
                 "4" -> showEasyFoodSuggestions()
                 "5" -> playGuessGame()
@@ -71,10 +72,6 @@ class HolderCLi(
         }
     }
 
-
-    private fun searchMealsByName(scanner: Scanner) {
-        /* TODO */
-    }
 
     private fun showIraqiMeals() {
 
