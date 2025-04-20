@@ -37,7 +37,11 @@ class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsU
                     displayLikedDessertDetails(dessert)
                     return
                 }
-                2 -> start()
+                2 -> {
+                    val dessert2 = getRandomEggFreeDessert()
+                    displayLikedDessertDetails(dessert2)
+                    return
+                }
                 3 -> {
                     println("Exiting...")
                     return
