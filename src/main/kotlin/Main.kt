@@ -27,37 +27,49 @@ fun main() {
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
 
-    val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
-    val getHealthyFastFoodMealsUseCase = GetHealthyFastFoodMealsUseCase(repository)
-    val guessGameUseCase = GuessGameUseCase(repository)
-    val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
-    val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(repository)
     val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
-    val getIraqiMealsUseCase = IdentifyIraqiRecipesUseCase(repository)
-    val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
-    val getKetoRecipeUseCase=GetKetoRecipeUseCase(repository)
-    val lovePotatoUseCase = GetLovePotatoUseCase(repository)
-    val gymMealsUseCase = GymMealsUseCase(repository)
-    val ingredientGameUseCase = IngredientGameUseCase(repository)
+    val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
+
+    val getHealthyFastFoodMealsUseCase = GetHealthyFastFoodMealsUseCase(repository)
+    val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
+
     val kmpSearchUseCase = KmpSearchUseCase()
     val fuzzySearchUseCase = FuzzySearchUseCase()
     val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase, kmpSearchUseCase)
-    val exploreRecipesByCountryUseCase = ExploreRecipesByCountryUseCase(repository)
-
-    val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
-    val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
-    val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
-    val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
     val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
-    val getKetoDietRecipeHelperCLI = GetKetoDietRecipeHelperCLI(getKetoRecipeUseCase)
-    val exploreRecipesByCountryCli = ExploreRecipesByCountryCli(exploreRecipesByCountryUseCase)
-    val iraqiRecipesCli = IraqiRecipesCli(getIraqiMealsUseCase)
+
+    val guessGameUseCase = GuessGameUseCase(repository)
+
+    val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
+    val seaFoodRankingCLI = SeaFoodRankingCLI(getSeaFoodRankingByProteinUseCase)
+
+    val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(repository)
+    val suggestItalianRecipesForLargeGroupsCLI = GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
 
     val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
     val getRandomEasyRecipesCLi = GetRandomEasyRecipesCLi(getRandomEasyRecipesUseCase)
 
-    val seaFoodRankingCLI = SeaFoodRankingCLI(getSeaFoodRankingByProteinUseCase)
-    val suggestItalianRecipesForLargeGroupsCLI = GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
+    val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
+
+    val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
+    val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
+
+    val lovePotatoUseCase = GetLovePotatoUseCase(repository)
+    val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
+
+    val gymMealsUseCase = GymMealsUseCase(repository)
+    val gymMealsCLI = GymMealsCLI(gymMealsUseCase)
+
+    val ingredientGameUseCase = IngredientGameUseCase(repository)
+
+    val exploreRecipesByCountryUseCase = ExploreRecipesByCountryUseCase(repository)
+    val exploreRecipesByCountryCli = ExploreRecipesByCountryCli(exploreRecipesByCountryUseCase)
+
+    val getIraqiMealsUseCase = IdentifyIraqiRecipesUseCase(repository)
+    val iraqiRecipesCli = IraqiRecipesCli(getIraqiMealsUseCase)
+
+    val getKetoRecipeUseCase=GetKetoRecipeUseCase(repository)
+    val getKetoDietRecipeHelperCLI = GetKetoDietRecipeHelperCLI(getKetoRecipeUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -70,7 +82,7 @@ fun main() {
         sweetsWithNoEggsUseCase,
         highCalorieCli,
         lovePotatoCLI,
-        gymMealsUseCase,
+        gymMealsCLI,
         ingredientGameUseCase,
         exploreRecipesByCountryCli,
         iraqiRecipesCli,

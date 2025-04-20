@@ -7,9 +7,8 @@ import java.util.*
 class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
 
     private val scanner = Scanner(System.`in`)
-    private val form = RecipesForm()
 
-    fun run() {
+    fun start() {
         println("🍽️ Welcome to the Gym Helper!")
 
         try {
@@ -22,7 +21,7 @@ class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
                 println("❌ No meals found matching your fitness needs.")
             } else {
                 println("✅ Meals matching your goals:")
-                meals.forEach { form.printingRecipes(it) }
+                meals.forEach { printingRecipes(it) }
             }
 
         } catch (e: Exception) {
