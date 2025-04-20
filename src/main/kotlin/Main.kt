@@ -50,6 +50,7 @@ fun main() {
     val getRandomEasyRecipesCLi = GetRandomEasyRecipesCLi(getRandomEasyRecipesUseCase)
 
     val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
+    val sweetsWithNoEggsCLi = SweetsWithNoEggsCLi(sweetsWithNoEggsUseCase)
 
     val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
     val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
@@ -79,7 +80,7 @@ fun main() {
         seaFoodRankingCLI,
         suggestItalianRecipesForLargeGroupsCLI,
         getRandomEasyRecipesCLi,
-        sweetsWithNoEggsUseCase,
+        sweetsWithNoEggsCLi,
         highCalorieCli,
         lovePotatoCLI,
         gymMealsCLI,
