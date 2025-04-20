@@ -1,7 +1,9 @@
+package org.example.logic.useCases
+
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 
-class HighCalorieUseCase(private val repository: RecipesRepository) {
+class GetHighCalorieUseCase(private val repository: RecipesRepository) {
 
     private val suggestedHighCalorieIds = mutableSetOf<String>()
 
@@ -22,8 +24,7 @@ class HighCalorieUseCase(private val repository: RecipesRepository) {
 }
 
 private fun List<Recipe>.highCalorieList(
-    minCalories: Int,
-    suggestedIds: Set<String>
+    minCalories: Int, suggestedIds: Set<String>
 ): List<Recipe> {
     return this.filter { it.nutrition.calories > minCalories && it.id !in suggestedIds }
 }

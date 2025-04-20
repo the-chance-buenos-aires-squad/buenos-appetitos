@@ -1,18 +1,16 @@
 package org.example.data
 
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.util.stream.Collectors
+import java.io.File
 
-class CsvFileReader(val filePath: String ) {
-    
-      fun readCsvFile(): List<List<String>> {
+class CsvFileReader(
+    private val csvDataFile: File
+) {
 
-        return Files.lines(Paths.get(filePath))
-            .skip(1) 
-            .collect(Collectors.joining("\n"))
-            .let { readCSVWithMultilineFields(it) }
+    fun readCsvFile(): List<List<String>> {
+
+        return readCSVWithMultilineFields(csvDataFile.readText()).drop(1)
     }
+
     private fun readCSVWithMultilineFields(content: String): List<List<String>> {
         val records = mutableListOf<List<String>>()
         val fields = mutableListOf<String>()
@@ -33,10 +31,12 @@ class CsvFileReader(val filePath: String ) {
                         inQuotes = !inQuotes
                     }
                 }
+
                 char == ',' && !inQuotes -> {
                     fields.add(currentField.toString().trim())
                     currentField.clear()
                 }
+
                 char == '\n' && !inQuotes -> {
                     fields.add(currentField.toString().trim())
                     if (fields.isNotEmpty()) {
@@ -45,6 +45,7 @@ class CsvFileReader(val filePath: String ) {
                     }
                     currentField.clear()
                 }
+
                 else -> {
                     currentField.append(char)
                 }
