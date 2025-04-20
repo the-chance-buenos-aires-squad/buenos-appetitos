@@ -5,6 +5,7 @@ import org.example.logic.useCases.SearchFoodByAddDateUseCase.DailyRecipe
 import org.example.model.Recipe
 import org.example.presentation.customExceptions.EmptyInputException
 import org.example.presentation.customExceptions.NoRecipeFoundException
+import org.example.presentation.displyUtils.displayDetails
 import java.time.DateTimeException
 
 class SearchFoodByDateCLI(
@@ -58,7 +59,7 @@ class SearchFoodByDateCLI(
         println("please choose which recipe you want to show more details....\n:")
         val chosenRecipeId: String = handleUserInput()
         val detailedRecipe:Recipe = searchFoodByAddDateUseCase.getDetailedRecipeById(chosenRecipeId)
-        printingRecipes(detailedRecipe)
+        detailedRecipe.displayDetails()
     }
 
 

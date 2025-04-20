@@ -2,9 +2,7 @@ package org.example.presentation
 
 import ExploreRecipesByCountryCli
 import IraqiRecipesCli
-import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.*
-import org.example.model.Recipe
 import org.example.logic.useCases.GuessGameUseCase
 import java.util.*
 
@@ -16,7 +14,7 @@ class HolderCLi(
     private val seaFoodRankingCLI: SeaFoodRankingCLI,
     private val suggestItalianRecipesForLargeGroupsCLI: GetSuggestItalianRecipesForLargeGroupsCLI,
     private val getRandomEasyRecipesCli: GetRandomEasyRecipesCLi,
-    private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
+    private val sweetsWithNoEggsCLi: SweetsWithNoEggsCLi,
     private val highCalorieCli: GetHighCalorieCli,
     private val getLovePotatoCLI: GetLovePotatoCLI,
     private val gymMealsCLI: GymMealsCLI,
@@ -55,7 +53,7 @@ class HolderCLi(
                 "3" -> iraqiRecipesCli.startCli()
                 "4" -> getRandomEasyRecipesCli.suggestRandomRecipes()
                 "5" -> playGuessGame()
-                "6" -> findSweetWithOutEgg()
+                "6" -> sweetsWithNoEggsCLi.start()
                 "7" -> getKetoDietRecipeHelperCLI.start()
                 "8" -> searchFoodByAddDateClI.start()
                 "9" -> gymMealsCLI.start()
@@ -118,16 +116,7 @@ class HolderCLi(
         guessGameUseCase.resetGame()
     }
 
-    private fun findSweetWithOutEgg() {
 
-        println("\n------ Sweet without egg -----")
-        val dessert = getRandomEggFreeDessert()
-        println("\n1 - Like this dessert")
-        println("2 - Dislike (show another option)")
-        println("3 - Exit")
-        handleDessertUserChoice(dessert)
-
-    }
 
 
     private fun playIngredientGame() {
@@ -163,46 +152,5 @@ class HolderCLi(
         println("\n🎉 You completed all rounds! Final Score: $score")
     }
 
-    //region method helper for SweetWithNoEggs
-    private fun getRandomEggFreeDessert(): Recipe {
-        return try {
-            val meal = sweetsWithNoEggsUseCase.getRandomSweetsNoEggs()
-            println("|| Name: ${meal.name} || Description: ${meal.description}")
-            meal
-        } catch (exception: Exception) {
-            println("Error: ${exception.message}")
-            throw exception
-        }
-    }
 
-    private fun handleDessertUserChoice(dessert: Recipe) {
-        print("Please choose (1-3): ")
-        while (true) {
-            val likeOrNoInput = readln().toIntOrNull()
-            when (likeOrNoInput) {
-                1 -> {
-                    displayLikedDessertDetails(dessert)
-                    return
-                }
-
-                2 -> findSweetWithOutEgg()
-                3 -> {
-                    println("Exiting...")
-                    return
-                }
-
-                else -> println("Invalid input. Please enter 1 = Like , 2 = Dislike, or 3 = Exit.")
-            }
-        }
-    }
-
-    private fun displayLikedDessertDetails(dessert: Recipe) {
-        println("Thank you for your choice!")
-        println(
-            "|| Dessert Name : ${dessert.name} \n|| Dessert Description : ${dessert.description}" +
-                    " \n|| Preparation Time: ${dessert.minutes} minutes \n|| Ingredients : ${dessert.ingredients}"
-        )
-        /*println("Desert ${dessert.name}")*/
-    }
-    //endregion
 }
