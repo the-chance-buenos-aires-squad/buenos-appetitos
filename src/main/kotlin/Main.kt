@@ -1,8 +1,8 @@
 package org.example
 
-import org.example.dependencyInjection.dataModule
-import org.example.dependencyInjection.presentationModule
-import org.example.dependencyInjection.useCaseModule
+import di.dataModule
+import di.presentationModule
+import di.useCaseModule
 import org.example.presentation.HolderCLi
 import org.koin.core.context.startKoin
 import org.koin.java.KoinJavaComponent.getKoin

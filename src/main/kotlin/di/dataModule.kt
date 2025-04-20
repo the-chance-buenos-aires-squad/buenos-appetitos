@@ -1,4 +1,4 @@
-package org.example.dependencyInjection
+package di
 
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
