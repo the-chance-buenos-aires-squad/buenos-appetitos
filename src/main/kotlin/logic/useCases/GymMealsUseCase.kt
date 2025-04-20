@@ -1,32 +1,23 @@
 package org.example.logic.useCases
-import org.example.model.Recipe
+
 import org.example.logic.RecipesRepository
-import kotlin.math.abs
+import org.example.model.Recipe
+import java.lang.Math.abs
 
 class GymMealsUseCase(private val repository: RecipesRepository) {
-    fun findMealsByNutrition(
-        targetCalories: Int,
-        targetProtein: Int,
-        tolerance: Int = 50
-    ): List<Recipe> {
-        return repository.getRecipes().filter { recipe ->
-            val calories = recipe.nutrition.calories
-            val protein = recipe.nutrition.protein
 
-            abs(calories - targetCalories) <= tolerance &&
-                    abs(protein - targetProtein) <= tolerance
-        }.sortedBy {
-            val calories = it.nutrition.calories
-            val protein = it.nutrition.protein
-            abs(calories - targetCalories) + abs(protein - targetProtein)
-        }
-    }
-    fun printMealList(meals: List<Recipe>) {
-        meals.forEachIndexed { index, meal ->
-            val cals = meal.nutrition.calories
-            val prot = meal.nutrition.protein
-            println("${index + 1}. ${meal.name} — Calories: ${cals.toInt()}, Protein: ${"%.1f".format(prot)}g")
-        }
+    fun findMealsByNutrition(calories: Int, protein: Int, tolerance: Int = 50): List<Recipe> {
+        return repository.getRecipes()
+            .filter { it.matchesNutritionTarget(calories, protein, tolerance) }
+            .sortedBy { it.nutritionDifferenceScore(calories, protein) }
     }
 
+    private fun Recipe.matchesNutritionTarget(cals: Int, prot: Int, tolerance: Int): Boolean {
+        return abs(nutrition.calories - cals) <= tolerance &&
+                abs(nutrition.protein - prot) <= tolerance
+    }
+
+    private fun Recipe.nutritionDifferenceScore(cals: Int, prot: Int): Double {
+        return abs(nutrition.calories - cals) + abs(nutrition.protein - prot)
+    }
 }

@@ -58,8 +58,7 @@ class SearchFoodByDateCLI(
         println("please choose which recipe you want to show more details....\n:")
         val chosenRecipeId: String = handleUserInput()
         val detailedRecipe:Recipe = searchFoodByAddDateUseCase.getDetailedRecipeById(chosenRecipeId)
-//        println(detailedRecipe)
-        TODO("use extension display function from Amr4X4")
+        printingRecipes(detailedRecipe)
     }
 
 
