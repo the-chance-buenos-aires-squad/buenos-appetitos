@@ -28,6 +28,8 @@ val presentationModule = module {
 
     single { GymMealsCLI(get()) }
 
+    single { SweetsWithNoEggsCLi(get()) }
+
     single { SearchFoodByDateCLI(get()) }
 
     single { SearchMealsByNameCLI(get()) }
