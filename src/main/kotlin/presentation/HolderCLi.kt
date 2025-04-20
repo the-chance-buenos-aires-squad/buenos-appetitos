@@ -1,5 +1,8 @@
 package org.example.presentation
 
+import ExploreRecipesByCountryCli
+import IdentifyIraqiRecipesUseCase
+import IraqiRecipesCli
 import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.*
 import org.example.model.Recipe
@@ -15,13 +18,10 @@ class HolderCLi(
     private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianRecipesForLargeGroupsUseCase,
     private val suggestMealsUseCases: SuggestMealsUseCases,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
-    private val iraqiMealsUseCase: GetIraqiMealsUseCase,
     private val highCalorieCli: GetHighCalorieCli,
-    private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val getLovePotatoCLI: GetLovePotatoCLI,
     private val gymMealsUseCase: GymMealsUseCase,
-    private  val ingredientGameUseCase:IngredientGameUseCase,
-
+    private val ingredientGameUseCase: IngredientGameUseCase,
     private val exploreRecipesByCountryCli: ExploreRecipesByCountryCli,
     private val iraqiRecipesCli: IraqiRecipesCli,
     private val getKetoDietRecipeHelperCLI: GetKetoDietRecipeHelperCLI
@@ -51,12 +51,9 @@ class HolderCLi(
             println("Enter your choice: ")
 
             when (scanner.nextLine()) {
-                "1" -> GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase).start()
-                "2" -> searchMealsByName(scanner)
-                "3" -> iraqiRecipesCli.startCli()
                 "1" -> healthyFoodMealsCLI.start()
                 "2" -> searchMealsByNameCLI.start()
-                "3" -> showIraqiMeals()
+                "3" -> iraqiRecipesCli.startCli()
                 "4" -> showEasyFoodSuggestions()
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
@@ -79,15 +76,6 @@ class HolderCLi(
         }
     }
 
-
-    private fun showIraqiMeals() {
-
-        val iraqiMeals = iraqiMealsUseCase.execute()
-        println("Iraqi Meals:")
-        iraqiMeals.forEach {
-            println(it.name)
-        }
-    }
 
     private fun showEasyFoodSuggestions() {
         var meals = suggestMealsUseCases.suggestRandomMeals()
@@ -149,7 +137,6 @@ class HolderCLi(
         handleDessertUserChoice(dessert)
 
     }
-
 
 
     private fun playIngredientGame() {
@@ -214,21 +201,6 @@ class HolderCLi(
         }
     }
 
-    private fun exploreFoodCultures() {
-        println("\n------ Explore countries food by there name -----")
-        println("Enter the country name:")
-        val userInput = readlnOrNull()?.trim() ?: ""
-        try {
-            exploreOtherCountriesFoodUseCase.searchCountryName(userInput).forEach {
-                println(it.name)
-            }
-        } catch (exception: Exception) {
-            println("Error: ${exception.message}")
-        }
-    }
-
-
-
 
     private fun seafoodByProteinContent() {
         getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
@@ -277,6 +249,7 @@ class HolderCLi(
         )
         /*println("Desert ${dessert.name}")*/
     }
+
     private fun List<Recipe>.SwweetNoEggsList(suggestedId: Set<String>): List<Recipe> {
         return this.filter { it.tags.any { tag -> tag.contains("dessert", ignoreCase = true) } }
             .filter { !it.ingredients.any { ingredient -> ingredient.contains("egg", ignoreCase = true) } }
