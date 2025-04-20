@@ -19,7 +19,7 @@ class HolderCLi(
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val highCalorieCli: GetHighCalorieCli,
     private val getLovePotatoCLI: GetLovePotatoCLI,
-    private val gymMealsUseCase: GymMealsUseCase,
+    private val gymMealsCLI: GymMealsCLI,
     private val ingredientGameUseCase: IngredientGameUseCase,
     private val exploreRecipesByCountryCli: ExploreRecipesByCountryCli,
     private val iraqiRecipesCli: IraqiRecipesCli,
@@ -58,7 +58,7 @@ class HolderCLi(
                 "6" -> findSweetWithOutEgg()
                 "7" -> getKetoDietRecipeHelperCLI.start()
                 "8" -> searchFoodByAddDateClI.start()
-                "9" -> gymHelper()
+                "9" -> gymMealsCLI.start()
                 "10" -> exploreRecipesByCountryCli.startCli()
                 "11" -> playIngredientGame()
                 "12" -> getLovePotatoCLI.start()
@@ -161,35 +161,6 @@ class HolderCLi(
         }
 
         println("\n🎉 You completed all rounds! Final Score: $score")
-    }
-
-
-    private fun gymHelper() {
-        val scanner = Scanner(System.`in`)
-
-        println("🏋️ Welcome to the Gym Helper!")
-
-        try {
-            print("Enter desired calories: ")
-            val caloriesInput = scanner.nextLine()
-            val calories = caloriesInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid calories input.")
-
-            print("Enter desired protein (grams): ")
-            val proteinInput = scanner.nextLine()
-            val protein = proteinInput.toIntOrNull() ?: throw IllegalArgumentException("Invalid protein input.")
-
-            val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
-
-            if (meals.isEmpty()) {
-                println("❌ No meals found matching your fitness needs.")
-            } else {
-                println("✅ Meals matching your goals:")
-                gymMealsUseCase.printMealList(meals)
-            }
-
-        } catch (e: Exception) {
-            println("⚠️ Error: ${e.message}")
-        }
     }
 
     //region method helper for SweetWithNoEggs
