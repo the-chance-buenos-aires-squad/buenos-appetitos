@@ -26,12 +26,12 @@ fun main() {
     val csvFileReader = CsvFileReader(file)
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
+
     val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
     val getHealthyFastFoodMealsUseCase = GetHealthyFastFoodMealsUseCase(repository)
     val guessGameUseCase = GuessGameUseCase(repository)
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(repository)
-    val suggestMealsUseCases = SuggestMealsUseCases(repository)
     val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
     val getIraqiMealsUseCase = IdentifyIraqiRecipesUseCase(repository)
     val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
@@ -52,17 +52,11 @@ fun main() {
     val getKetoDietRecipeHelperCLI = GetKetoDietRecipeHelperCLI(getKetoRecipeUseCase)
     val exploreRecipesByCountryCli = ExploreRecipesByCountryCli(exploreRecipesByCountryUseCase)
     val iraqiRecipesCli = IraqiRecipesCli(getIraqiMealsUseCase)
-    val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianMealsForLargeGroupsUseCase(repository)
 
     val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
     val getRandomEasyRecipesCLi = GetRandomEasyRecipesCLi(getRandomEasyRecipesUseCase)
+    val getSuggestItalianRecipesForLargeGroupsCLI= GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
 
-    val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
-    val highCalorieUseCase = HighCalorieUseCase(repository)
-    val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
-    val lovePotatoUseCase = LovePotatoUseCase(repository)
-    val  gymMealsUseCase= GymMealsUseCase(repository)
-    val ingredientGameUseCase=IngredientGameUseCase(repository)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -70,15 +64,8 @@ fun main() {
         searchMealsByNameCLI,
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
-        suggestItalianMealsForLargeGroupsUseCase,
-
         getRandomEasyRecipesCLi,
-
-        getIraqiMealsUseCase,
-        highCalorieUseCase,
-        exploreOtherCountriesFoodUseCase,
-        lovePotatoUseCase,
-        suggestMealsUseCases,
+        getSuggestItalianRecipesForLargeGroupsCLI,
         sweetsWithNoEggsUseCase,
         highCalorieCli,
         lovePotatoCLI,
@@ -87,7 +74,6 @@ fun main() {
         exploreRecipesByCountryCli,
         iraqiRecipesCli,
         getKetoDietRecipeHelperCLI
-
     )
 
     holderCli.startCLI()

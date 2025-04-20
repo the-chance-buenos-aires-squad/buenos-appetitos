@@ -1,7 +1,6 @@
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 
-const val NUMBER_OF_SEARCH_RECIPES = 20
 
 class ExploreRecipesByCountryUseCase(private val repository: RecipesRepository) {
 
@@ -14,5 +13,10 @@ class ExploreRecipesByCountryUseCase(private val repository: RecipesRepository) 
 
         val matchedRecipes = allRecipes.filterByCountry(country)
         return matchedRecipes?.shuffled()?.take(NUMBER_OF_SEARCH_RECIPES) ?: emptyList()
+    }
+
+    companion object{
+        const val NUMBER_OF_SEARCH_RECIPES = 20
+
     }
 }
