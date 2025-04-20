@@ -13,9 +13,9 @@ class HolderCLi(
     private val healthyFoodMealsCLI: GetHealthyFoodMealsCLI,
     private val searchMealsByNameCLI: SearchMealsByNameCLI,
     private val guessGameUseCase: GuessGameUseCase,
-    private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
+    private val seaFoodRankingCLI: SeaFoodRankingCLI,
+    private val suggestItalianRecipesForLargeGroupsCLI: GetSuggestItalianRecipesForLargeGroupsCLI,
     private val getRandomEasyRecipesCli: GetRandomEasyRecipesCLi,
-    private val getSuggestItalianRecipesForLargeGroupsCLI: GetSuggestItalianRecipesForLargeGroupsCLI,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val highCalorieCli: GetHighCalorieCli,
     private val getLovePotatoCLI: GetLovePotatoCLI,
@@ -63,8 +63,8 @@ class HolderCLi(
                 "11" -> playIngredientGame()
                 "12" -> getLovePotatoCLI.start()
                 "13" -> highCalorieCli.start()
-                "14" -> seafoodByProteinContent()
-                "15" -> getSuggestItalianRecipesForLargeGroupsCLI.start()
+                "14" -> seaFoodRankingCLI.start()
+                "15" -> suggestItalianRecipesForLargeGroupsCLI.start()
                 "0" -> {
                     println("Thank you for using Food Change Mood!")
                     return
@@ -74,7 +74,6 @@ class HolderCLi(
             }
         }
     }
-
 
 
     private fun playGuessGame() {
@@ -190,13 +189,6 @@ class HolderCLi(
 
         } catch (e: Exception) {
             println("⚠️ Error: ${e.message}")
-        }
-    }
-
-
-    private fun seafoodByProteinContent() {
-        getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
-            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
         }
     }
 

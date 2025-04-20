@@ -8,7 +8,7 @@ class GetRandomEasyRecipesCLi(val getRandomEasyRecipesUseCase: GetRandomEasyReci
     fun suggestRandomRecipes() {
         displayEasyRecipesHeadMessage()
         val easyRecipesList: List<Recipe> = getRandomEasyRecipesUseCase.suggestEasyRecipes()
-        easyRecipesList.forEach { println(it.name) }
+        easyRecipesList.forEach { printingRecipes(it) }
     }
 
 

@@ -55,17 +55,18 @@ fun main() {
 
     val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
     val getRandomEasyRecipesCLi = GetRandomEasyRecipesCLi(getRandomEasyRecipesUseCase)
-    val getSuggestItalianRecipesForLargeGroupsCLI= GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
 
+    val seaFoodRankingCLI = SeaFoodRankingCLI(getSeaFoodRankingByProteinUseCase)
+    val suggestItalianRecipesForLargeGroupsCLI = GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
         getHealthyFoodMealsCLI,
         searchMealsByNameCLI,
         guessGameUseCase,
-        getSeaFoodRankingByProteinUseCase,
+        seaFoodRankingCLI,
+        suggestItalianRecipesForLargeGroupsCLI,
         getRandomEasyRecipesCLi,
-        getSuggestItalianRecipesForLargeGroupsCLI,
         sweetsWithNoEggsUseCase,
         highCalorieCli,
         lovePotatoCLI,

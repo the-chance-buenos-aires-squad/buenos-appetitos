@@ -1,4 +1,5 @@
-import org.example.presentation.RecipesForm
+import org.example.presentation.printingRecipes
+
 
 class ExploreRecipesByCountryCli(
     private val exploreRecipesByCountryUseCase: ExploreRecipesByCountryUseCase
@@ -18,11 +19,10 @@ class ExploreRecipesByCountryCli(
             if (results.isEmpty()) {
                 println("No recipes found for \"$userInput\".")
             }
-            val recipeForm = RecipesForm()
             println("Found ${results.size} recipes for \"$userInput\"\n")
             results.forEachIndexed  { index, recipe ->
                 println("(${index + 1})")
-                recipeForm.printingRecipes(recipe)
+                printingRecipes(recipe)
                 println()
             }
         }
