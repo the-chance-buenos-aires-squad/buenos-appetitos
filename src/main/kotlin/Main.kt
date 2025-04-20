@@ -1,7 +1,11 @@
 package org.example
 
 
+import ExploreRecipesByCountryCli
+import ExploreRecipesByCountryUseCase
 import GetLovePotatoUseCase
+import IdentifyIraqiRecipesUseCase
+import IraqiRecipesCli
 import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
@@ -28,17 +32,16 @@ fun main() {
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(repository)
     val suggestMealsUseCases = SuggestMealsUseCases(repository)
     val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
-    val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
+    val getIraqiMealsUseCase = IdentifyIraqiRecipesUseCase(repository)
     val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
-    val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
     val getKetoRecipeUseCase=GetKetoRecipeUseCase(repository)
     val lovePotatoUseCase = GetLovePotatoUseCase(repository)
     val gymMealsUseCase = GymMealsUseCase(repository)
     val ingredientGameUseCase = IngredientGameUseCase(repository)
     val kmpSearchUseCase = KmpSearchUseCase()
     val fuzzySearchUseCase = FuzzySearchUseCase()
-
     val searchMealsByNameUseCase = SearchRecipesByNameUseCase(repository, fuzzySearchUseCase, kmpSearchUseCase)
+    val exploreRecipesByCountryUseCase = ExploreRecipesByCountryUseCase(repository)
 
     val searchFoodByDateCLI = SearchFoodByDateCLI(searchFoodByAddDateUseCase)
     val getHealthyFoodMealsCLI = GetHealthyFoodMealsCLI(getHealthyFastFoodMealsUseCase)
@@ -46,6 +49,8 @@ fun main() {
     val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
     val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
     val getKetoDietRecipeHelperCLI = GetKetoDietRecipeHelperCLI(getKetoRecipeUseCase)
+    val exploreRecipesByCountryCli = ExploreRecipesByCountryCli(exploreRecipesByCountryUseCase)
+    val iraqiRecipesCli = IraqiRecipesCli(getIraqiMealsUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -56,12 +61,12 @@ fun main() {
         suggestItalianMealsForLargeGroupsUseCase,
         suggestMealsUseCases,
         sweetsWithNoEggsUseCase,
-        getIraqiMealsUseCase,
         highCalorieCli,
-        exploreOtherCountriesFoodUseCase,
         lovePotatoCLI,
         gymMealsUseCase,
         ingredientGameUseCase,
+        exploreRecipesByCountryCli,
+        iraqiRecipesCli,
         getKetoDietRecipeHelperCLI
 
     )
