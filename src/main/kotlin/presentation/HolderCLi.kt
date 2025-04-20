@@ -1,7 +1,6 @@
 package org.example.presentation
 
 import ExploreRecipesByCountryCli
-import IdentifyIraqiRecipesUseCase
 import IraqiRecipesCli
 import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
 import org.example.logic.useCases.*
@@ -15,8 +14,8 @@ class HolderCLi(
     private val searchMealsByNameCLI: SearchMealsByNameCLI,
     private val guessGameUseCase: GuessGameUseCase,
     private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
-    private val suggestItalianMealsForLargeGroupsUseCase: SuggestItalianRecipesForLargeGroupsUseCase,
-    private val suggestMealsUseCases: SuggestMealsUseCases,
+    private val getRandomEasyRecipesCli: GetRandomEasyRecipesCLi,
+    private val getSuggestItalianRecipesForLargeGroupsCLI: GetSuggestItalianRecipesForLargeGroupsCLI,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val highCalorieCli: GetHighCalorieCli,
     private val getLovePotatoCLI: GetLovePotatoCLI,
@@ -54,7 +53,7 @@ class HolderCLi(
                 "1" -> healthyFoodMealsCLI.start()
                 "2" -> searchMealsByNameCLI.start()
                 "3" -> iraqiRecipesCli.startCli()
-                "4" -> showEasyFoodSuggestions()
+                "4" -> getRandomEasyRecipesCli.suggestRandomRecipes()
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
                 "7" -> getKetoDietRecipeHelperCLI.start()
@@ -65,7 +64,7 @@ class HolderCLi(
                 "12" -> getLovePotatoCLI.start()
                 "13" -> highCalorieCli.start()
                 "14" -> seafoodByProteinContent()
-                "15" -> GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase).start()
+                "15" -> getSuggestItalianRecipesForLargeGroupsCLI.start()
                 "0" -> {
                     println("Thank you for using Food Change Mood!")
                     return
@@ -77,13 +76,6 @@ class HolderCLi(
     }
 
 
-    private fun showEasyFoodSuggestions() {
-        var meals = suggestMealsUseCases.suggestRandomMeals()
-        if (meals.isEmpty())
-            println("No suitable meals found.")
-        else
-            println("Suggested meals: $meals")
-    }
 
     private fun playGuessGame() {
 
@@ -249,11 +241,5 @@ class HolderCLi(
         )
         /*println("Desert ${dessert.name}")*/
     }
-
-    private fun List<Recipe>.SwweetNoEggsList(suggestedId: Set<String>): List<Recipe> {
-        return this.filter { it.tags.any { tag -> tag.contains("dessert", ignoreCase = true) } }
-            .filter { !it.ingredients.any { ingredient -> ingredient.contains("egg", ignoreCase = true) } }
-            .filter { it.id !in suggestedId }
-
-    }
+    //endregion
 }

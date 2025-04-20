@@ -10,6 +10,7 @@ import org.example.data.CsvFileReader
 import org.example.data.CsvRecipesRepository
 import org.example.data.RecipeParser
 import org.example.logic.useCases.*
+import org.example.presentation.GetRandomEasyRecipesCLi
 import org.example.presentation.GetHealthyFoodMealsCLI
 import org.example.presentation.HolderCLi
 import org.example.presentation.SearchFoodByDateCLI
@@ -25,12 +26,12 @@ fun main() {
     val csvFileReader = CsvFileReader(file)
     val recipeParser = RecipeParser()
     val repository = CsvRecipesRepository(csvFileReader, recipeParser)
+
     val sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
     val getHealthyFastFoodMealsUseCase = GetHealthyFastFoodMealsUseCase(repository)
     val guessGameUseCase = GuessGameUseCase(repository)
     val getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(repository)
     val suggestItalianMealsForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(repository)
-    val suggestMealsUseCases = SuggestMealsUseCases(repository)
     val searchFoodByAddDateUseCase = SearchFoodByAddDateUseCase(repository)
     val getIraqiMealsUseCase = IdentifyIraqiRecipesUseCase(repository)
     val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
@@ -52,14 +53,19 @@ fun main() {
     val exploreRecipesByCountryCli = ExploreRecipesByCountryCli(exploreRecipesByCountryUseCase)
     val iraqiRecipesCli = IraqiRecipesCli(getIraqiMealsUseCase)
 
+    val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
+    val getRandomEasyRecipesCLi = GetRandomEasyRecipesCLi(getRandomEasyRecipesUseCase)
+    val getSuggestItalianRecipesForLargeGroupsCLI= GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
+
+
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
         getHealthyFoodMealsCLI,
         searchMealsByNameCLI,
         guessGameUseCase,
         getSeaFoodRankingByProteinUseCase,
-        suggestItalianMealsForLargeGroupsUseCase,
-        suggestMealsUseCases,
+        getRandomEasyRecipesCLi,
+        getSuggestItalianRecipesForLargeGroupsCLI,
         sweetsWithNoEggsUseCase,
         highCalorieCli,
         lovePotatoCLI,
@@ -68,7 +74,6 @@ fun main() {
         exploreRecipesByCountryCli,
         iraqiRecipesCli,
         getKetoDietRecipeHelperCLI
-
     )
 
     holderCli.startCLI()
