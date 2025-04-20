@@ -8,7 +8,7 @@ class SearchRecipesByNameUseCase(
     val repository: RecipesRepository,
     private val fuzzySearch: FuzzySearchUseCase,
     private val kmpSearch: KmpSearchUseCase,
-    private val maxRecipesToShare : Int = CommonUtilizes.defaultNumOfRecipes
+    private val maxRecipesToShare : Int = CommonUtilizes.DEFAULT_NUM_OF_RECIPES
 ) {
     private val allRecipes = repository.getRecipes()
 
