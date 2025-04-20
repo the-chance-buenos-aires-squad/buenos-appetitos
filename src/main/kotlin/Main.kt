@@ -31,6 +31,7 @@ fun main() {
     val getIraqiMealsUseCase = GetIraqiMealsUseCase(repository)
     val getHighCalorieUseCase = GetHighCalorieUseCase(repository)
     val exploreOtherCountriesFoodUseCase = ExploreOtherCountriesFoodUseCase(repository)
+    val getKetoRecipeUseCase=GetKetoRecipeUseCase(repository)
     val lovePotatoUseCase = GetLovePotatoUseCase(repository)
     val gymMealsUseCase = GymMealsUseCase(repository)
     val ingredientGameUseCase = IngredientGameUseCase(repository)
@@ -44,6 +45,7 @@ fun main() {
     val highCalorieCli = GetHighCalorieCli(getHighCalorieUseCase)
     val lovePotatoCLI = GetLovePotatoCLI(lovePotatoUseCase)
     val searchMealsByNameCLI = SearchMealsByNameCLI(searchMealsByNameUseCase)
+    val getKetoDietRecipeHelperCLI = GetKetoDietRecipeHelperCLI(getKetoRecipeUseCase)
 
     val holderCli = HolderCLi(
         searchFoodByDateCLI,
@@ -59,8 +61,10 @@ fun main() {
         exploreOtherCountriesFoodUseCase,
         lovePotatoCLI,
         gymMealsUseCase,
-        ingredientGameUseCase
-    )
-    holderCli.startCLI()
+        ingredientGameUseCase,
+        getKetoDietRecipeHelperCLI
 
+    )
+
+    holderCli.startCLI()
 }

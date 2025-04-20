@@ -20,7 +20,8 @@ class HolderCLi(
     private val exploreOtherCountriesFoodUseCase: ExploreOtherCountriesFoodUseCase,
     private val getLovePotatoCLI: GetLovePotatoCLI,
     private val gymMealsUseCase: GymMealsUseCase,
-    private val ingredientGameUseCase: IngredientGameUseCase
+    private  val ingredientGameUseCase:IngredientGameUseCase,
+    private val getKetoDietRecipeHelperCLI: GetKetoDietRecipeHelperCLI
 ) {
 
     fun startCLI() {
@@ -53,7 +54,7 @@ class HolderCLi(
                 "4" -> showEasyFoodSuggestions()
                 "5" -> playGuessGame()
                 "6" -> findSweetWithOutEgg()
-                "7" -> ketoDietHelper()
+                "7" -> getKetoDietRecipeHelperCLI.start()
                 "8" -> searchFoodByAddDateClI.start()
                 "9" -> gymHelper()
                 "10" -> exploreFoodCultures()
@@ -143,9 +144,7 @@ class HolderCLi(
 
     }
 
-    private fun ketoDietHelper() {
-        /* TODO */
-    }
+
 
     private fun playIngredientGame() {
         val scanner = Scanner(System.`in`)
@@ -271,5 +270,11 @@ class HolderCLi(
                     " \n|| Preparation Time: ${dessert.minutes} minutes \n|| Ingredients : ${dessert.ingredients}"
         )
         /*println("Desert ${dessert.name}")*/
+    }
+    private fun List<Recipe>.SwweetNoEggsList(suggestedId: Set<String>): List<Recipe> {
+        return this.filter { it.tags.any { tag -> tag.contains("dessert", ignoreCase = true) } }
+            .filter { !it.ingredients.any { ingredient -> ingredient.contains("egg", ignoreCase = true) } }
+            .filter { it.id !in suggestedId }
+
     }
 }
