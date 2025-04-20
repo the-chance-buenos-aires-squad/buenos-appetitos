@@ -1,6 +1,4 @@
-import org.example.data.CsvFileReader
-import org.example.data.CsvRecipesRepository
-import org.example.presentation.RecipesForm
+import org.example.presentation.printingRecipes
 
 class IraqiRecipesCli(
     private val identifyIraqiRecipesUseCase: IdentifyIraqiRecipesUseCase
@@ -13,11 +11,10 @@ class IraqiRecipesCli(
         if (results.isEmpty()) {
             println("No recipes found for Iraq")
         }
-        val recipeForm = RecipesForm()
         println("Found ${results.size} recipes for Iraq\n")
         results.forEachIndexed  { index, recipe ->
             println("(${index + 1})")
-            recipeForm.printingRecipes(recipe)
+            printingRecipes(recipe)
             println()
         }
     }

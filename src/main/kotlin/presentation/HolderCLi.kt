@@ -15,10 +15,7 @@ class HolderCLi(
     private val guessGameUseCase: GuessGameUseCase,
     private val seaFoodRankingCLI: SeaFoodRankingCLI,
     private val suggestItalianRecipesForLargeGroupsCLI: GetSuggestItalianRecipesForLargeGroupsCLI,
-    private val suggestMealsUseCases: SuggestMealsUseCases,
-    private val getSeaFoodRankingByProteinUseCase: GetSeaFoodRankingByProteinUseCase,
     private val getRandomEasyRecipesCli: GetRandomEasyRecipesCLi,
-    private val getSuggestItalianRecipesForLargeGroupsCLI: GetSuggestItalianRecipesForLargeGroupsCLI,
     private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase,
     private val highCalorieCli: GetHighCalorieCli,
     private val getLovePotatoCLI: GetLovePotatoCLI,
@@ -77,7 +74,6 @@ class HolderCLi(
             }
         }
     }
-
 
 
     private fun playGuessGame() {
@@ -193,27 +189,6 @@ class HolderCLi(
 
         } catch (e: Exception) {
             println("⚠️ Error: ${e.message}")
-        }
-    }
-
-    private fun exploreFoodCultures() {
-        println("\n------ Explore countries food by there name -----")
-        println("Enter the country name:")
-        val userInput = readlnOrNull()?.trim() ?: ""
-        try {
-            exploreOtherCountriesFoodUseCase.searchCountryName(userInput).forEach {
-                println(it.name)
-            }
-        } catch (exception: Exception) {
-            println("Error: ${exception.message}")
-        }
-    }
-
-
-
-    private fun seafoodByProteinContent() {
-        getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
-            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
         }
     }
 

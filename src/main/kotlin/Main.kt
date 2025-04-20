@@ -55,7 +55,6 @@ fun main() {
 
     val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
     val getRandomEasyRecipesCLi = GetRandomEasyRecipesCLi(getRandomEasyRecipesUseCase)
-    val getSuggestItalianRecipesForLargeGroupsCLI= GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
 
     val seaFoodRankingCLI = SeaFoodRankingCLI(getSeaFoodRankingByProteinUseCase)
     val suggestItalianRecipesForLargeGroupsCLI = GetSuggestItalianRecipesForLargeGroupsCLI(suggestItalianMealsForLargeGroupsUseCase)
@@ -67,10 +66,7 @@ fun main() {
         guessGameUseCase,
         seaFoodRankingCLI,
         suggestItalianRecipesForLargeGroupsCLI,
-        suggestMealsUseCases,
-        getSeaFoodRankingByProteinUseCase,
         getRandomEasyRecipesCLi,
-        getSuggestItalianRecipesForLargeGroupsCLI,
         sweetsWithNoEggsUseCase,
         highCalorieCli,
         lovePotatoCLI,
