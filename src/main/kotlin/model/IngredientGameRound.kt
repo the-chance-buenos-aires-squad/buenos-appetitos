@@ -2,6 +2,6 @@ package org.example.model
 
 data class IngredientGameRound(
     val meal: Recipe,
-    val options: List<String>,
+    val questionChoices: List<String>,
     val correct: String
 )
