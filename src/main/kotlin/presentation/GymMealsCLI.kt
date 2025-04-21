@@ -1,7 +1,6 @@
 package org.example.presentation
 
 import org.example.logic.useCases.GymMealsUseCase
-import org.example.model.Recipe
 import java.util.*
 
 class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {

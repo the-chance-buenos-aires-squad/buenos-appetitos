@@ -14,9 +14,9 @@ class KmpSearchUseCase {
             if (j == pattern.length) {
                 return i - j
             } else if (i < text.length && pattern[j] != text[i]) {
-                when( j == 0){
+                when (j == 0) {
                     true -> i++
-                    false ->  j = lps[j - 1]
+                    false -> j = lps[j - 1]
                 }
             }
         }
@@ -34,11 +34,12 @@ class KmpSearchUseCase {
                 lps[i] = len
                 i++
             } else {
-                when(len == 0){
+                when (len == 0) {
                     true -> {
                         lps[i] = len
                         i++
                     }
+
                     false -> len = lps[len - 1]
                 }
             }

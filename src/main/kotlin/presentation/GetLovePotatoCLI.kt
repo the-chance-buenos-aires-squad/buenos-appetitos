@@ -3,8 +3,8 @@ package org.example.presentation
 import GetLovePotatoUseCase
 
 
-class GetLovePotatoCLI (private val getLovePotatoUseCase: GetLovePotatoUseCase) {
-    fun start () {
+class GetLovePotatoCLI(private val getLovePotatoUseCase: GetLovePotatoUseCase) {
+    fun start() {
         try {
             val randomPotatoRecipes = getLovePotatoUseCase.getRandomPotatoRecipes()
             println("\nI Love Potato: 10 Random Recipes with Potatoes")

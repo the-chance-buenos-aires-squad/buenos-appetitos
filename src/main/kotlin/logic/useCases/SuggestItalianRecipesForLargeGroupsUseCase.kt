@@ -9,7 +9,6 @@ class SuggestItalianRecipesForLargeGroupsUseCase(
 ) {
 
 
-
     fun getItalianRecipesForLargeGroups(count: Int = CommonUtilizes.DEFAULT_NUM_OF_RECIPES): List<Recipe> =
         recipesRepository.getRecipes()
             .filterItalianRecipesForLargeGroups()

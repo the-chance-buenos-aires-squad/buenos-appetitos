@@ -20,7 +20,7 @@ class ExploreRecipesByCountryCli(
                 println("No recipes found for \"$userInput\".")
             }
             println("Found ${results.size} recipes for \"$userInput\"\n")
-            results.forEachIndexed  { index, recipe ->
+            results.forEachIndexed { index, recipe ->
                 println("(${index + 1})")
                 printingRecipes(recipe)
                 println()

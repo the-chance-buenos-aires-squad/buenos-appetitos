@@ -1,7 +1,7 @@
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 
-class GetLovePotatoUseCase (private val repository: RecipesRepository) {
+class GetLovePotatoUseCase(private val repository: RecipesRepository) {
 
     fun getRandomPotatoRecipes(): List<Recipe> {
         val allRecipes = repository.getRecipes()

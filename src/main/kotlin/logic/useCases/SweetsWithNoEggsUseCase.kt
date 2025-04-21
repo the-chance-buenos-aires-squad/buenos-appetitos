@@ -13,7 +13,7 @@ class SweetsWithNoEggsUseCase(private val repository: RecipesRepository) {
 
         if (allMeals.isEmpty()) throw Exception("No meals found")
 
-        val sweetNoEggs = allMeals.SwweetNoEggsList(suggestedSweetsId)
+        val sweetNoEggs = allMeals.sweetNoEggsList(suggestedSweetsId)
 
         if (sweetNoEggs.isEmpty()) throw Exception("No suitable dessert without eggs found.")
 
@@ -25,9 +25,12 @@ class SweetsWithNoEggsUseCase(private val repository: RecipesRepository) {
 
 }
 
-private fun List<Recipe>.SwweetNoEggsList(suggestedId: Set<String>): List<Recipe> {
-    return this.filter { it.tags.any { tag -> tag.contains("dessert", ignoreCase = true) } }
-        .filter { !it.ingredients.any { ingredient -> ingredient.contains("egg", ignoreCase = true) } }
-        .filter { it.id !in suggestedId }
-
+private fun List<Recipe>.sweetNoEggsList(suggestedId: Set<String>): List<Recipe> {
+    return this.filter { recipe ->
+        recipe.tags.any { tag -> tag.contains("dessert", ignoreCase = true) } &&
+                recipe.ingredients.none { ingredient -> ingredient.contains("egg", ignoreCase = true) } &&
+                recipe.id !in suggestedId
+    }
 }
+
+

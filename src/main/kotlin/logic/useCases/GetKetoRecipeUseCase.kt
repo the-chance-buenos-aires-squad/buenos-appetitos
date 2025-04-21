@@ -7,9 +7,9 @@ import org.example.model.Recipe
 class GetKetoRecipeUseCase(
     private val repository: RecipesRepository
 ) {
-    fun ketoDietMealHelper():List<Recipe> {
+    fun ketoDietMealHelper(): List<Recipe> {
         val recipes = repository.getRecipes()
-       return recipes.filterByNutrition()
+        return recipes.filterByNutrition()
     }
 
     fun List<Recipe>.filterByNutrition(): List<Recipe> {
@@ -17,10 +17,11 @@ class GetKetoRecipeUseCase(
             val carbs = recipe.nutrition.carbohydrates
             val fat = recipe.nutrition.fat
             val protein = recipe.nutrition.protein
-            carbs <= GetKetoRecipeUseCase.MAX_CARBS || fat >= GetKetoRecipeUseCase.MIN_FAT || protein >= GetKetoRecipeUseCase.MIN_PROTEIN
+            carbs <= MAX_CARBS || fat >= MIN_FAT || protein >= MIN_PROTEIN
         }
 
     }
+
     companion object {
         const val MAX_CARBS = 5
         const val MIN_FAT = 70

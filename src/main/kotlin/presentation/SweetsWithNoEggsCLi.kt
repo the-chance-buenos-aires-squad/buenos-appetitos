@@ -13,12 +13,12 @@ class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsU
 
     private fun showMenuSweetNoEggsLoop() {
 
-        menuLoop@ while (true) {
+        while (true) {
             val dessert = getRandomEggFreeDessert()
 
             if (dessert == null) {
                 println("No dessert found")
-                break@menuLoop
+                break
             }
 
             println("\n1 - Like this dessert")
@@ -30,17 +30,17 @@ class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsU
             when (userChoice) {
                 1 -> {
                     println("Thank you for your choice!  \n${dessert.displayDetails()}")
-                    break@menuLoop
+                    break
                 }
 
                 2 -> {
                     println("Okay, let's try another dessert!")
-                    continue@menuLoop
+                    continue
                 }
 
                 3 -> {
                     println("Exiting...")
-                    break@menuLoop
+                    break
                 }
 
                 else -> println("Invalid input. Please enter 1 = Like , 2 = Dislike, or 3 = Exit.")

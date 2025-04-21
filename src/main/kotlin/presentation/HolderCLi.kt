@@ -2,8 +2,8 @@ package org.example.presentation
 
 import ExploreRecipesByCountryCli
 import IraqiRecipesCli
-import org.example.logic.useCases.*
 import org.example.logic.useCases.GuessGameUseCase
+import org.example.logic.useCases.IngredientGameUseCase
 import java.util.*
 
 class HolderCLi(
@@ -115,8 +115,6 @@ class HolderCLi(
 
         guessGameUseCase.resetGame()
     }
-
-
 
 
     private fun playIngredientGame() {
