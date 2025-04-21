@@ -5,14 +5,14 @@ import org.example.logic.utili.CommonUtilizes.DEFAULT_NUM_OF_RECIPES
 import org.example.model.Recipe
 
 class GetHealthyFastFoodMealsUseCase(
-    private val recipesRepository:RecipesRepository
+    private val recipesRepository: RecipesRepository
 ) {
-    fun getHealthyFastFood( numOfRecipe: Int = DEFAULT_NUM_OF_RECIPES):List<Recipe>{
-        val allRecipes=recipesRepository.getRecipes()
-        val recipesPreparedInFiftyMinutesOrLess= allRecipes
+    fun getHealthyFastFood(numOfRecipe: Int = DEFAULT_NUM_OF_RECIPES): List<Recipe> {
+        val allRecipes = recipesRepository.getRecipes()
+        val recipesPreparedInFiftyMinutesOrLess = allRecipes
             .filter { healthyFastFoodConstraints(it) }
             .take(numOfRecipe)
-        val normalizedRecipe=sortedByNormalization(recipesPreparedInFiftyMinutesOrLess)
+        val normalizedRecipe = sortedByNormalization(recipesPreparedInFiftyMinutesOrLess)
         return normalizedRecipe
     }
 

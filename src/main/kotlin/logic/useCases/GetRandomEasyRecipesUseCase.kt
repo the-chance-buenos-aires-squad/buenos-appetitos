@@ -11,7 +11,7 @@ class GetRandomEasyRecipesUseCase(private val repository: RecipesRepository) {
         return recipes.getEasyRecipeList()
     }
 
-    companion object{
+    companion object {
         const val MINUTES_MAX = 30
         const val INGREDIENTS_MAX_NUMBER = 5
         const val STEPS = 6
@@ -21,10 +21,8 @@ class GetRandomEasyRecipesUseCase(private val repository: RecipesRepository) {
     private fun List<Recipe>.getEasyRecipeList(): List<Recipe> {
         return this.filter { recipe ->
             recipe.minutes <= MINUTES_MAX
-                    &&
-                    recipe.numberOfIngredients <= INGREDIENTS_MAX_NUMBER
-                    &&
-                    recipe.numberOfSteps <= STEPS
+                    && recipe.numberOfIngredients <= INGREDIENTS_MAX_NUMBER
+                    && recipe.numberOfSteps <= STEPS
         }.shuffled().take(TEN_RANDOM_EASY_RECIPES)
     }
 }

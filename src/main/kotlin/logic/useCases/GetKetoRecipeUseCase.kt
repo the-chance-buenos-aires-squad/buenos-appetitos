@@ -7,9 +7,9 @@ import org.example.model.Recipe
 class GetKetoRecipeUseCase(
     private val repository: RecipesRepository
 ) {
-    fun ketoDietMealHelper():List<Recipe> {
+    fun ketoDietMealHelper(): List<Recipe> {
         val recipes = repository.getRecipes()
-       return recipes.filterByNutrition()
+        return recipes.filterByNutrition()
     }
 
     fun List<Recipe>.filterByNutrition(): List<Recipe> {
@@ -21,6 +21,7 @@ class GetKetoRecipeUseCase(
         }
 
     }
+
     companion object {
         const val MAX_CARBS = 5
         const val MIN_FAT = 70

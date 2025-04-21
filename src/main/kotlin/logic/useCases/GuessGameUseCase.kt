@@ -37,6 +37,7 @@ class GuessGameUseCase(private val repository: RecipesRepository) {
                     decrementAttempts()
                     return GuessAttemptResult.TooLow(attemptsLeft)
                 }
+
                 GuessResult.TOO_HIGH -> {
                     decrementAttempts()
                     return GuessAttemptResult.TooHigh(attemptsLeft)

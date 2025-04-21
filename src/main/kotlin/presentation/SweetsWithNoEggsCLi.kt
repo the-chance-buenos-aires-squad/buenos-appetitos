@@ -37,15 +37,18 @@ class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsU
                     displayLikedDessertDetails(dessert)
                     return
                 }
+
                 2 -> {
                     val dessert2 = getRandomEggFreeDessert()
                     displayLikedDessertDetails(dessert2)
                     return
                 }
+
                 3 -> {
                     println("Exiting...")
                     return
                 }
+
                 else -> println("Invalid input. Please enter 1 = Like , 2 = Dislike, or 3 = Exit.")
             }
         }

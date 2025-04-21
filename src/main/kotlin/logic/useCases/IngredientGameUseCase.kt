@@ -25,7 +25,7 @@ class IngredientGameUseCase(repository: RecipesRepository) {
 
         val allOptions = (wrongOptions + correct).shuffled()
 
-        currentRound ++
+        currentRound++
 
         return IngredientGameRound(
             meal = meal,
@@ -44,8 +44,8 @@ class IngredientGameUseCase(repository: RecipesRepository) {
         val isCorrect = selected?.equals(correct, ignoreCase = true) == true
 
         if (isCorrect) {
-            score+=1000
-        }else{
+            score += 1000
+        } else {
             isGameOver = true
         }
         return isCorrect
@@ -59,7 +59,7 @@ class IngredientGameUseCase(repository: RecipesRepository) {
 
     fun getTotalRounds(): Int = totalRounds
 
-    companion object{
+    companion object {
         private const val totalRounds = 15
     }
 
