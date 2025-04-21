@@ -3,6 +3,7 @@ package org.example.presentation
 import org.example.logic.useCases.SweetsWithNoEggsUseCase
 import org.example.model.Recipe
 import org.example.presentation.displyUtils.displayDetails
+import org.example.presentation.inputHandlingUtils.handleUserInput
 
 class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase) {
 
@@ -25,20 +26,20 @@ class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsU
             println("2 - Dislike (show another option)")
             println("3 - Exit")
             print("Please choose (1-3): ")
-            val userChoice = readln().trim().toIntOrNull()
+            val userChoice = handleUserInput()
 
             when (userChoice) {
-                1 -> {
+                "1" -> {
                     println("Thank you for your choice!  \n${dessert.displayDetails()}")
                     break
                 }
 
-                2 -> {
+                "2" -> {
                     println("Okay, let's try another dessert!")
                     continue
                 }
 
-                3 -> {
+                "3" -> {
                     println("Exiting...")
                     break
                 }
