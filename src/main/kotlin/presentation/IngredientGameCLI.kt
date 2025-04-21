@@ -12,6 +12,8 @@ class IngredientGameCLI(private val ingredientGameUseCase: IngredientGameUseCase
         while (!ingredientGameUseCase.isGameOver()) {
             playRound()
         }
+
+        printSuccessMessage()
     }
 
     private fun playRound() {
@@ -23,8 +25,10 @@ class IngredientGameCLI(private val ingredientGameUseCase: IngredientGameUseCase
         handleAnswer(userChoice, round.correct)
 
         displayScore()
+    }
 
-        if (ingredientGameUseCase.getCurrentRound() > ingredientGameUseCase.getTotalRounds()) {
+    private fun printSuccessMessage() {
+        if (ingredientGameUseCase.getCurrentRound() == ingredientGameUseCase.getTotalRounds()) {
             println("\n🎉 You completed all rounds !")
         }
     }

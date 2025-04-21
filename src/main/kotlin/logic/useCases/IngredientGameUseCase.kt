@@ -13,12 +13,8 @@ class IngredientGameUseCase(repository: RecipesRepository) {
 
     fun generateRound(): IngredientGameRound {
 
-        if (isGameOver()) {
-            throw IllegalStateException("Game is over")
-        }
-
         val meal = allMeals.random()
-        val correct = meal.ingredients.random()
+        val correct = meal.ingredients.random() + "================"
 
         val wrongOptions = allIngredients
             .filterNot { it.equals(correct, ignoreCase = true) }.shuffled().take(2)
@@ -60,7 +56,7 @@ class IngredientGameUseCase(repository: RecipesRepository) {
     fun getTotalRounds(): Int = totalRounds
 
     companion object {
-        private const val totalRounds = 15
+        private const val totalRounds = 3
     }
 
 }
