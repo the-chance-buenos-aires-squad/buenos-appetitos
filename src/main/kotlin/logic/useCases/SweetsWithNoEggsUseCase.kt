@@ -11,11 +11,11 @@ class SweetsWithNoEggsUseCase(private val repository: RecipesRepository) {
 
         val allMeals = repository.getRecipes()
 
-        if (allMeals.isEmpty()) throw Exception("No meals found")
+        if (allMeals.isEmpty()) throw IllegalStateException("No meals found")
 
         val sweetNoEggs = allMeals.sweetNoEggsList(suggestedSweetsId)
 
-        if (sweetNoEggs.isEmpty()) throw Exception("No suitable dessert without eggs found.")
+        if (sweetNoEggs.isEmpty()) throw IllegalStateException("No suitable dessert without eggs found.")
 
         val randomSweets = sweetNoEggs.random()
         suggestedSweetsId.add(randomSweets.id)

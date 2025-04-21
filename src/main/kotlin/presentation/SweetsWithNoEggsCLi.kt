@@ -54,7 +54,7 @@ class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsU
             val meal = sweetsWithNoEggsUseCase.getRandomSweetsNoEggs()
             println("|| Name: ${meal.name} || Description: ${meal.description}")
             meal
-        } catch (exception: Exception) {
+        } catch (exception: IllegalStateException) {
             println("Error: ${exception.message}")
             null
         }
