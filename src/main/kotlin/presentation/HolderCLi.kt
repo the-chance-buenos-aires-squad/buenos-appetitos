@@ -2,7 +2,6 @@ package org.example.presentation
 
 import ExploreRecipesByCountryCli
 import IraqiRecipesCli
-import org.example.logic.useCases.*
 import org.example.logic.useCases.GuessGameUseCase
 import java.util.*
 
@@ -18,7 +17,7 @@ class HolderCLi(
     private val highCalorieCli: GetHighCalorieCli,
     private val getLovePotatoCLI: GetLovePotatoCLI,
     private val gymMealsCLI: GymMealsCLI,
-    private val ingredientGameUseCase: IngredientGameUseCase,
+    private val ingredientGameCLI: IngredientGameCLI,
     private val exploreRecipesByCountryCli: ExploreRecipesByCountryCli,
     private val iraqiRecipesCli: IraqiRecipesCli,
     private val getKetoDietRecipeHelperCLI: GetKetoDietRecipeHelperCLI
@@ -58,7 +57,7 @@ class HolderCLi(
                 "8" -> searchFoodByAddDateClI.start()
                 "9" -> gymMealsCLI.start()
                 "10" -> exploreRecipesByCountryCli.startCli()
-                "11" -> playIngredientGame()
+                "11" -> ingredientGameCLI.start()
                 "12" -> getLovePotatoCLI.start()
                 "13" -> highCalorieCli.start()
                 "14" -> seaFoodRankingCLI.start()
@@ -119,38 +118,6 @@ class HolderCLi(
 
 
 
-    private fun playIngredientGame() {
-        val scanner = Scanner(System.`in`)
-        var score = 0
-
-        println("🎮 Welcome to the INGREDIENT GAME!")
-        println("✅ One point per correct answer. ❌ Game ends on wrong answer.")
-
-        repeat(15) {
-            val round = ingredientGameUseCase.generateRound()
-
-            println("\n🍽️ Meal: ${round.meal.name}")
-            println("Which of the following is an ingredient?")
-            round.options.forEachIndexed { index, option ->
-                println("${index + 1}. $option")
-            }
-
-            print("Your choice (1–3): ")
-            val choice = scanner.nextLine().toIntOrNull()
-            val selected = round.options.getOrNull((choice ?: 0) - 1)
-
-            if (ingredientGameUseCase.checkAnswer(selected, round.correct)) {
-                score += 1000
-                println("✅ Correct! Your score: $score")
-            } else {
-                println("❌ Wrong! The correct answer was: ${round.correct}")
-                println("🎯 Final Score: $score")
-                return
-            }
-        }
-
-        println("\n🎉 You completed all rounds! Final Score: $score")
-    }
 
 
 }

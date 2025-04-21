@@ -34,5 +34,7 @@ val presentationModule = module {
 
     single { SearchMealsByNameCLI(get()) }
 
+    single { IngredientGameCLI(get()) }
+
     singleOf(::HolderCLi)
 }
