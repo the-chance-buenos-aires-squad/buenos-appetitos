@@ -8,51 +8,54 @@ class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsU
 
     fun start() {
         println("\n------ Sweet without egg -----")
-        val dessert = getRandomEggFreeDessert()
-        println("\n1 - Like this dessert")
-        println("2 - Dislike (show another option)")
-        println("3 - Exit")
-        handleDessertUserChoice(dessert)
+        showMenuSweetNoEggsLoop()
     }
 
+    private fun showMenuSweetNoEggsLoop() {
 
-    //region method helper for SweetWithNoEggs
-    private fun getRandomEggFreeDessert(): Recipe {
+        menuLoop@ while (true) {
+            val dessert = getRandomEggFreeDessert()
+
+            if (dessert == null) {
+                println("No dessert found")
+                break@menuLoop
+            }
+
+            println("\n1 - Like this dessert")
+            println("2 - Dislike (show another option)")
+            println("3 - Exit")
+            print("Please choose (1-3): ")
+            val userChoice = readln().trim().toIntOrNull()
+
+            when (userChoice) {
+                1 -> {
+                    println("Thank you for your choice!  \n${dessert.displayDetails()}")
+                    break@menuLoop
+                }
+
+                2 -> {
+                    println("Okay, let's try another dessert!")
+                    continue@menuLoop
+                }
+
+                3 -> {
+                    println("Exiting...")
+                    break@menuLoop
+                }
+
+                else -> println("Invalid input. Please enter 1 = Like , 2 = Dislike, or 3 = Exit.")
+            }
+        }
+    }
+
+    private fun getRandomEggFreeDessert(): Recipe? {
         return try {
             val meal = sweetsWithNoEggsUseCase.getRandomSweetsNoEggs()
             println("|| Name: ${meal.name} || Description: ${meal.description}")
             meal
         } catch (exception: Exception) {
             println("Error: ${exception.message}")
-            throw exception
+            null
         }
-    }
-
-    private fun handleDessertUserChoice(dessert: Recipe) {
-        print("Please choose (1-3): ")
-        while (true) {
-            val likeOrNoInput = readln().toIntOrNull()
-            when (likeOrNoInput) {
-                1 -> {
-                    displayLikedDessertDetails(dessert)
-                    return
-                }
-                2 -> {
-                    val dessert2 = getRandomEggFreeDessert()
-                    displayLikedDessertDetails(dessert2)
-                    return
-                }
-                3 -> {
-                    println("Exiting...")
-                    return
-                }
-                else -> println("Invalid input. Please enter 1 = Like , 2 = Dislike, or 3 = Exit.")
-            }
-        }
-    }
-
-    private fun displayLikedDessertDetails(dessert: Recipe) {
-        println("Thank you for your choice!")
-        dessert.displayDetails()
     }
 }
