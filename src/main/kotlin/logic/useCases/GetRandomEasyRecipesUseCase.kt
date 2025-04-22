@@ -21,10 +21,8 @@ class GetRandomEasyRecipesUseCase(private val repository: RecipesRepository) {
     private fun List<Recipe>.getEasyRecipeList(): List<Recipe> {
         return this.filter { recipe ->
             recipe.minutes <= MINUTES_MAX
-                    &&
-                    recipe.numberOfIngredients <= INGREDIENTS_MAX_NUMBER
-                    &&
-                    recipe.numberOfSteps <= STEPS
+                    && recipe.numberOfIngredients <= INGREDIENTS_MAX_NUMBER
+                    && recipe.numberOfSteps <= STEPS
         }.shuffled().take(TEN_RANDOM_EASY_RECIPES)
     }
 }

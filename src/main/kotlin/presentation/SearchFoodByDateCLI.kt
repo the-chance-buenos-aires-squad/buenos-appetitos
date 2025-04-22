@@ -3,7 +3,6 @@ package org.example.presentation
 import org.example.logic.useCases.SearchFoodByAddDateUseCase
 import org.example.logic.useCases.SearchFoodByAddDateUseCase.DailyRecipe
 import org.example.model.Recipe
-import org.example.presentation.customExceptions.EmptyInputException
 import org.example.presentation.customExceptions.NoRecipeFoundException
 import org.example.presentation.displyUtils.displayDetails
 import org.example.presentation.inputHandlingUtils.handleUserInput
