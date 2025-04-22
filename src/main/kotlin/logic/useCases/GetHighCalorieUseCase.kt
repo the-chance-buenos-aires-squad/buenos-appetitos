@@ -9,14 +9,14 @@ class GetHighCalorieUseCase(private val repository: RecipesRepository) {
 
     private var highCalorieRecipes = mutableListOf<Recipe>()
 
-    private fun getHighCalorieRecipes() {
+    private fun loadHighCalorieRecipes() {
         val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
         highCalorieRecipes.addAll(recipes.filterHighCalorieRecipes())
     }
 
     fun suggestRandomHighCalorieRecipe(): Recipe {
         if (highCalorieRecipes.isEmpty()) {
-            getHighCalorieRecipes()
+            loadHighCalorieRecipes()
         }
         val randomIndex = Random.nextInt(highCalorieRecipes.size)
         return highCalorieRecipes.removeAt(randomIndex)

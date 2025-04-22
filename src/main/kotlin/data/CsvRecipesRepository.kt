@@ -10,12 +10,11 @@ class CsvRecipesRepository(
 ) :
     RecipesRepository {
     override fun getRecipes(): List<Recipe> {
-        if (memoryDataSource.getRecipes().isNotEmpty()) {
-            return memoryDataSource.getRecipes()
+        if (memoryDataSource.getRecipes().isEmpty()){
+            val recipe = loadRecipesFromCsv()
+            memoryDataSource.setRecipesList(recipe)
         }
-        val recipes = loadRecipesFromCsv()
-        memoryDataSource.setRecipesList(recipes)
-        return recipes
+        return memoryDataSource.getRecipes()
     }
 
 
