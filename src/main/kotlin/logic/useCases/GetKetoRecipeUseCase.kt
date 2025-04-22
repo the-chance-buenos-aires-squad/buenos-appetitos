@@ -2,6 +2,7 @@ package org.example.logic.useCases
 
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
+import kotlin.random.Random
 
 
 class GetKetoRecipeUseCase(
@@ -20,20 +21,21 @@ class GetKetoRecipeUseCase(
                     recipe.nutrition.fat >= MIN_FAT &&
                     recipe.nutrition.protein >= MIN_PROTEIN &&
                     recipe.nutrition.saturatedFat <= MAX_SAT_FAT
-        }.shuffled()
+        }
 
     }
 
 
     fun suggestRandomKetoRecipe(): Recipe {
         if (ketoRecipes.isEmpty()) {
-            try{
+            try {
                 getKetoRecipes()
-            }catch (e:IllegalStateException){
+            } catch (e: IllegalStateException) {
                 println(e.message)
             }
         }
-        return ketoRecipes.removeFirst()
+        val randomIndex = Random.nextInt(ketoRecipes.size)
+        return ketoRecipes.removeAt(randomIndex)
     }
 
 
