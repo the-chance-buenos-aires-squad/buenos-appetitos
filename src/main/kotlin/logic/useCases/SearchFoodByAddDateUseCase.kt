@@ -29,8 +29,8 @@ class SearchFoodByAddDateUseCase(val repository: RecipesRepository) {
         return dailyRecipesList
     }
 
-    fun getDetailedRecipeById(chosenRecipeId: String): Recipe {
-        return recipesSearchedByDateResultList.find { it.id == chosenRecipeId }!!
+    fun getDetailedRecipeById(chosenRecipeId: String): Recipe? {
+            return recipesSearchedByDateResultList.find { it.id == chosenRecipeId }
     }
 
 
