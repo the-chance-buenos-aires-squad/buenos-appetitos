@@ -5,9 +5,9 @@ import org.example.model.Recipe
 class MemoryDataSource {
     private var recipes:List<Recipe> = emptyList()
 
-    fun getCachedRecipes() = recipes
+    fun recipeList() = recipes
 
-    fun cacheRecipes(parsedRecipes: List<Recipe>){
+    fun setRecipesList(parsedRecipes: List<Recipe>){
         recipes = parsedRecipes
     }
 }

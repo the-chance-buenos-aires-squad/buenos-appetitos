@@ -40,9 +40,10 @@ class GetKetoRecipeUseCase(
 
 
     companion object {
-        const val MAX_CARBS = 5
-        const val MIN_FAT = 70
+        const val MAX_CARBS = 30
+        const val MIN_FAT = 40
         const val MIN_PROTEIN = 30
-        const val MAX_SAT_FAT = 10
+        const val MAX_SAT_FAT = 15
     }
+
 }
