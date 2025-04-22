@@ -1,6 +1,7 @@
 package org.example.presentation
 
 import org.example.logic.useCases.GymMealsUseCase
+import org.example.presentation.displyUtils.displayDetails
 import java.util.*
 
 class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
@@ -20,7 +21,7 @@ class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
                 println("❌ No meals found matching your fitness needs.")
             } else {
                 println("✅ Meals matching your goals:")
-                meals.forEach { printingRecipes(it) }
+                meals.forEach { it.displayDetails() }
             }
 
         } catch (e: Exception) {

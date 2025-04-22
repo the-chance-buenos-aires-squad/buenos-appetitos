@@ -1,6 +1,5 @@
 package org.example.presentation
 
-import ExploreRecipesByCountryCli
 import IraqiRecipesCli
 import org.example.logic.useCases.GuessGameUseCase
 import java.util.*
@@ -63,7 +62,7 @@ class HolderCLi(
                 "14" -> seaFoodRankingCLI.start()
                 "15" -> suggestItalianRecipesForLargeGroupsCLI.start()
                 "0" -> {
-                    println("Thank you for using Food Change Mood!")
+                    println("Thank you for using buenos-appetitos App!")
                     return
                 }
 

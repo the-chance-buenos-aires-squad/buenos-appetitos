@@ -5,18 +5,6 @@ import org.example.model.Recipe
 import org.example.presentation.displyUtils.displayDetails
 import org.example.presentation.inputHandlingUtils.handleUserInput
 
-//6- Sweets with No Eggs: For users allergic to eggs,
-// suggest one sweet (name and description) that contains no eggs.
-// The user can either like it (to view full details) or dislike it
-// (to get another random egg-free sweet).
-// Ensure the same sweet is not suggested more than once.
-
-
-//Keto Diet Meal Helper: Using the same mechanism as in point 6,
-// suggest one keto-friendly meal at a time (without repetition).
-// Base your logic on nutritional information.
-// Please research keto diet requirements before implementation.
-
 
 class GetKetoDietRecipeHelperCLI(
     private val getKetoRecipeUseCase: GetKetoRecipeUseCase
@@ -26,7 +14,7 @@ class GetKetoDietRecipeHelperCLI(
     private var liveRecipe: Recipe? = null
 
     fun start() {
-        ketoRecipesList = getKetoRecipeUseCase.search().shuffled()
+        ketoRecipesList = getKetoRecipeUseCase.getKetoRecipes().shuffled()
 
         when (ketoRecipesList.isEmpty()) {
             true -> {

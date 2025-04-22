@@ -1,4 +1,4 @@
-package org.example.presentation.customExceptions
+package logic.customExceptions
 
 class EmptyInputException(
     message: String = "No input given from the user"

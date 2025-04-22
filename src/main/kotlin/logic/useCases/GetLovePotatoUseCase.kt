@@ -1,3 +1,5 @@
+package logic.useCases
+
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 

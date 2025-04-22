@@ -1,6 +1,6 @@
 package org.example.presentation.inputHandlingUtils
 
-import org.example.presentation.customExceptions.EmptyInputException
+import logic.customExceptions.EmptyInputException
 
 
 fun readUserInput(): String {

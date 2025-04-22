@@ -1,6 +1,8 @@
+package logic.useCases
+
+import logic.utili.filterByCountry
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
-
 
 class ExploreRecipesByCountryUseCase(private val repository: RecipesRepository) {
 
@@ -17,6 +19,6 @@ class ExploreRecipesByCountryUseCase(private val repository: RecipesRepository) 
 
     companion object {
         const val NUMBER_OF_SEARCH_RECIPES = 20
-
     }
+
 }

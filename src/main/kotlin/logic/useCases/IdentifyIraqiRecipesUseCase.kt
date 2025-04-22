@@ -1,3 +1,6 @@
+package logic.useCases
+
+import logic.utili.filterByCountry
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 

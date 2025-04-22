@@ -18,7 +18,7 @@ class SearchMealsByNameCLI(
     }
 
     private fun searchAndDisplayMeals(nameQuery: String) {
-        val meals = searchMealsByNameUseCase.search(
+        val meals = searchMealsByNameUseCase.searchRecipeName(
             query = nameQuery,
             useFuzzy = true,
             maxTypos = 2

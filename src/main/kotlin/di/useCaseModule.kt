@@ -1,8 +1,8 @@
 package di
 
-import ExploreRecipesByCountryUseCase
-import GetLovePotatoUseCase
-import IdentifyIraqiRecipesUseCase
+import logic.useCases.ExploreRecipesByCountryUseCase
+import logic.useCases.GetLovePotatoUseCase
+import logic.useCases.IdentifyIraqiRecipesUseCase
 import org.example.logic.useCases.*
 import org.koin.dsl.module
 

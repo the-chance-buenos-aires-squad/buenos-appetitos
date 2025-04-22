@@ -2,13 +2,14 @@ package org.example.presentation
 
 import org.example.logic.useCases.GetRandomEasyRecipesUseCase
 import org.example.model.Recipe
+import org.example.presentation.displyUtils.displayDetails
 
 class GetRandomEasyRecipesCLi(val getRandomEasyRecipesUseCase: GetRandomEasyRecipesUseCase) {
 
     fun suggestRandomRecipes() {
         displayEasyRecipesHeadMessage()
         val easyRecipesList: List<Recipe> = getRandomEasyRecipesUseCase.suggestEasyRecipes()
-        easyRecipesList.forEach { printingRecipes(it) }
+        easyRecipesList.forEach { it.displayDetails() }
     }
 
 

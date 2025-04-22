@@ -7,26 +7,18 @@ import org.example.model.Recipe
 class GetKetoRecipeUseCase(
     private val repository: RecipesRepository
 ) {
-    fun search(): List<Recipe> {
+    fun getKetoRecipes(): List<Recipe> {
         val recipes = repository.getRecipes()
         return recipes.filterByNutrition()
     }
 
     private fun List<Recipe>.filterByNutrition(): List<Recipe> {
         return this.filter { recipe ->
-
             recipe.nutrition.calories <= MIN_CALORIES &&
                     recipe.nutrition.fat <= MIN_FAT &&
                     recipe.nutrition.protein <= MIN_PROTEIN &&
                     recipe.nutrition.saturatedFat <= MIN_SAT_FAT &&
                     recipe.nutrition.carbohydrates <= MIN_CARBS
-
-
-//
-//            val carbs = recipe.nutrition.carbohydrates
-//            val fat = recipe.nutrition.fat
-//            val protein = recipe.nutrition.protein
-//            carbs <= GetKetoRecipeUseCase.MAX_CARBS || fat >= GetKetoRecipeUseCase.MIN_FAT || protein >= GetKetoRecipeUseCase.PROTEIN_MAX
         }
 
     }
