@@ -7,27 +7,40 @@ import org.example.model.Recipe
 class GetKetoRecipeUseCase(
     private val repository: RecipesRepository
 ) {
-    fun getKetoRecipes(): List<Recipe> {
-        val recipes = repository.getRecipes()
-        return recipes.filterByNutrition()
+    private var ketoRecipes = mutableListOf<Recipe>()
+
+    private fun getKetoRecipes() {
+        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No recipes found") }
+        ketoRecipes = recipes.filterByNutrition() as MutableList<Recipe>
     }
 
     private fun List<Recipe>.filterByNutrition(): List<Recipe> {
         return this.filter { recipe ->
-            recipe.nutrition.calories <= MIN_CALORIES &&
-                    recipe.nutrition.fat <= MIN_FAT &&
-                    recipe.nutrition.protein <= MIN_PROTEIN &&
-                    recipe.nutrition.saturatedFat <= MIN_SAT_FAT &&
-                    recipe.nutrition.carbohydrates <= MIN_CARBS
-        }
+            recipe.nutrition.carbohydrates <= MAX_CARBS &&
+                    recipe.nutrition.fat >= MIN_FAT &&
+                    recipe.nutrition.protein >= MIN_PROTEIN &&
+                    recipe.nutrition.saturatedFat <= MAX_SAT_FAT
+        }.shuffled()
 
     }
 
+
+    fun suggestRandomKetoRecipe(): Recipe {
+        if (ketoRecipes.isEmpty()) {
+            try{
+                getKetoRecipes()
+            }catch (e:IllegalStateException){
+                println(e.message)
+            }
+        }
+        return ketoRecipes.removeFirst()
+    }
+
+
     companion object {
-        const val MIN_CARBS = 10
+        const val MAX_CARBS = 5
         const val MIN_FAT = 70
         const val MIN_PROTEIN = 30
-        const val MIN_CALORIES = 600
-        const val MIN_SAT_FAT = 20
+        const val MAX_SAT_FAT = 10
     }
 }

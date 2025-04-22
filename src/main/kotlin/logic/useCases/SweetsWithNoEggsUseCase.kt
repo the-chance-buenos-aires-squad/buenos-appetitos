@@ -5,32 +5,33 @@ import org.example.model.Recipe
 
 class SweetsWithNoEggsUseCase(private val repository: RecipesRepository) {
 
-    private val suggestedSweetsId = mutableSetOf<String>()
 
-    fun getRandomSweetsNoEggs(): Recipe {
+    private var sweetsNoWggRecipes = mutableListOf<Recipe>()
 
-        val allMeals = repository.getRecipes()
 
-        if (allMeals.isEmpty()) throw IllegalStateException("No meals found")
-
-        val sweetNoEggs = allMeals.sweetNoEggsList(suggestedSweetsId)
-
-        if (sweetNoEggs.isEmpty()) throw IllegalStateException("No suitable dessert without eggs found.")
-
-        val randomSweets = sweetNoEggs.random()
-        suggestedSweetsId.add(randomSweets.id)
-
-        return randomSweets
+    private fun getSweetNoEggRecipes() {
+        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
+        sweetsNoWggRecipes = recipes.filterSweetsNoEggsRecipes() as MutableList<Recipe>
     }
+
+    fun suggestSweetNoEggRecipe(): Recipe {
+        if (sweetsNoWggRecipes.isEmpty()) {
+            try {
+                getSweetNoEggRecipes()
+            } catch (e: IllegalStateException) {
+                println(e.message)
+            }
+        }
+        return sweetsNoWggRecipes.removeFirst()
+    }
+
 
 }
 
-private fun List<Recipe>.sweetNoEggsList(suggestedId: Set<String>): List<Recipe> {
+private fun List<Recipe>.filterSweetsNoEggsRecipes(): List<Recipe> {
     return this.filter { recipe ->
         recipe.tags.any { tag -> tag.contains("dessert", ignoreCase = true) } &&
-                recipe.ingredients.none { ingredient -> ingredient.contains("egg", ignoreCase = true) } &&
-                recipe.id !in suggestedId
-    }
+                recipe.ingredients.none { ingredient -> ingredient.contains("egg", ignoreCase = true) }
+    }.shuffled()
 }
-
 

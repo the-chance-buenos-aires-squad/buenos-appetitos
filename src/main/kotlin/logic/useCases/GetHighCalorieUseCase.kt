@@ -5,26 +5,30 @@ import org.example.model.Recipe
 
 class GetHighCalorieUseCase(private val repository: RecipesRepository) {
 
-    private val suggestedHighCalorieIds = mutableSetOf<String>()
+    companion object {
+        const val MIN_CALORIE = 700
+    }
 
-    fun getRandomHighCalorieRecipe(minCalories: Int = 700): Recipe {
-        val allRecipes = repository.getRecipes()
+    private var highCalorieRecipes = mutableListOf<Recipe>()
 
-        if (allRecipes.isEmpty()) throw Exception("No recipes found")
+    private fun getHighCalorieRecipes() {
+        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
+        highCalorieRecipes = recipes.filterHighCalorieRecipes() as MutableList<Recipe>
+    }
 
-        val highCalorieRecipes = allRecipes.highCalorieList(minCalories, suggestedHighCalorieIds)
+    fun suggestRandomHighCalorieRecipe():Recipe{
+        if (highCalorieRecipes.isEmpty()){
+            try {
+                getHighCalorieRecipes()
+            } catch (e: IllegalStateException) {
+                println(e.message)
+            }
+        }
+        return highCalorieRecipes.removeFirst()
+    }
 
-        if (highCalorieRecipes.isEmpty()) throw Exception("No high-calorie recipes available or all have been suggested")
-
-        val randomHighCalorieRecipe = highCalorieRecipes.random()
-        suggestedHighCalorieIds.add(randomHighCalorieRecipe.id)
-
-        return randomHighCalorieRecipe
+    private fun List<Recipe>.filterHighCalorieRecipes(): List<Recipe> {
+        return this.filter { it.nutrition.calories > MIN_CALORIE }.shuffled()
     }
 }
 
-private fun List<Recipe>.highCalorieList(
-    minCalories: Int, suggestedIds: Set<String>
-): List<Recipe> {
-    return this.filter { it.nutrition.calories > minCalories && it.id !in suggestedIds }
-}
