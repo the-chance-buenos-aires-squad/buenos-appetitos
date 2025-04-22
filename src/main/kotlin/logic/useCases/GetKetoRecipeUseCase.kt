@@ -7,23 +7,35 @@ import org.example.model.Recipe
 class GetKetoRecipeUseCase(
     private val repository: RecipesRepository
 ) {
-    fun ketoDietMealHelper():List<Recipe> {
+    fun search(): List<Recipe> {
         val recipes = repository.getRecipes()
-       return recipes.filterByNutrition()
+        return recipes.filterByNutrition()
     }
 
-    fun List<Recipe>.filterByNutrition(): List<Recipe> {
+    private fun List<Recipe>.filterByNutrition(): List<Recipe> {
         return this.filter { recipe ->
-            val carbs = recipe.nutrition.carbohydrates
-            val fat = recipe.nutrition.fat
-            val protein = recipe.nutrition.protein
-            carbs <= GetKetoRecipeUseCase.MAX_CARBS || fat >= GetKetoRecipeUseCase.MIN_FAT || protein >= GetKetoRecipeUseCase.MIN_PROTEIN
+
+            recipe.nutrition.calories <= MIN_CALORIES &&
+                    recipe.nutrition.fat <= MIN_FAT &&
+                    recipe.nutrition.protein <= MIN_PROTEIN &&
+                    recipe.nutrition.saturatedFat <= MIN_SAT_FAT &&
+                    recipe.nutrition.carbohydrates <= MIN_CARBS
+
+
+//
+//            val carbs = recipe.nutrition.carbohydrates
+//            val fat = recipe.nutrition.fat
+//            val protein = recipe.nutrition.protein
+//            carbs <= GetKetoRecipeUseCase.MAX_CARBS || fat >= GetKetoRecipeUseCase.MIN_FAT || protein >= GetKetoRecipeUseCase.PROTEIN_MAX
         }
 
     }
+
     companion object {
-        const val MAX_CARBS = 5
+        const val MIN_CARBS = 10
         const val MIN_FAT = 70
-        const val MIN_PROTEIN = 25
+        const val MIN_PROTEIN = 30
+        const val MIN_CALORIES = 600
+        const val MIN_SAT_FAT = 20
     }
 }

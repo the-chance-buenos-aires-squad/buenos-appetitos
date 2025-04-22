@@ -15,7 +15,7 @@ class ExploreRecipesByCountryUseCase(private val repository: RecipesRepository) 
         return matchedRecipes?.shuffled()?.take(NUMBER_OF_SEARCH_RECIPES) ?: emptyList()
     }
 
-    companion object{
+    companion object {
         const val NUMBER_OF_SEARCH_RECIPES = 20
 
     }

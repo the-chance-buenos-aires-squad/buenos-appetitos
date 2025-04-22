@@ -9,15 +9,17 @@ import java.time.LocalDate
 class SearchFoodByAddDateUseCase(val repository: RecipesRepository) {
     private val recipes = repository.getRecipes()
 
-    private var recipesSearchedByDateResultList : List<Recipe> = emptyList()
+    private var recipesSearchedByDateResultList: List<Recipe> = emptyList()
 
     fun searchFoodByDate(dateQuery: String): List<DailyRecipe> {
         val date = LocalDate.parse(dateQuery)
         val result = recipes.filter { it.submitted == date }
         result.let {
-            when{
+            when {
                 it.isEmpty() -> throw NoRecipeFoundException(date = dateQuery)
-                else->{recipesSearchedByDateResultList = it}
+                else -> {
+                    recipesSearchedByDateResultList = it
+                }
             }
         }
 
@@ -27,8 +29,8 @@ class SearchFoodByAddDateUseCase(val repository: RecipesRepository) {
         return dailyRecipesList
     }
 
-    fun getDetailedRecipeById(chosenRecipeId: String): Recipe {
-            return recipesSearchedByDateResultList.find { it.id == chosenRecipeId }!!
+    fun getDetailedRecipeById(chosenRecipeId: String): Recipe? {
+            return recipesSearchedByDateResultList.find { it.id == chosenRecipeId }
     }
 
 

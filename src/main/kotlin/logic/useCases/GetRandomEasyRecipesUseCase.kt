@@ -11,7 +11,7 @@ class GetRandomEasyRecipesUseCase(private val repository: RecipesRepository) {
         return recipes.getEasyRecipeList()
     }
 
-    companion object{
+    companion object {
         const val MINUTES_MAX = 30
         const val INGREDIENTS_MAX_NUMBER = 5
         const val STEPS = 6
