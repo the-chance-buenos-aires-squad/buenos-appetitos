@@ -5,12 +5,14 @@ import org.example.model.Recipe
 
 class CsvRecipesRepository(private val csvFileReader: CsvFileReader, private val recipeParser: RecipeParser) :
     RecipesRepository {
-    private var recipes: List<Recipe> = emptyList()
+    private val memoryDataSource = MemoryDataSource()
     override fun getRecipes(): List<Recipe> {
-        if (recipes.isNotEmpty()) return recipes
+        if (memoryDataSource.getCachedRecipes()
+                .isNotEmpty()
+        ) return memoryDataSource.getCachedRecipes()
         val rowsRecord = csvFileReader.readCsvFile()
         return recipeParser.parseRecipes(rowsRecord).also {
-            recipes = it
+            memoryDataSource.cacheRecipes(it)
         }
     }
 }
