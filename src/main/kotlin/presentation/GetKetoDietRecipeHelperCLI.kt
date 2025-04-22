@@ -23,7 +23,7 @@ class GetKetoDietRecipeHelperCLI(
 ) {
 
     private var ketoRecipesList = emptyList<Recipe>()
-    private  var liveRecipe : Recipe?= null
+    private var liveRecipe: Recipe? = null
 
     fun start() {
         ketoRecipesList = getKetoRecipeUseCase.search().shuffled()
@@ -33,6 +33,7 @@ class GetKetoDietRecipeHelperCLI(
                 println("sorry we didn't find any keto recipes")
                 return
             }
+
             false -> {
                 liveRecipe = ketoRecipesList.popupRandomKetoRecipe()
                 liveRecipe?.let { recipe ->
@@ -45,27 +46,30 @@ class GetKetoDietRecipeHelperCLI(
     }
 
     private fun getUserChoice() {
-        while (true){
+        while (true) {
             displayKetoOptionsMenu()
-           val input = handleUserInput()
-           when(input){
-               "1"->{
-                   liveRecipe?.displayDetails()
-                   return
-               }
-               "2"->{
-                   liveRecipe = ketoRecipesList.popupRandomKetoRecipe().apply {
-                       displayRecipeNameDescription(this)
-                   }
-               }
-               "3"->{
-                   return
-               }
-               else->{
-                   println("incorrect input please enter one of the options below")
-                   displayKetoOptionsMenu()
-               }
-           }
+            val input = handleUserInput()
+            when (input) {
+                "1" -> {
+                    liveRecipe?.displayDetails()
+                    return
+                }
+
+                "2" -> {
+                    liveRecipe = ketoRecipesList.popupRandomKetoRecipe().apply {
+                        displayRecipeNameDescription(this)
+                    }
+                }
+
+                "3" -> {
+                    return
+                }
+
+                else -> {
+                    println("incorrect input please enter one of the options below")
+                    displayKetoOptionsMenu()
+                }
+            }
         }
     }
 
@@ -85,7 +89,7 @@ class GetKetoDietRecipeHelperCLI(
         }
     }
 
-    private fun List<Recipe>.popupRandomKetoRecipe():Recipe{
+    private fun List<Recipe>.popupRandomKetoRecipe(): Recipe {
         val poppedKetoRecipe = ketoRecipesList.first()
         ketoRecipesList = ketoRecipesList.drop(1)
         return poppedKetoRecipe
