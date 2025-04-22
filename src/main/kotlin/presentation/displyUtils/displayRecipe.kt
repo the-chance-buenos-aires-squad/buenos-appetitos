@@ -42,10 +42,12 @@ fun displayOptionsMenu(
     suggestRecipe: () -> Recipe,
 ) {
     while (true) {
-
         val newSuggestedRecipe:Recipe?
         try {
             newSuggestedRecipe = suggestRecipe()
+        }catch (e: IllegalStateException) {
+            println(e.message)
+            break
         }catch (e: NoSuchElementException){
             println("sorry there is no more recipes")
             break

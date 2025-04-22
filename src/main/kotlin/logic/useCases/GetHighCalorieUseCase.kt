@@ -6,24 +6,17 @@ import kotlin.random.Random
 
 class GetHighCalorieUseCase(private val repository: RecipesRepository) {
 
-    companion object {
-        const val MIN_CALORIE = 700
-    }
 
     private var highCalorieRecipes = mutableListOf<Recipe>()
 
     private fun getHighCalorieRecipes() {
         val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
-        highCalorieRecipes = recipes.filterHighCalorieRecipes() as MutableList<Recipe>
+        highCalorieRecipes.addAll(recipes.filterHighCalorieRecipes())
     }
 
-    fun suggestRandomHighCalorieRecipe():Recipe{
-        if (highCalorieRecipes.isEmpty()){
-            try {
-                getHighCalorieRecipes()
-            } catch (e: IllegalStateException) {
-                println(e.message)
-            }
+    fun suggestRandomHighCalorieRecipe(): Recipe {
+        if (highCalorieRecipes.isEmpty()) {
+            getHighCalorieRecipes()
         }
         val randomIndex = Random.nextInt(highCalorieRecipes.size)
         return highCalorieRecipes.removeAt(randomIndex)
@@ -31,6 +24,10 @@ class GetHighCalorieUseCase(private val repository: RecipesRepository) {
 
     private fun List<Recipe>.filterHighCalorieRecipes(): List<Recipe> {
         return this.filter { it.nutrition.calories > MIN_CALORIE }
+    }
+
+    private companion object {
+        const val MIN_CALORIE = 700
     }
 }
 

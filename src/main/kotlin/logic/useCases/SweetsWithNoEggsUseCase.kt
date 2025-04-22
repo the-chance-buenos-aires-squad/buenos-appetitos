@@ -7,24 +7,20 @@ import kotlin.random.Random
 class SweetsWithNoEggsUseCase(private val repository: RecipesRepository) {
 
 
-    private var sweetsNoWggRecipes = mutableListOf<Recipe>()
+    private var sweetsNoEggRecipes = mutableListOf<Recipe>()
 
 
-    private fun getSweetNoEggRecipes() {
+    private fun loadSweetNoEggRecipes() {
         val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
-        sweetsNoWggRecipes = recipes.filterSweetsNoEggsRecipes() as MutableList<Recipe>
+        sweetsNoEggRecipes.addAll(recipes.filterSweetsNoEggsRecipes())
     }
 
     fun suggestSweetNoEggRecipe(): Recipe {
-        if (sweetsNoWggRecipes.isEmpty()) {
-            try {
-                getSweetNoEggRecipes()
-            } catch (e: IllegalStateException) {
-                println(e.message)
-            }
+        if (sweetsNoEggRecipes.isEmpty()) {
+                loadSweetNoEggRecipes()
         }
-        val randomIndex = Random.nextInt(sweetsNoWggRecipes.size)
-        return sweetsNoWggRecipes.removeAt(randomIndex)
+        val randomIndex = Random.nextInt(sweetsNoEggRecipes.size)
+        return sweetsNoEggRecipes.removeAt(randomIndex)
     }
 
 

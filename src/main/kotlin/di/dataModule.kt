@@ -13,5 +13,5 @@ val dataModule = module {
     single { CsvFileReader(get()) }
     single { RecipeParser() }
     single { MemoryDataSource() }
-    single<RecipesRepository> { CsvRecipesRepository(get(), get(), get()) }
+    single<RecipesRepository> { CsvRecipesRepository(get(), get(), get()) }// try single of
 }

@@ -10,9 +10,9 @@ class GetKetoRecipeUseCase(
 ) {
     private var ketoRecipes = mutableListOf<Recipe>()
 
-    private fun getKetoRecipes() {
+    private fun loadKetoRecipes() {
         val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No recipes found") }
-        ketoRecipes = recipes.filterByNutrition() as MutableList<Recipe>
+        ketoRecipes.addAll(recipes.filterByNutrition())
     }
 
     private fun List<Recipe>.filterByNutrition(): List<Recipe> {
@@ -28,11 +28,7 @@ class GetKetoRecipeUseCase(
 
     fun suggestRandomKetoRecipe(): Recipe {
         if (ketoRecipes.isEmpty()) {
-            try {
-                getKetoRecipes()
-            } catch (e: IllegalStateException) {
-                println(e.message)
-            }
+            loadKetoRecipes()
         }
         val randomIndex = Random.nextInt(ketoRecipes.size)
         return ketoRecipes.removeAt(randomIndex)
