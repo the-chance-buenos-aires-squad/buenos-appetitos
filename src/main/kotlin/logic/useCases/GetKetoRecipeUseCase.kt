@@ -2,40 +2,44 @@ package org.example.logic.useCases
 
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
+import kotlin.random.Random
 
 
 class GetKetoRecipeUseCase(
     private val repository: RecipesRepository
 ) {
-    fun search(): List<Recipe> {
-        val recipes = repository.getRecipes()
-        return recipes.filterByNutrition()
+    private var ketoRecipes = mutableListOf<Recipe>()
+
+    private fun loadKetoRecipes() {
+        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No recipes found") }
+        ketoRecipes.addAll(recipes.filterByNutrition())
     }
 
     private fun List<Recipe>.filterByNutrition(): List<Recipe> {
         return this.filter { recipe ->
-
-            recipe.nutrition.calories <= MIN_CALORIES &&
-                    recipe.nutrition.fat <= MIN_FAT &&
-                    recipe.nutrition.protein <= MIN_PROTEIN &&
-                    recipe.nutrition.saturatedFat <= MIN_SAT_FAT &&
-                    recipe.nutrition.carbohydrates <= MIN_CARBS
-
-
-//
-//            val carbs = recipe.nutrition.carbohydrates
-//            val fat = recipe.nutrition.fat
-//            val protein = recipe.nutrition.protein
-//            carbs <= GetKetoRecipeUseCase.MAX_CARBS || fat >= GetKetoRecipeUseCase.MIN_FAT || protein >= GetKetoRecipeUseCase.PROTEIN_MAX
+            recipe.nutrition.carbohydrates <= MAX_CARBS &&
+                    recipe.nutrition.fat >= MIN_FAT &&
+                    recipe.nutrition.protein >= MIN_PROTEIN &&
+                    recipe.nutrition.saturatedFat <= MAX_SAT_FAT
         }
 
     }
 
-    companion object {
-        const val MIN_CARBS = 10
-        const val MIN_FAT = 70
-        const val MIN_PROTEIN = 30
-        const val MIN_CALORIES = 600
-        const val MIN_SAT_FAT = 20
+
+    fun suggestRandomKetoRecipe(): Recipe {
+        if (ketoRecipes.isEmpty()) {
+            loadKetoRecipes()
+        }
+        val randomIndex = Random.nextInt(ketoRecipes.size)
+        return ketoRecipes.removeAt(randomIndex)
     }
+
+
+    companion object {
+        const val MAX_CARBS = 30
+        const val MIN_FAT = 40
+        const val MIN_PROTEIN = 30
+        const val MAX_SAT_FAT = 15
+    }
+
 }

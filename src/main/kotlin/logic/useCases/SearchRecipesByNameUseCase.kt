@@ -12,7 +12,7 @@ class SearchRecipesByNameUseCase(
 ) {
     private val allRecipes = repository.getRecipes()
 
-    fun search(
+    fun searchRecipeName(
         recipes: List<Recipe> = allRecipes,
         query: String,
         useFuzzy: Boolean = false,
@@ -32,7 +32,6 @@ private fun List<Recipe>.getListOfMealsByName(
     maxRecipesToShare: Int,
 ): List<Recipe> {
     return this.filter { recipe ->
-        // Exact match first
         kmpSearch.kmp(recipe.name.lowercase(), query.lowercase()) != -1 ||
                 (useFuzzy && fuzzySearch.isFuzzyMatch(recipe.name.lowercase(), query.lowercase(), maxTypos))
     }.take(maxRecipesToShare)

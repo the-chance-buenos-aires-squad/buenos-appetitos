@@ -1,4 +1,7 @@
-import org.example.presentation.printingRecipes
+package org.example.presentation
+
+import logic.useCases.ExploreRecipesByCountryUseCase
+import org.example.presentation.displyUtils.displayDetails
 
 
 class ExploreRecipesByCountryCli(
@@ -22,7 +25,7 @@ class ExploreRecipesByCountryCli(
             println("Found ${results.size} recipes for \"$userInput\"\n")
             results.forEachIndexed { index, recipe ->
                 println("(${index + 1})")
-                printingRecipes(recipe)
+                recipe.displayDetails()
                 println()
             }
         }

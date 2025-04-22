@@ -1,4 +1,5 @@
-import org.example.presentation.printingRecipes
+import logic.useCases.IdentifyIraqiRecipesUseCase
+import org.example.presentation.displyUtils.displayDetails
 
 class IraqiRecipesCli(
     private val identifyIraqiRecipesUseCase: IdentifyIraqiRecipesUseCase
@@ -14,7 +15,7 @@ class IraqiRecipesCli(
         println("Found ${results.size} recipes for Iraq\n")
         results.forEachIndexed { index, recipe ->
             println("(${index + 1})")
-            printingRecipes(recipe)
+            recipe.displayDetails()
             println()
         }
     }

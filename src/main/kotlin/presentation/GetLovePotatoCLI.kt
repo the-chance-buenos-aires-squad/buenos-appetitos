@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import GetLovePotatoUseCase
+import logic.useCases.GetLovePotatoUseCase
 
 
 class GetLovePotatoCLI(private val getLovePotatoUseCase: GetLovePotatoUseCase) {

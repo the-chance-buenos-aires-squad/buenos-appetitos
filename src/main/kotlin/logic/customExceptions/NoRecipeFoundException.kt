@@ -1,4 +1,4 @@
-package org.example.presentation.customExceptions
+package logic.customExceptions
 
 class NoRecipeFoundException(
     private val date: String = "",

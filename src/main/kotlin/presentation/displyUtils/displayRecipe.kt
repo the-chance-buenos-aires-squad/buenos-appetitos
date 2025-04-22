@@ -1,6 +1,8 @@
 package org.example.presentation.displyUtils
 
 import org.example.model.Recipe
+import org.example.presentation.inputHandlingUtils.handleUserInput
+import java.util.NoSuchElementException
 
 fun Recipe.displayDetails() {
     println("=== Recipe Details ===")
@@ -25,4 +27,62 @@ fun Recipe.displayDetails() {
         println("  - $ingredient")
     }
     println("======================")
+}
+
+
+fun Recipe.displayRecipeNameDescription() {
+    println("here check this recipe >>>>>>>>>")
+    println("name:${this.name}")
+    println("description:${this.description}")
+}
+
+
+fun displayOptionsMenu(
+    mainMessage: String,
+    suggestRecipe: () -> Recipe,
+) {
+    while (true) {
+        val newSuggestedRecipe:Recipe?
+        try {
+            newSuggestedRecipe = suggestRecipe()
+        }catch (e: IllegalStateException) {
+            println(e.message)
+            break
+        }catch (e: NoSuchElementException){
+            println("sorry there is no more recipes")
+            break
+        }
+        println("\n$mainMessage")
+        newSuggestedRecipe.displayRecipeNameDescription()
+        println("----------------------------")
+        println("1 - Like show me recipe details")
+        println("2 - Dislike (show another recipe)")
+        println("3 - Exit")
+        print("Please choose (1-3): ")
+        val userChoice = handleUserInput()
+        when (userChoice) {
+            "1" -> {
+                println("good here are the details >>>>>  \n${newSuggestedRecipe.displayDetails()}")
+                break
+            }
+
+            "2" -> {
+                println("Okay, let's try another one!")
+                continue
+            }
+
+            "3" -> {
+                println("Exiting...")
+                break
+            }
+
+            else -> {
+                println("Invalid input...")
+                println("Exiting...")
+                break
+            }
+        }
+    }
+
+
 }

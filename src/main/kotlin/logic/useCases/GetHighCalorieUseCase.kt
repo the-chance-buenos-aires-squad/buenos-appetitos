@@ -2,29 +2,32 @@ package org.example.logic.useCases
 
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
+import kotlin.random.Random
 
 class GetHighCalorieUseCase(private val repository: RecipesRepository) {
 
-    private val suggestedHighCalorieIds = mutableSetOf<String>()
 
-    fun getRandomHighCalorieRecipe(minCalories: Int = 700): Recipe {
-        val allRecipes = repository.getRecipes()
+    private var highCalorieRecipes = mutableListOf<Recipe>()
 
-        if (allRecipes.isEmpty()) throw Exception("No recipes found")
+    private fun loadHighCalorieRecipes() {
+        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
+        highCalorieRecipes.addAll(recipes.filterHighCalorieRecipes())
+    }
 
-        val highCalorieRecipes = allRecipes.highCalorieList(minCalories, suggestedHighCalorieIds)
+    fun suggestRandomHighCalorieRecipe(): Recipe {
+        if (highCalorieRecipes.isEmpty()) {
+            loadHighCalorieRecipes()
+        }
+        val randomIndex = Random.nextInt(highCalorieRecipes.size)
+        return highCalorieRecipes.removeAt(randomIndex)
+    }
 
-        if (highCalorieRecipes.isEmpty()) throw Exception("No high-calorie recipes available or all have been suggested")
+    private fun List<Recipe>.filterHighCalorieRecipes(): List<Recipe> {
+        return this.filter { it.nutrition.calories > MIN_CALORIE }
+    }
 
-        val randomHighCalorieRecipe = highCalorieRecipes.random()
-        suggestedHighCalorieIds.add(randomHighCalorieRecipe.id)
-
-        return randomHighCalorieRecipe
+    private companion object {
+        const val MIN_CALORIE = 700
     }
 }
 
-private fun List<Recipe>.highCalorieList(
-    minCalories: Int, suggestedIds: Set<String>
-): List<Recipe> {
-    return this.filter { it.nutrition.calories > minCalories && it.id !in suggestedIds }
-}
