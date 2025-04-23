@@ -72,12 +72,12 @@ object DummyNutrition {
     // Non-keto example (fails keto filter)
     val nonKeto = Nutrition(
         calories = 500.0,
-        fat = 30.0,
+        fat = 30.0,//❌
         sugar = 10.0,
         sodium = 700.0,
-        protein = 25.0,
-        saturatedFat = 10.0,
-        carbohydrates = 45.0 // Exceeds 30g carb limit
+        protein = 25.0,//❌
+        saturatedFat = 20.0,//❌
+        carbohydrates = 45.0//❌
     )
 
     // List of all predefined nutrition profiles
