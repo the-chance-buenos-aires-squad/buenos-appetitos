@@ -1,6 +1,8 @@
 package org.example.logic.useCases
 
+import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository
+import org.example.logic.customExceptions.NoKetoRecipeFoundException
 import org.example.model.Recipe
 import kotlin.random.Random
 
@@ -11,8 +13,10 @@ class GetKetoRecipeUseCase(
     private var ketoRecipes = mutableListOf<Recipe>()
 
     private fun loadKetoRecipes() {
-        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No recipes found") }
-        ketoRecipes.addAll(recipes.filterByNutrition())
+        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw NoRecipeFoundException() }
+        ketoRecipes.addAll(recipes.filterByNutrition()).also {
+            if(ketoRecipes.isEmpty()) throw NoKetoRecipeFoundException()
+        }
     }
 
     private fun List<Recipe>.filterByNutrition(): List<Recipe> {
