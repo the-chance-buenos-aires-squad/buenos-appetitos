@@ -29,7 +29,7 @@ class GetSeaFoodRankingByProteinUseCaseTest {
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
-        assertThat(result).isNotEmpty()
+        assertThat(result).isEmpty()
     }
 
     @Test
