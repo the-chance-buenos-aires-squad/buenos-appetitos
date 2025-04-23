@@ -10,19 +10,19 @@ import org.example.logic.customExceptions.NoKetoRecipeFoundException
 import org.example.logic.useCases.GetKetoRecipeUseCase
 import org.junit.jupiter.api.*
 
-class GetKetoRecipeUseCaseTest{
+class GetKetoRecipeUseCaseTest {
     private lateinit var repository: RecipesRepository
     private lateinit var getKetoRecipeUseCase: GetKetoRecipeUseCase
+
     @BeforeEach
-    fun setUp(){
+    fun setUp() {
         repository = mockk(relaxed = true)
         getKetoRecipeUseCase = GetKetoRecipeUseCase(repository)
     }
 
 
-
     @Test
-    fun `should return keto recipe`(){
+    fun `should return only keto recipes when filtering from all recipes`() {
         //given
         every { repository.getRecipes() } returns DummyRecipes.allRecipes
 
@@ -35,7 +35,7 @@ class GetKetoRecipeUseCaseTest{
 
 
     @Test
-    fun ` repeated calls to suggestRandomKetoRecipe returns different keto recipes`(){
+    fun `repeated calls to suggestRandomKetoRecipe returns different keto recipes`() {
         //given
         every { repository.getRecipes() } returns DummyRecipes.passingKetoRecipes
 
@@ -53,7 +53,7 @@ class GetKetoRecipeUseCaseTest{
 
 
     @Test
-    fun `return keto recipe with carbs less than 30 `(){
+    fun `return keto recipe with carbs less than 30 `() {
         //given
         every { repository.getRecipes() } returns DummyRecipes.passingKetoRecipes
 
@@ -65,7 +65,7 @@ class GetKetoRecipeUseCaseTest{
     }
 
     @Test
-    fun `return keto recipe with fat greater than 40 `(){
+    fun `return keto recipe with fat greater than 40 `() {
         //given
         every { repository.getRecipes() } returns DummyRecipes.passingKetoRecipes
 
@@ -77,9 +77,8 @@ class GetKetoRecipeUseCaseTest{
     }
 
 
-
     @Test
-    fun `return keto recipe with protein greater than 30 `(){
+    fun `return keto recipe with protein greater than 30 `() {
         //given
         every { repository.getRecipes() } returns DummyRecipes.passingKetoRecipes
 
@@ -91,7 +90,7 @@ class GetKetoRecipeUseCaseTest{
     }
 
     @Test
-    fun `return keto recipe with saturatedFat less than 15 `(){
+    fun `return keto recipe with saturatedFat less than 15 `() {
         //given
         every { repository.getRecipes() } returns DummyRecipes.passingKetoRecipes
 
@@ -104,7 +103,7 @@ class GetKetoRecipeUseCaseTest{
 
 
     @Test
-    fun `should through NoRecipeFoundException when repository getRecipes() returns empty list`(){
+    fun `throws NoRecipeFoundException when no recipes are available`() {
         //give
         every { repository.getRecipes() } returns emptyList()
 
@@ -114,7 +113,7 @@ class GetKetoRecipeUseCaseTest{
     }
 
     @Test
-    fun `should through NoKetoRecipeFoundException when no keto recipes are at the list from repository`(){
+    fun `throws NoKetoRecipeFoundException when repository contains no keto recipes`() {
         //given
         every { repository.getRecipes() } returns DummyRecipes.failingKetoRecipes
         //when && then
