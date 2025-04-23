@@ -21,10 +21,7 @@ class GetSeaFoodRankingByProteinUseCaseTest {
         recipesRepository = mockk()
         getSeaFoodRankingByProteinUseCase = GetSeaFoodRankingByProteinUseCase(recipesRepository)
     }
-
-    val seaFoodKeyWords =
-        listOf("seafood", "fish", "shrimp", "crab", "lobster", "salmon", "tuna", "mackerel", "sardine", "oyster")
-
+    
     @Test
     fun `should return empty list if no seafood meals`() {
         //given
