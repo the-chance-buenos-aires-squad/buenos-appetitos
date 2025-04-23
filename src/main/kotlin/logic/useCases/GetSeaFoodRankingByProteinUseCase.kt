@@ -10,7 +10,7 @@ class GetSeaFoodRankingByProteinUseCase(
     fun getSeaFoodRanking(): List<SeaFoodInfo> {
         val allRecipes = recipesRepository.getRecipes()
         val seaFoodMeals = allRecipes
-            .filter(::isSeaFood)
+            .filter(::isSeaFoodContainProtein)
             .sortedByDescending {
                 it.nutrition.protein
             }.take(10)
@@ -20,8 +20,8 @@ class GetSeaFoodRankingByProteinUseCase(
         return seaFoodMeals
     }
 
-    private fun isSeaFood(recipe: Recipe): Boolean {
-        return recipe.tags.containsSeaFood() || recipe.ingredients.containsSeaFood()
+    private fun isSeaFoodContainProtein(recipe: Recipe): Boolean {
+        return (recipe.tags.containsSeaFood() || recipe.ingredients.containsSeaFood()) && recipe.nutrition.protein > 0
     }
 
 }
