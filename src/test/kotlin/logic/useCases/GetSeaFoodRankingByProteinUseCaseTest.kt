@@ -1,14 +1,11 @@
 package logic.useCases
 
 import com.google.common.truth.Truth.assertThat
-import dataHelper.createRecipe
+import dummyData.DummyRecipes
 import io.mockk.every
 import io.mockk.mockk
-import model.Nutrition
 import org.example.logic.RecipesRepository
 import org.example.logic.useCases.GetSeaFoodRankingByProteinUseCase
-import org.example.model.Recipe
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
@@ -25,7 +22,7 @@ class GetSeaFoodRankingByProteinUseCaseTest {
     @Test
     fun `should return empty list if recipes is empty`() {
         //given
-        every { recipesRepository.getRecipes() } returns emptyList<Recipe>()
+        every { recipesRepository.getRecipes() } returns emptyList()
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
@@ -35,27 +32,7 @@ class GetSeaFoodRankingByProteinUseCaseTest {
     @Test
     fun `should return empty list if no seafood meals`() {
         //given
-        every { recipesRepository.getRecipes() } returns listOf(
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            )
-        )
+        every { recipesRepository.getRecipes() } returns DummyRecipes.potatoRecipes
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
@@ -63,102 +40,21 @@ class GetSeaFoodRankingByProteinUseCaseTest {
     }
 
     @Test
-    fun `should return only three seafood meals if list only have three seafood meals`() {
+    fun `should return only five seafood meals if list only have five seafood meals`() {
         //given
-        every { recipesRepository.getRecipes() } returns listOf(
-            createRecipe(
-                "Tuna Delight", listOf("tuna", "healthy", "seafood"), listOf("tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("shrimp", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 30.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy", "seafood"), listOf("fish", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            )
-        )
+        every { recipesRepository.getRecipes() } returns DummyRecipes.seafoodRecipes
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
-        assertThat(result).hasSize(3)
+        assertThat(result).hasSize(6)
     }
 
     @Test
     fun `should return only ten seafood meals if list have more than 10 seafood meals`() {
         //given
-        every { recipesRepository.getRecipes() } returns listOf(
-            createRecipe(
-                "Tuna Delight", listOf("tuna", "healthy", "seafood"), listOf("tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0)
-            ),
+        every { recipesRepository.getRecipes() } returns
+                DummyRecipes.seafoodRecipes + DummyRecipes.seafoodRecipes + DummyRecipes.seafoodRecipes
 
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("shrimp", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 30.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy", "seafood"), listOf("fish", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Tuna Delight", listOf("tuna", "healthy", "seafood"), listOf("tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("shrimp", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 30.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy", "seafood"), listOf("fish", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0)
-            ),
-            createRecipe(
-                "Tuna Delight", listOf("tuna", "healthy", "seafood"), listOf("tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("shrimp", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 30.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy", "seafood"), listOf("fish", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0)
-            ),
-            createRecipe(
-                "Tuna Delight", listOf("tuna", "healthy", "seafood"), listOf("tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("shrimp", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 30.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy", "seafood"), listOf("fish", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0)
-            )
-        )
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
@@ -168,57 +64,17 @@ class GetSeaFoodRankingByProteinUseCaseTest {
     @Test
     fun `should return the biggest seafood meal contain protein at the first`() {
         //given
-        every { recipesRepository.getRecipes() } returns listOf(
-            createRecipe(
-                "Tuna Delight", listOf("tuna", "healthy", "seafood"), listOf("tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("shrimp", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 30.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy", "seafood"), listOf("fish", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            )
-        )
+        every { recipesRepository.getRecipes() } returns DummyRecipes.seafoodRecipes
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
-        assertThat(result[0].name).isEqualTo("Shrimp Pasta")
+        assertThat(result[0].name).isEqualTo("Grilled Salmon Steak")
     }
 
     @Test
     fun `should return empty list if protein is null`() {
         //given
-        every { recipesRepository.getRecipes() } returns listOf(
-            createRecipe(
-                "Tuna Delight", listOf("tuna", "healthy", "seafood"), listOf("tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("shrimp", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy", "seafood"), listOf("fish", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-            )
-        )
+        every { recipesRepository.getRecipes() } returns listOf(DummyRecipes.seafoodRecipes[0])
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
@@ -228,30 +84,10 @@ class GetSeaFoodRankingByProteinUseCaseTest {
     @Test
     fun `should be case-insensitive when checking for seafood`() {
         //given
-        every { recipesRepository.getRecipes() } returns listOf(
-            createRecipe(
-                "Tuna Delight", listOf("Tuna", "healthy", "seafood"), listOf("Tuna", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 20.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "Shrimp Pasta", listOf("pasts", "healthy", "seafood"), listOf("SHRIMP", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 30.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "fish Plate", listOf("pasts", "healthy"), listOf("FiSh", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 10.0, 0.0, 0.0)
-            ),
-
-            createRecipe(
-                "rice Plate", listOf("healthy", "rice"), listOf("rice", "salt"),
-                Nutrition(0.0, 0.0, 0.0, 0.0, 2.0, 0.0, 0.0)
-            )
-        )
+        every { recipesRepository.getRecipes() } returns DummyRecipes.seafoodRecipes
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
-        assertThat(result).hasSize(3)
+        assertThat(result).hasSize(6)
     }
 }
