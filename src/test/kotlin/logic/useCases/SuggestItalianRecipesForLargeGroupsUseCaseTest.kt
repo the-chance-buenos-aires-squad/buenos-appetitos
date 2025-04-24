@@ -16,7 +16,7 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
 
     @BeforeEach
     fun setup() {
-        recipesRepository = mockk(relaxed = true)
+        recipesRepository = mockk()
         suggestItalianRecipesForLargeGroupsUseCase = SuggestItalianRecipesForLargeGroupsUseCase(recipesRepository)
     }
 
@@ -33,10 +33,7 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
     @Test
     fun `should return empty list if no italian meals and there are meals for large group`() {
         //give
-        every { recipesRepository.getRecipes() } returns listOf(
-            DummyRecipes.italianGroupRecipes[2],
-            DummyRecipes.italianGroupRecipes[3]
-        )
+        every { recipesRepository.getRecipes() } returns DummyRecipes.mealsForLargeGroupButNotItalianMeal
         //when
         val result = suggestItalianRecipesForLargeGroupsUseCase.getItalianRecipesForLargeGroups()
         //then
@@ -44,12 +41,9 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
     }
 
     @Test
-    fun `should return empty list if there are italian meals but not meals for large group`() {
+    fun `should return empty list if there are italian meals but not for large group`() {
         //give
-        every { recipesRepository.getRecipes() } returns listOf(
-            DummyRecipes.italianGroupRecipes[0],
-            DummyRecipes.italianGroupRecipes[1]
-        )
+        every { recipesRepository.getRecipes() } returns DummyRecipes.ItalianMealButNotForLargeGroup
         //when
         val result = suggestItalianRecipesForLargeGroupsUseCase.getItalianRecipesForLargeGroups()
         //then
@@ -57,13 +51,13 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
     }
 
     @Test
-    fun `should return only five italian meals for large group if list only have five italian meals for large group`() {
+    fun `should return only four italian meals for large group if list only have four italian meals for large group`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.italianGroupRecipes
         //when
         val result = suggestItalianRecipesForLargeGroupsUseCase.getItalianRecipesForLargeGroups()
         //then
-        assertThat(result).hasSize(5)
+        assertThat(result).hasSize(4)
     }
 
     @Test
@@ -79,7 +73,7 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
     @Test
     fun `should return fifty italian meals for large group if i have more than fifty`() {
         //given
-        every { recipesRepository.getRecipes() } returns List(110) { DummyRecipes.italianGroupRecipes[it % DummyRecipes.italianGroupRecipes.size] }
+        every { recipesRepository.getRecipes() } returns List(55) { DummyRecipes.italianGroupRecipes[it % DummyRecipes.italianGroupRecipes.size] }
         //when
         val result = suggestItalianRecipesForLargeGroupsUseCase.getItalianRecipesForLargeGroups()
         //then
@@ -89,7 +83,7 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
     @Test
     fun `should be case-insensitive when checking for italian for large groups meals`() {
         //given
-        every { recipesRepository.getRecipes() } returns listOf(DummyRecipes.italianGroupRecipes[4])
+        every { recipesRepository.getRecipes() } returns DummyRecipes.casInsensitiveMeal
         //when
         val result = suggestItalianRecipesForLargeGroupsUseCase.getItalianRecipesForLargeGroups()
         //then
