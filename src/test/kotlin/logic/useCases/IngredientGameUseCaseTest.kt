@@ -135,7 +135,7 @@ class IngredientGameUseCaseTest {
 
     private fun loseInFirstRound() {
         startNewGame()
-        playOneWrongAnswerRound()
+        playOneWrongRound()
     }
 
     private fun completeFifteenRoundsSuccessfully() {
@@ -146,21 +146,21 @@ class IngredientGameUseCaseTest {
     private fun playFiveCorrectOneWrongRounds() {
         startNewGame()
         playCorrectRounds(5)
-        playOneWrongAnswerRound()
+        playOneWrongRound()
     }
 
     private fun playCorrectRounds(times: Int) {
         repeat(times) {
-            playCorrectRound()
+            playOneCorrectRound()
         }
     }
 
-    private fun playCorrectRound() {
+    private fun playOneCorrectRound() {
         val round = ingredientGameUseCase.createNewRound()
         ingredientGameUseCase.checkAnswer(round.correct)
     }
 
-    private fun playOneWrongAnswerRound() {
+    private fun playOneWrongRound() {
         val round = ingredientGameUseCase.createNewRound()
         val wrongAnswer = round.questionChoices.first { it != round.correct }
         ingredientGameUseCase.checkAnswer(wrongAnswer)
