@@ -136,7 +136,7 @@ object DummyRecipes {
     )
 
     // Use Case 2: Typo-Tolerant Search example
-    private val searchTestRecipes = listOf(
+     val searchTestRecipes = listOf(
         // 1. Cheezy Pasta Bake (typo test)
         createDummyRecipe(
             name = "Cheezy Pasta Bake",
