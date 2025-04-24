@@ -40,7 +40,7 @@ class GetSeaFoodRankingByProteinUseCaseTest {
     }
 
     @Test
-    fun `should return only five seafood meals if list only have five seafood meals`() {
+    fun `should return only six seafood meals if list only have six seafood meals`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.seafoodRecipes
         //when
