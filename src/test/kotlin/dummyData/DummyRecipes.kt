@@ -1366,6 +1366,170 @@ object DummyRecipes {
         )
     )
 
+    val ingredientGameRecipes = listOf(
+        createDummyRecipe(
+            name = "easy linguine and clam sauce",
+            ingredients = listOf("linguine", "butter", "red pepper flakes", "garlic cloves", "shallot", "flour", "oregano", "parsley", "canned clams", "white wine", "heavy cream", "parmesan cheese")
+        ),
+        createDummyRecipe(
+            name = "easy linguine del mar",
+            ingredients = listOf("linguine", "tuna fish", "red onion", "olive oil", "spaghetti sauce", "garlic cloves", "parmigiano")
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potato salad",
+            ingredients = listOf("red potatoes", "salt & pepper", "sour cream", "cheddar cheese", "green onions", "bacon bits")
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potatoes 4 ways",
+            ingredients = listOf("baking potatoes", "alfredo sauce", "ham", "frozen cut broccoli in cheese sauce", "salsa", "sour cream", "guacamole", "colby-monterey jack cheese", "chili with beans")
+        ),
+        createDummyRecipe(
+            name = "easy low cal chicken potato soup",
+            ingredients = listOf("boneless skinless chicken breasts", "water", "chicken broth", "yellow onion", "celery ribs", "red potatoes", "fat free sour cream", "rosemary", "parsley", "season-all salt", "flavoring", "salt", "pepper", "frozen corn kernels", "broccoli florets", "fat-free cheddar cheese")
+        ),
+        createDummyRecipe(
+            name = "easy low carb bread",
+            ingredients = listOf("almond meal", "eggs")
+        ),
+        createDummyRecipe(
+            name = "easy low carb pizza sauce and pasta sauce base",
+            ingredients = listOf("tomato paste", "water", "italian seasoning", "granulated garlic", "ground paprika", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat zucchini parmesan",
+            ingredients = listOf("zucchini", "parmesan cheese", "cooking spray")
+        ),
+        createDummyRecipe(
+            name = "easy low fat after thanksgiving turkey barley soup",
+            ingredients = listOf("unsalted chicken stock", "barley", "fresh mushrooms", "fresh carrot", "celery", "onion", "chicken bouillon granules", "dried thyme", "ground black pepper", "cooked turkey breast", "parsley")
+        ),
+        createDummyRecipe(
+            name = "easy low fat cacik garlic yogurt dip",
+            ingredients = listOf("low-fat plain yogurt", "cucumber", "garlic cloves", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken enchilada casserole",
+            ingredients = listOf("flour tortillas", "cooked chicken", "low-fat condensed cream of chicken soup", "water", "taco seasoning mix", "black beans", "low-fat cheddar cheese", "lettuce")
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken souvlaki",
+            ingredients = listOf("1% fat buttermilk", "liquid honey", "salt", "pepper", "dried oregano", "dried basil", "garlic cloves", "boneless skinless chicken breast halves")
+        ),
+        createDummyRecipe(
+            name = "easy low fat cornbread",
+            ingredients = listOf("flour", "cornmeal", "sugar", "baking powder", "baking soda", "salt", "low-fat buttermilk", "egg")
+        ),
+        createDummyRecipe(
+            name = "easy low fat curried zucchini soup",
+            ingredients = listOf("extra virgin olive oil", "onion", "garlic cloves", "curry powder", "zucchini", "baking potato", "broth", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat french toast",
+            ingredients = listOf("italian bread", "egg whites", "orange juice", "nutmeg", "cinnamon", "brown sugar")
+        ),
+        createDummyRecipe(
+            name = "easy low fat individual peach cobblers",
+            ingredients = listOf("bisquick heart smart mix", "egg", "skim milk", "splenda sugar substitute", "peaches in light syrup")
+        ),
+        createDummyRecipe(
+            name = "easy low fat mayonnaise",
+            ingredients = listOf("eggs", "sugar", "cornflour", "low-fat milk", "white vinegar", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat mushroom sauce",
+            ingredients = listOf("mushrooms", "low-fat sour cream", "plain low-fat yogurt", "fresh ground black pepper")
+        ),
+        createDummyRecipe(
+            name = "easy low fat oven roasted peppered potato wedges",
+            ingredients = listOf("potatoes", "olive oil", "fresh ground black pepper", "sea salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat roasted red pepper dip",
+            ingredients = listOf("roasted red peppers", "nonfat plain yogurt", "raisins", "toasted sliced almonds", "paprika", "salt", "hot sauce")
+        )
+    )
+    val ingredientGameWithNoIngredientsRecipes = listOf(
+        createDummyRecipe(
+            name = "easy linguine and clam sauce",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy linguine del mar",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potato salad",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potatoes 4 ways",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low cal chicken potato soup",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low carb bread",
+            ingredients =listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low carb pizza sauce and pasta sauce base",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat zucchini parmesan",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat after thanksgiving turkey barley soup",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat cacik garlic yogurt dip",
+            ingredients =listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken enchilada casserole",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken souvlaki",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat cornbread",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat curried zucchini soup",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat french toast",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat individual peach cobblers",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat mayonnaise",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat mushroom sauce",
+            ingredients =listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat oven roasted peppered potato wedges",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat roasted red pepper dip",
+            ingredients = listOf()
+        )
+    )
 
     /**
      * // Output:
