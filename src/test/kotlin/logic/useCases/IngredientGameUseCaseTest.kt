@@ -1,5 +1,6 @@
 package logic.useCases
 
+import com.google.common.truth.Truth.assertThat
 import dummyData.DummyRecipes
 import io.mockk.every
 import io.mockk.mockk
@@ -48,7 +49,7 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `should currentRound be 0 when reset game`() {
+    fun `should currentRound be zero when reset game`() {
         //given
         every { recipesRepository.getRecipes() } returns emptyList()
 
@@ -56,11 +57,11 @@ class IngredientGameUseCaseTest {
         ingredientGameUseCase.startNewGame()
 
         //then
-        assertEquals(0, ingredientGameUseCase.getCurrentRound())
+        assertThat(ingredientGameUseCase.getCurrentRound()).isEqualTo(0)
     }
 
     @Test
-    fun `should score be 0 when player answers incorrectly in first round`() {
+    fun `should score be zero when player answers incorrectly in first round`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
@@ -69,11 +70,11 @@ class IngredientGameUseCaseTest {
         playOneWrongAnswerRound()
 
         //then
-        assertEquals(0, ingredientGameUseCase.getScore())
+        assertThat(ingredientGameUseCase.getScore()).isEqualTo(0)
     }
 
     @Test
-    fun `should game end when player loses first round`() {
+    fun `should end game when player lose first round`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
@@ -94,7 +95,7 @@ class IngredientGameUseCaseTest {
         PlayFiveCorrectOneWrongRounds()
 
         //then
-        assertEquals(5000, ingredientGameUseCase.getScore())
+        assertThat(ingredientGameUseCase.getScore()).isEqualTo(5000)
     }
 
     @Test
@@ -110,7 +111,7 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `should game end when pass all rounds`() {
+    fun `game terminates after final round completion`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
@@ -122,7 +123,7 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `should isGameOver equal true when user pass fifteen round`() {
+    fun `game is over after user completes fifteen rounds`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
@@ -146,7 +147,7 @@ class IngredientGameUseCaseTest {
     }
 
     @Test
-    fun `should through NoRecipeFoundException when filter with Ingredient`() {
+    fun `should throwNoRecipeFoundException when filter by ingredient returns nothing`() {
         //give
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameWithNoIngredientsRecipes
 
