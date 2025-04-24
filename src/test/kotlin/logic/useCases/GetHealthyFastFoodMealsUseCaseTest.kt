@@ -4,8 +4,8 @@ import com.google.common.truth.Truth.assertThat
 import dummyData.DummyRecipes
 import io.mockk.every
 import io.mockk.mockk
+import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository
-import org.example.logic.useCases.EmptyListThrowException
 import org.example.logic.useCases.GetHealthyFastFoodMealsUseCase
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
@@ -27,7 +27,7 @@ class GetHealthyFastFoodMealsUseCaseTest {
         //given
         every { recipesRepository.getRecipes() } returns emptyList()
         // when and then
-        assertThrows<EmptyListThrowException> {
+        assertThrows<NoRecipeFoundException> {
             getHealthyFastFoodMealsUseCase.getHealthyFastFood()
         }
 

@@ -1,5 +1,6 @@
 package org.example.logic.useCases
 
+import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository
 import org.example.logic.utili.CommonUtilizes.DEFAULT_NUM_OF_RECIPES
 import org.example.model.Recipe
@@ -9,7 +10,7 @@ class GetHealthyFastFoodMealsUseCase(
 ) {
     fun getHealthyFastFood(numOfRecipe: Int = DEFAULT_NUM_OF_RECIPES): List<Recipe> {
         val allRecipes = recipesRepository.getRecipes()
-        if (allRecipes.isEmpty()) throw EmptyListThrowException()
+        if (allRecipes.isEmpty()) throw NoRecipeFoundException()
         val recipesPreparedInFiftyMinutesOrLess = allRecipes
             .filter { healthyFastFoodConstraints(it) }
             .take(numOfRecipe)
@@ -46,5 +47,3 @@ class GetHealthyFastFoodMealsUseCase(
         }
     }
 }
-
-class EmptyListThrowException(message: String = "List is empty") : RuntimeException(message)
