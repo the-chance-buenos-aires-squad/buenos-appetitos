@@ -6,9 +6,19 @@ import io.mockk.every
 import io.mockk.mockk
 import org.example.logic.RecipesRepository
 import org.example.logic.useCases.GetRandomEasyRecipesUseCase
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 class GetRandomEasyRecipesUseCaseTest {
+    private lateinit var repository: RecipesRepository
+    private lateinit var getRandomEasyRecipesUseCase: GetRandomEasyRecipesUseCase
+
+    @BeforeEach
+    fun setUp(){
+        repository = mockk(relaxed = true)
+    }
+
+
 
     @Test
     fun `should return correct recipes when all recipes having less than or equal max-minutes 30, max-ingredients 5 and max-steps 6`() {
