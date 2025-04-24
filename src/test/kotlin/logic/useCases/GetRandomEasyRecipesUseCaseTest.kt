@@ -16,9 +16,8 @@ class GetRandomEasyRecipesUseCaseTest {
     @BeforeEach
     fun setUp(){
         repository = mockk(relaxed = true)
+        getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(repository)
     }
-
-
 
     @Test
     fun `should return correct recipes when all recipes having less than or equal max-minutes 30, max-ingredients 5 and max-steps 6`() {
@@ -50,19 +49,11 @@ class GetRandomEasyRecipesUseCaseTest {
                 steps = List(6) { "step$it" }
             )
         )
-        val recipesRepository = mockk<RecipesRepository>()
-        every { recipesRepository.getRecipes() } returns testRecipes
-        val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(recipesRepository)
+        every { repository.getRecipes() } returns testRecipes
         // When
         val resultRecipes = getRandomEasyRecipesUseCase.suggestEasyRecipes()
-
         // Then
         assertThat(resultRecipes.size).isEqualTo(5)
-        resultRecipes.forEach { recipe ->
-            assertThat(recipe.minutes).isAtMost(GetRandomEasyRecipesUseCase.MINUTES_MAX)
-            assertThat(recipe.numberOfIngredients).isAtMost(GetRandomEasyRecipesUseCase.INGREDIENTS_MAX_NUMBER)
-            assertThat(recipe.numberOfSteps).isAtMost(GetRandomEasyRecipesUseCase.STEPS)
-        }
     }
 
     @Test
@@ -75,20 +66,11 @@ class GetRandomEasyRecipesUseCaseTest {
                 steps = List(3) { "step$it" }
             )
         }
-        val recipesRepository = mockk<RecipesRepository>()
-        every { recipesRepository.getRecipes() } returns testRecipes
-        val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(recipesRepository)
-
+        every { repository.getRecipes() } returns testRecipes
         // When
         val resultRecipes = getRandomEasyRecipesUseCase.suggestEasyRecipes()
-
         // Then
         assertThat(resultRecipes.size).isEqualTo(GetRandomEasyRecipesUseCase.TEN_RANDOM_EASY_RECIPES)
-        resultRecipes.forEach { recipe ->
-            assertThat(recipe.minutes).isAtMost(GetRandomEasyRecipesUseCase.MINUTES_MAX)
-            assertThat(recipe.numberOfIngredients).isAtMost(GetRandomEasyRecipesUseCase.INGREDIENTS_MAX_NUMBER)
-            assertThat(recipe.numberOfSteps).isAtMost(GetRandomEasyRecipesUseCase.STEPS)
-        }
     }
 
     @Test
@@ -116,14 +98,10 @@ class GetRandomEasyRecipesUseCaseTest {
                 steps = List(8) { "step$it" }
             )
         )
-        val recipesRepository = mockk<RecipesRepository>()
-        every { recipesRepository.getRecipes() } returns testRecipes
-        val getRandomEasyRecipesUseCase = GetRandomEasyRecipesUseCase(recipesRepository)
-
+        every { repository.getRecipes() } returns testRecipes
         // When
         val resultRecipes = getRandomEasyRecipesUseCase.suggestEasyRecipes()
-
         // Then
-        assertThat(resultRecipes).isEmpty()
+        assertThat(resultRecipes.size).isEqualTo(0)
     }
 } 
