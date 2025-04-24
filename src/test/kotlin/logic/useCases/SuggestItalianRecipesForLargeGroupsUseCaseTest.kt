@@ -57,7 +57,7 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
     }
 
     @Test
-    fun `should return only five italian meals for large group if list only have five seafood meals`() {
+    fun `should return only five italian meals for large group if list only have five italian meals for large group`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.italianGroupRecipes
         //when
