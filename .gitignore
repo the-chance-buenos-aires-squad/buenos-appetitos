@@ -41,3 +41,5 @@ bin/
 ### Mac OS ###
 .DS_Store
 src/main/kotlin/data/food.csv
+/.idea/codeStyles/codeStyleConfig.xml
+/.idea/codeStyles/Project.xml
