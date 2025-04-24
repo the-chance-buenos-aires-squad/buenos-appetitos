@@ -1947,6 +1947,133 @@ object DummyRecipes {
             ingredients = listOf("ladyfingers", "mascarpone", "coffee", "cocoa")
         )
     )
+    val customizedNutritionMeals = listOf(
+        // 1. Spinach & Feta Omelet
+        createDummyRecipe(
+            name = "Spinach & Feta Omelet",
+            id = "EASY_001",
+            minutes = 10,
+            contributorId = "user_easychef",
+            submitted = LocalDate.parse("2023-01-05"),
+            tags = listOf("vegetarian", "high-protein", "quick"),
+            nutrition = Nutrition(
+                calories = 250.0,
+                fat = 15.0,
+                sugar = 2.0,
+                sodium = 400.0,
+                protein = 18.0,
+                saturatedFat = 5.0,
+                carbohydrates = 5.0
+            ),
+            steps = listOf(
+                "Whisk eggs with salt and pepper.",
+                "Cook spinach in a pan, add eggs, and sprinkle feta.",
+                "Fold and serve."
+            ),
+            description = "A protein-packed breakfast in 10 minutes.",
+            ingredients = listOf("eggs", "spinach", "feta cheese", "salt", "pepper")
+        ),
+
+        // 2. Caprese Salad
+        createDummyRecipe(
+            name = "Caprese Salad",
+            id = "EASY_002",
+            minutes = 5,
+            contributorId = "user_italianfood",
+            submitted = LocalDate.parse("2023-02-10"),
+            tags = listOf("vegetarian", "no-cook", "gluten-free"),
+            nutrition = Nutrition(
+                calories = 200.0,
+                fat = 12.0,
+                sugar = 3.0,
+                sodium = 150.0,
+                protein = 8.0,
+                saturatedFat = 4.0,
+                carbohydrates = 10.0
+            ),
+            steps = listOf(
+                "Slice tomatoes and mozzarella.",
+                "Layer with basil, drizzle olive oil, and season."
+            ),
+            description = "A fresh, no-cook Italian classic.",
+            ingredients = listOf("tomatoes", "mozzarella", "basil", "olive oil", "salt")
+        ),
+
+        // 3. Peanut Butter Banana Toast
+        createDummyRecipe(
+            name = "Peanut Butter Banana Toast",
+            id = "EASY_003",
+            minutes = 3,
+            contributorId = "user_breakfastlover",
+            submitted = LocalDate.parse("2023-03-15"),
+            tags = listOf("vegan", "quick", "5-ingredients"),
+            nutrition = Nutrition(
+                calories = 220.0,
+                fat = 10.0,
+                sugar = 12.0,
+                sodium = 100.0,
+                protein = 6.0,
+                saturatedFat = 2.0,
+                carbohydrates = 28.0
+            ),
+            steps = listOf("Spread peanut butter on toast and top with banana slices."),
+            description = "A 3-minute energy-boosting breakfast.",
+            ingredients = listOf("bread", "peanut butter", "banana")
+        ),
+
+        // 4. Veggie Stir-Fry
+        createDummyRecipe(
+            name = "Veggie Stir-Fry",
+            id = "EASY_004",
+            minutes = 20,
+            contributorId = "user_veggiequeen",
+            submitted = LocalDate.parse("2023-04-20"),
+            tags = listOf("vegan", "low-carb", "quick"),
+            nutrition = Nutrition(
+                calories = 180.0,
+                fat = 8.0,
+                sugar = 5.0,
+                sodium = 300.0,
+                protein = 4.0,
+                saturatedFat = 1.0,
+                carbohydrates = 15.0
+            ),
+            steps = listOf(
+                "Chop bell peppers, broccoli, and carrots.",
+                "Sauté garlic in oil.",
+                "Add veggies and stir-fry for 5 mins.",
+                "Season with soy sauce."
+            ),
+            description = "A colorful, crunchy stir-fry in 20 minutes.",
+            ingredients = listOf("bell peppers", "broccoli", "carrots", "soy sauce", "garlic")
+        ),
+
+        // 5. Avocado Tuna Wrap
+        createDummyRecipe(
+            name = "Avocado Tuna Wrap",
+            id = "EASY_005",
+            minutes = 15,
+            contributorId = "user_fishfan",
+            submitted = LocalDate.parse("2023-05-05"),
+            tags = listOf("high-protein", "low-carb", "quick"),
+            nutrition = Nutrition(
+                calories = 300.0,
+                fat = 15.0,
+                sugar = 2.0,
+                sodium = 400.0,
+                protein = 20.0,
+                saturatedFat = 2.5,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Mash avocado and mix with canned tuna.",
+                "Spread on a tortilla.",
+                "Add lettuce and roll."
+            ),
+            description = "A no-cook, protein-rich lunch.",
+            ingredients = listOf("tortilla", "avocado", "canned tuna", "lettuce")
+        )
+    )
 
 
     val allRecipes = healthyFastFoodRecipes + easyRecipes +
@@ -1954,7 +2081,8 @@ object DummyRecipes {
             failingKetoRecipes + countryRecipes +
             potatoRecipes + highCalorieRecipes +
             lowCalorieRecipes + seafoodRecipes +
-            italianGroupRecipes + searchTestRecipes
+            italianGroupRecipes + searchTestRecipes +
+            customizedNutritionMeals
 
 
 }
