@@ -7,107 +7,93 @@ import io.mockk.mockk
 import org.example.logic.RecipesRepository
 import org.example.logic.customExceptions.NoRecipesWithIngredientsException
 import org.example.logic.useCases.IngredientGameUseCase
-import org.example.model.IngredientGameRound
-import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 
 class IngredientGameUseCaseTest {
 
-    private lateinit var recipesRepository: RecipesRepository
+    private var recipesRepository: RecipesRepository = mockk(relaxed = true)
     private lateinit var ingredientGameUseCase: IngredientGameUseCase
 
     @BeforeEach
     fun setUp() {
-        recipesRepository = mockk(relaxed = true)
         ingredientGameUseCase = IngredientGameUseCase(recipesRepository)
     }
 
     @Test
     fun `should reset score when reset game`() {
-        //given
-        every { recipesRepository.getRecipes() } returns emptyList()
-
         //when
-        ingredientGameUseCase.startNewGame()
-
-        //then
-        assertEquals(0, ingredientGameUseCase.getScore())
-    }
-
-    @Test
-    fun `should hasGameEnded be false when reset game`() {
-        //given
-        every { recipesRepository.getRecipes() } returns emptyList()
-
-        //when
-        ingredientGameUseCase.startNewGame()
-
-        //then
-        assertFalse(ingredientGameUseCase.isGameEnd())
-    }
-
-    @Test
-    fun `should currentRound be zero when reset game`() {
-        //given
-        every { recipesRepository.getRecipes() } returns emptyList()
-
-        //when
-        ingredientGameUseCase.startNewGame()
-
-        //then
-        assertThat(ingredientGameUseCase.getCurrentRound()).isEqualTo(0)
-    }
-
-    @Test
-    fun `should score be zero when player answers incorrectly in first round`() {
-        //given
-        every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
-
-        //when
-        ingredientGameUseCase.startNewGame()
-        playOneWrongAnswerRound()
+        startNewGame()
 
         //then
         assertThat(ingredientGameUseCase.getScore()).isEqualTo(0)
     }
 
     @Test
-    fun `should end game when player lose first round`() {
-        //given
-        every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
-
+    fun `hasGameEnded should return false when reset game`() {
         //when
-        ingredientGameUseCase.startNewGame()
-        playOneWrongAnswerRound()
+        startNewGame()
 
         //then
-        assertTrue(ingredientGameUseCase.isGameEnd())
+        assertThat(ingredientGameUseCase.isGameEnd()).isFalse()
     }
 
     @Test
-    fun `should score be 5000 when player answers 5 question then fail`() {
+    fun `currentRound should be zero when reset game`() {
+        //when
+        startNewGame()
+
+        //then
+        assertThat(ingredientGameUseCase.getCurrentRound()).isEqualTo(0)
+    }
+
+    @Test
+    fun `score should return zero when player answers incorrectly in first round`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
         //when
-        PlayFiveCorrectOneWrongRounds()
+        loseInFirstRound()
+
+        //then
+        assertThat(ingredientGameUseCase.getScore()).isEqualTo(0)
+    }
+
+    @Test
+    fun `game should end when player lose first round`() {
+        //given
+        every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
+
+        //when
+        loseInFirstRound()
+
+        //then
+        assertThat(ingredientGameUseCase.isGameEnd()).isTrue()
+    }
+
+    @Test
+    fun `score should return 5000 when player answers 5 question then fail`() {
+        //given
+        every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
+
+        //when
+        playFiveCorrectOneWrongRounds()
 
         //then
         assertThat(ingredientGameUseCase.getScore()).isEqualTo(5000)
     }
 
     @Test
-    fun `should current round be 6 when player fails 6 round`() {
+    fun `current round should be 6 when player fails 6 round`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
         //when
-        PlayFiveCorrectOneWrongRounds()
+        playFiveCorrectOneWrongRounds()
 
         //then
-        assertEquals(6, ingredientGameUseCase.getCurrentRound())
+        assertThat(ingredientGameUseCase.getCurrentRound()).isEqualTo(6)
     }
 
     @Test
@@ -116,22 +102,10 @@ class IngredientGameUseCaseTest {
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
         //when
-        playFifteenWinningRounds()
+        completeFifteenRoundsSuccessfully()
 
         //then
-        assertTrue(ingredientGameUseCase.isGameEnd())
-    }
-
-    @Test
-    fun `game is over after user completes fifteen rounds`() {
-        //given
-        every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
-
-        //when
-        playFifteenWinningRounds()
-
-        //then
-        assertTrue(ingredientGameUseCase.isGameEnd())
+        assertThat(ingredientGameUseCase.isGameEnd()).isTrue()
     }
 
     @Test
@@ -140,10 +114,10 @@ class IngredientGameUseCaseTest {
         every { recipesRepository.getRecipes() } returns DummyRecipes.ingredientGameRecipes
 
         //when
-        playFifteenWinningRounds()
+        completeFifteenRoundsSuccessfully()
 
         //then
-        assertEquals(15000, ingredientGameUseCase.getScore())
+        assertThat(ingredientGameUseCase.getScore()).isEqualTo(15000)
     }
 
     @Test
@@ -155,33 +129,41 @@ class IngredientGameUseCaseTest {
         assertThrows<NoRecipesWithIngredientsException> { ingredientGameUseCase.createNewRound() }
     }
 
-    private fun playFifteenWinningRounds() {
+    private fun startNewGame() {
         ingredientGameUseCase.startNewGame()
+    }
+
+    private fun loseInFirstRound() {
+        startNewGame()
+        playOneWrongAnswerRound()
+    }
+
+    private fun completeFifteenRoundsSuccessfully() {
+        startNewGame()
         playCorrectRounds(15)
     }
 
-    private fun PlayFiveCorrectOneWrongRounds() {
-        ingredientGameUseCase.startNewGame()
+    private fun playFiveCorrectOneWrongRounds() {
+        startNewGame()
         playCorrectRounds(5)
         playOneWrongAnswerRound()
     }
 
     private fun playCorrectRounds(times: Int) {
         repeat(times) {
-            playOneCorrectAnswerRound()
+            playCorrectRound()
         }
     }
 
-    private fun playOneWrongAnswerRound(): IngredientGameRound {
-        val round = ingredientGameUseCase.createNewRound()
-        ingredientGameUseCase.checkAnswer(round.questionChoices.filter { it != round.correct }.get(0))
-        return round
-    }
-
-    private fun playOneCorrectAnswerRound(): IngredientGameRound {
+    private fun playCorrectRound() {
         val round = ingredientGameUseCase.createNewRound()
         ingredientGameUseCase.checkAnswer(round.correct)
-        return round
+    }
+
+    private fun playOneWrongAnswerRound() {
+        val round = ingredientGameUseCase.createNewRound()
+        val wrongAnswer = round.questionChoices.first { it != round.correct }
+        ingredientGameUseCase.checkAnswer(wrongAnswer)
     }
 
 }
