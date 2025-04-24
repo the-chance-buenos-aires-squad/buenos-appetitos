@@ -7,21 +7,19 @@ import org.example.model.SeaFoodInfo
 class GetSeaFoodRankingByProteinUseCase(
     private val recipesRepository: RecipesRepository
 ) {
-    fun getSeaFoodRanking(): List<SeaFoodInfo> {
+    fun getSeaFoodRanking(): List<Recipe> {
         val allRecipes = recipesRepository.getRecipes()
         val seaFoodMeals = allRecipes
-            .filter(::isSeaFood)
+            .filter(::isSeaFoodContainProtein)
             .sortedByDescending {
                 it.nutrition.protein
             }.take(10)
-            .mapIndexed { index, recipe ->
-                SeaFoodInfo(index + 1, recipe.name, recipe.nutrition.protein)
-            }
+
         return seaFoodMeals
     }
 
-    private fun isSeaFood(recipe: Recipe): Boolean {
-        return recipe.tags.containsSeaFood() || recipe.ingredients.containsSeaFood()
+    private fun isSeaFoodContainProtein(recipe: Recipe): Boolean {
+        return (recipe.tags.containsSeaFood() || recipe.ingredients.containsSeaFood()) && recipe.nutrition.protein > 0
     }
 
 }
