@@ -35,7 +35,8 @@ object DummyTags {
         "American",
         "French",
         "Thai",
-        "Greek"
+        "Greek",
+        "iraq"
     )
 
     // Preparation Styles

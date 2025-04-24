@@ -1633,7 +1633,26 @@ object DummyRecipes {
             description = "Classic tiramisu in a shareable tray.",
             ingredients = listOf("ladyfingers", "mascarpone", "coffee", "cocoa")
         )
+
     )
+    ////Dummy Iraqi Recipes
+    val iraqiRecipeOptions = listOf(
+        createDummyRecipe(
+            tags = DummyTags.cuisines,
+            description = "Delicious iraqi dish"
+        ),
+        createDummyRecipe(
+            tags = DummyTags.cuisines.filter { it == "iraqi" },
+            description = "Pasta recipe"
+        ) ,
+        createDummyRecipe(
+            tags = DummyTags.cuisines,
+            description = "Another iraqi dish"
+        )
+    )
+
+
+
 
 
     val allRecipes = healthyFastFoodRecipes + easyRecipes +
