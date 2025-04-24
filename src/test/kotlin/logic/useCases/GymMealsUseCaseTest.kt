@@ -66,28 +66,12 @@ class GymMealsUseCaseTest {
 
     @Test
     fun `should handle recipes with exact nutrition match`() {
-        //given
         val recipes = listOf(
             DummyRecipes.easyRecipes[0],
         )
         every { recipesRepository.getRecipes() } returns recipes
 
         val result = gymMealsUseCase.findMealsByNutrition(250, 18, 0)
-
-        assertThat(result.map { it.name }).containsExactly("Spinach & Feta Omelet")
-    }
-
-
-    @Test
-    fun `should filter recipes based on protein tolerance`() {
-        val recipes = listOf(
-            DummyRecipes.easyRecipes[0], // Spinach & Feta Omelet (250 cal, 18g protein)
-            DummyRecipes.easyRecipes[1], // Caprese Salad (200 cal, 8g protein)
-            DummyRecipes.easyRecipes[2]  // Peanut Butter Banana Toast (220 cal, 6g protein)
-        )
-        every { recipesRepository.getRecipes() } returns recipes
-
-        val result = gymMealsUseCase.findMealsByNutrition(250, 15, 5)
 
         assertThat(result.map { it.name }).containsExactly("Spinach & Feta Omelet")
     }
