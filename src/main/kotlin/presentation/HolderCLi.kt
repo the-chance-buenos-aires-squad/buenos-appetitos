@@ -51,7 +51,7 @@ class HolderCLi(
                 "2" -> searchMealsByNameCLI.start()
                 "3" -> iraqiRecipesCli.startCli()
                 "4" -> getRandomEasyRecipesCli.suggestRandomRecipes()
-                "5" -> guessGameCli.play()
+                "5" -> guessGameCli.start()
                 "6" -> sweetsWithNoEggsCLi.start()
                 "7" -> getKetoDietRecipeHelperCLI.start()
                 "8" -> searchFoodByAddDateClI.start()
@@ -71,71 +71,4 @@ class HolderCLi(
             }
         }
     }
-
-
-    private fun showIraqiMeals() {
-
-        val iraqiMeals = iraqiMealsUseCase.execute()
-        println("Iraqi Meals:")
-        iraqiMeals.forEach {
-            println(it.name)
-        }
-    }
-
-    private fun showEasyFoodSuggestions() {
-        var meals = suggestMealsUseCases.suggestRandomMeals()
-        if (meals.isEmpty())
-            println("No suitable meals found.")
-        else
-            println("Suggested meals: $meals")
-    }
-
-    private fun findSweetWithOutEgg() {
-
-        println("\n------ Sweet without egg -----")
-        val dessert = getRandomEggFreeDessert()
-        println("\n1 - Like this dessert")
-        println("2 - Dislike (show another option)")
-        println("3 - Exit")
-        handleDessertUserChoice(dessert)
-
-    }
-
-    private fun ketoDietHelper() {
-        /* TODO */
-    }
-
-    private fun playIngredientGame() {
-        val scanner = Scanner(System.`in`)
-        var score = 0
-
-        println("🎮 Welcome to the INGREDIENT GAME!")
-        println("✅ One point per correct answer. ❌ Game ends on wrong answer.")
-
-        repeat(15) {
-            val round = ingredientGameUseCase.generateRound()
-
-            println("\n🍽️ Meal: ${round.meal.name}")
-            println("Which of the following is an ingredient?")
-            round.options.forEachIndexed { index, option ->
-                println("${index + 1}. $option")
-            }
-
-            print("Your choice (1–3): ")
-            val choice = scanner.nextLine().toIntOrNull()
-            val selected = round.options.getOrNull((choice ?: 0) - 1)
-
-            if (ingredientGameUseCase.checkAnswer(selected, round.correct)) {
-                score += 1000
-                println("✅ Correct! Your score: $score")
-            } else {
-                println("❌ Wrong! The correct answer was: ${round.correct}")
-                println("🎯 Final Score: $score")
-                return
-            }
-        }
-
-        println("\n🎉 You completed all rounds! Final Score: $score")
-    }
-
 }
