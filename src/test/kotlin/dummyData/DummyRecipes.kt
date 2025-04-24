@@ -508,122 +508,24 @@ object DummyRecipes {
     )
 
     val eggFreeSweets = listOf(
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+
+    )
+
+    val failingSweetsNoEgg= listOf(
         createDummyRecipe(
-            name = "Vegan Chocolate Avocado Mousse",
-            id = "EGGFREE_001",
-            minutes = 10,
-            contributorId = "user_vegandesserts",
-            submitted = LocalDate.parse("2023-05-12"),
-            tags = listOf("vegan", "egg-free", "gluten-free"),
-            nutrition = Nutrition(
-                calories = 200.0,
-                fat = 14.0,
-                sugar = 12.0,
-                sodium = 10.0,
-                protein = 4.0,
-                saturatedFat = 3.0,
-                carbohydrates = 18.0
-            ),
-            steps = listOf(
-                "Blend ripe avocado, cocoa powder, and maple syrup.",
-                "Add almond milk for consistency.",
-                "Chill for 1 hour before serving."
-            ),
-            description = "A creamy, egg-free chocolate mousse made with avocado.",
-            ingredients = listOf("avocado", "cocoa powder", "maple syrup", "almond milk")
+            tags = DummyTags.mealTypesWithOutDessert,
+            ingredients = DummyIngredients.sweetenersNoEgg
         ),
         createDummyRecipe(
-            name = "No-Bake Oatmeal Cookie Bites",
-            id = "EGGFREE_002",
-            minutes = 15,
-            contributorId = "user_healthybaker",
-            submitted = LocalDate.parse("2023-06-08"),
-            tags = listOf("egg-free", "no-bake", "vegan"),
-            nutrition = Nutrition(
-                calories = 150.0,
-                fat = 6.0,
-                sugar = 8.0,
-                sodium = 50.0,
-                protein = 3.0,
-                saturatedFat = 1.0,
-                carbohydrates = 22.0
-            ),
-            steps = listOf(
-                "Mix oats, peanut butter, honey, and dark chocolate chips.",
-                "Roll into balls and refrigerate."
-            ),
-            description = "Egg-free energy bites with oats and peanut butter.",
-            ingredients = listOf("oats", "peanut butter", "honey", "dark chocolate chips")
-        ),
-        createDummyRecipe(
-            name = "Coconut Chia Pudding",
-            id = "EGGFREE_003",
-            minutes = 5,
-            contributorId = "user_cleaneats",
-            submitted = LocalDate.parse("2023-07-20"),
-            tags = listOf("egg-free", "vegan", "high-fiber"),
-            nutrition = Nutrition(
-                calories = 180.0,
-                fat = 10.0,
-                sugar = 6.0,
-                sodium = 20.0,
-                protein = 5.0,
-                saturatedFat = 7.0,
-                carbohydrates = 15.0
-            ),
-            steps = listOf(
-                "Whisk chia seeds with coconut milk and vanilla extract.",
-                "Refrigerate overnight and top with mango slices."
-            ),
-            description = "A tropical, egg-free pudding with chia and coconut.",
-            ingredients = listOf("chia seeds", "coconut milk", "vanilla extract", "mango")
-        ),
-        createDummyRecipe(
-            name = "Almond Date Energy Balls",
-            id = "EGGFREE_004",
-            minutes = 15,
-            contributorId = "user_snackmaster",
-            submitted = LocalDate.parse("2023-08-03"),
-            tags = listOf("egg-free", "no-bake", "paleo"),
-            nutrition = Nutrition(
-                calories = 120.0,
-                fat = 5.0,
-                sugar = 10.0,
-                sodium = 5.0,
-                protein = 3.0,
-                saturatedFat = 0.5,
-                carbohydrates = 18.0
-            ),
-            steps = listOf(
-                "Blend dates, almonds, and cocoa powder in a food processor.",
-                "Roll into balls and coat with shredded coconut."
-            ),
-            description = "Naturally sweetened, egg-free energy snacks.",
-            ingredients = listOf("dates", "almonds", "cocoa powder", "shredded coconut")
-        ),
-        createDummyRecipe(
-            name = "Raspberry Sorbet",
-            id = "EGGFREE_005",
-            minutes = 240,
-            contributorId = "user_frozenTreats",
-            submitted = LocalDate.parse("2023-09-14"),
-            tags = listOf("egg-free", "dairy-free", "fruit-based"),
-            nutrition = Nutrition(
-                calories = 90.0,
-                fat = 0.2,
-                sugar = 20.0,
-                sodium = 2.0,
-                protein = 1.0,
-                saturatedFat = 0.0,
-                carbohydrates = 23.0
-            ),
-            steps = listOf(
-                "Blend frozen raspberries, lime juice, and agave syrup.",
-                "Freeze mixture for 4 hours.",
-                "Scrape with a fork to create sorbet texture."
-            ),
-            description = "A refreshing, egg-free sorbet with fresh raspberries.",
-            ingredients = listOf("raspberries", "lime juice", "agave syrup")
+            tags = DummyTags.mealTypesWithDessert,
+            ingredients = DummyIngredients.sweetenersWithEgg
         )
     )
 
