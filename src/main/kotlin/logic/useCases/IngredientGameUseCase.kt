@@ -1,62 +1,80 @@
 package org.example.logic.useCases
 
 import org.example.logic.RecipesRepository
+import org.example.logic.customExceptions.NoRecipesWithIngredientsException
 import org.example.model.IngredientGameRound
+import kotlin.random.Random
 
-class IngredientGameUseCase(repository: RecipesRepository) {
+class IngredientGameUseCase(private val repository: RecipesRepository) {
 
-    private val allMeals = repository.getRecipes().filter { it.ingredients.isNotEmpty() }
-    private val allIngredients = allMeals.flatMap { it.ingredients }.distinct()
     private var score = 0
     private var currentRound = 0
-    private var isGameOver = false
-
-    fun generateRound(): IngredientGameRound {
-
-        val meal = allMeals.random()
-        val correct = meal.ingredients.random()
-
-        val wrongOptions = allIngredients
-            .filterNot { it.equals(correct, ignoreCase = true) }.shuffled().take(2)
-
-        val allOptions = (wrongOptions + correct).shuffled()
-
-        currentRound++
-
-        return IngredientGameRound(
-            meal = meal,
-            questionChoices = allOptions,
-            correct = correct
-        )
-    }
+    private var hasGameEnded = false
+    private var correctAnswer: String = ""
 
     fun startNewGame() {
         score = 0
         currentRound = 0
-        isGameOver = false
+        hasGameEnded = false
     }
 
-    fun checkAnswer(selected: String?, correct: String): Boolean {
-        val isCorrect = selected?.equals(correct, ignoreCase = true) == true
+    fun createNewRound(): IngredientGameRound {
+
+        val availableRecipesWithIngredients = repository.getRecipes().filter { it.ingredients.isNotEmpty() }
+        if (availableRecipesWithIngredients.isEmpty()) throw NoRecipesWithIngredientsException()
+        val allIngredients = availableRecipesWithIngredients.flatMap { it.ingredients }.distinct()
+        val randomRecipe = availableRecipesWithIngredients.random()
+        correctAnswer = randomRecipe.ingredients.random()
+
+        val wrongOptions = allIngredients.getRandomWrongOptions(correctAnswer)
+
+        val allOptions = (wrongOptions + correctAnswer).shuffled()
+
+        currentRound++
+
+        return IngredientGameRound(
+            meal = randomRecipe,
+            questionChoices = allOptions,
+            correct = correctAnswer
+        )
+    }
+
+    fun checkAnswer(selected: String): Boolean {
+        val isCorrect = selected == correctAnswer
 
         if (isCorrect) {
             score += 1000
         } else {
-            isGameOver = true
+            hasGameEnded = true
         }
         return isCorrect
     }
 
-    fun isGameOver(): Boolean = isGameOver || currentRound >= totalRounds
+    fun isGameEnd(): Boolean = hasGameEnded || currentRound >= totalIngredientGameRound
 
     fun getScore(): Int = score
 
     fun getCurrentRound(): Int = currentRound
 
-    fun getTotalRounds(): Int = totalRounds
+    private fun List<String>.getRandomWrongOptions(
+        correctAnswer: String,
+        numberOfOptions: Int = numberOfWrongAnswer
+    ): List<String> {
+        val filteredIngredients = this.filterNot { it.equals(correctAnswer, ignoreCase = true) }.toMutableList()
+        val wrongOptions = mutableListOf<String>()
+
+        while (wrongOptions.size < numberOfOptions) {
+            val randomIndex = Random.nextInt(filteredIngredients.size)
+            val option = filteredIngredients.removeAt(randomIndex)
+            wrongOptions.add(option)
+        }
+
+        return wrongOptions
+    }
 
     companion object {
-        private const val totalRounds = 15
+        const val totalIngredientGameRound = 15
+        private const val numberOfWrongAnswer = 2
     }
 
 }
