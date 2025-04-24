@@ -75,7 +75,7 @@ object DummyNutrition {
         fat = 30.0,//❌
         sugar = 10.0,
         sodium = 700.0,
-        protein = 25.0,//❌
+        protein = 10.0,//❌
         saturatedFat = 20.0,//❌
         carbohydrates = 45.0//❌
     )

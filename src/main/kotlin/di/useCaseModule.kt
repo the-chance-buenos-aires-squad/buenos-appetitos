@@ -1,6 +1,7 @@
 package di
 
 import logic.useCases.ExploreRecipesByCountryUseCase
+import logic.useCases.GetKetoRecipeUseCase
 import logic.useCases.GetLovePotatoUseCase
 import logic.useCases.IdentifyIraqiRecipesUseCase
 import org.example.logic.useCases.*

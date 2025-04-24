@@ -7,7 +7,6 @@ import io.mockk.mockk
 import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository
 import org.example.logic.customExceptions.NoKetoRecipeFoundException
-import org.example.logic.useCases.GetKetoRecipeUseCase
 import org.junit.jupiter.api.*
 
 class GetKetoRecipeUseCaseTest {

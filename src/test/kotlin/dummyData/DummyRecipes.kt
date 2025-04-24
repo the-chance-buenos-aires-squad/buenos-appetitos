@@ -618,13 +618,13 @@ object DummyRecipes {
     //Non-Keto Recipes (Fail Filter)
     val failingKetoRecipes = listOf(
         createDummyRecipe(nutrition = DummyNutrition.nonKeto),
-        createDummyRecipe(nutrition = DummyNutrition.nonKeto),
-        createDummyRecipe(nutrition = DummyNutrition.nonKeto),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly.copy(fat = 2.4)),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly.copy(protein = 2.4)),
         createDummyRecipe(nutrition = DummyNutrition.nonKeto),
         createDummyRecipe(nutrition = DummyNutrition.nonKeto),
         createDummyRecipe(nutrition = DummyNutrition.nonKeto),
 
-    )
+        )
 
 
     val countryRecipes = listOf(
