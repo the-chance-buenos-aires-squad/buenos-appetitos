@@ -5,6 +5,131 @@ import java.time.LocalDate
 
 object DummyRecipes {
     val healthyFastFoodRecipes = listOf(
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 17,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        ),
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 16,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        ),
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 14,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 0.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        ),
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 13,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 0.0,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        ),
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 12,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 0.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        ),
         // 1. Zucchini Noodles with Avocado Pesto
         createDummyRecipe(
             name = "Zucchini Noodles with Avocado Pesto",
@@ -31,7 +156,6 @@ object DummyRecipes {
             description = "A light, refreshing meal packed with healthy fats and fiber.",
             ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
         ),
-
         // 2. Turmeric Chickpea Stir-Fry
         createDummyRecipe(
             name = "Turmeric Chickpea Stir-Fry",
@@ -57,7 +181,6 @@ object DummyRecipes {
             description = "A protein-rich, anti-inflammatory dish ready in minutes.",
             ingredients = listOf("chickpeas", "turmeric", "spinach", "lemon", "cherry tomatoes")
         ),
-
         // 3. Spicy Tuna Lettuce Wraps
         createDummyRecipe(
             name = "Spicy Tuna Lettuce Wraps",
@@ -82,7 +205,6 @@ object DummyRecipes {
             description = "A no-cook, high-protein lunch with a kick!",
             ingredients = listOf("canned tuna", "Greek yogurt", "lettuce", "cucumber", "lime")
         ),
-
         // 4. Miso-Ginger Broccoli Bowl
         createDummyRecipe(
             name = "Miso-Ginger Broccoli Bowl",
@@ -108,7 +230,6 @@ object DummyRecipes {
             description = "A fiber-rich bowl with immunity-boosting ingredients.",
             ingredients = listOf("broccoli", "edamame", "miso paste", "ginger", "quinoa")
         ),
-
         // 5. Chia Seed Protein Pudding
         createDummyRecipe(
             name = "Chia Seed Protein Pudding",

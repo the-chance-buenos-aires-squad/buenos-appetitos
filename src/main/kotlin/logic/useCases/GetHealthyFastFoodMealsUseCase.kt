@@ -9,6 +9,7 @@ class GetHealthyFastFoodMealsUseCase(
 ) {
     fun getHealthyFastFood(numOfRecipe: Int = DEFAULT_NUM_OF_RECIPES): List<Recipe> {
         val allRecipes = recipesRepository.getRecipes()
+        if (allRecipes.isEmpty()) throw EmptyListThrowException()
         val recipesPreparedInFiftyMinutesOrLess = allRecipes
             .filter { healthyFastFoodConstraints(it) }
             .take(numOfRecipe)
@@ -24,15 +25,14 @@ class GetHealthyFastFoodMealsUseCase(
     }
 
     private fun sortedByNormalization(allRecipes: List<Recipe>): List<Recipe> {
+        val minFat = allRecipes.minOfOrNull { it.nutrition.fat } ?: return emptyList()
+        val maxFat = allRecipes.maxOfOrNull { it.nutrition.fat } ?: return emptyList()
 
-        val minFat = allRecipes.minOf { it.nutrition.fat }
-        val maxFat = allRecipes.maxOf { it.nutrition.fat }
+        val minSaturatedFat = allRecipes.minOfOrNull { it.nutrition.saturatedFat } ?: return emptyList()
+        val maxSaturatedFat = allRecipes.maxOfOrNull { it.nutrition.saturatedFat } ?: return emptyList()
 
-        val minSaturatedFat = allRecipes.minOf { it.nutrition.saturatedFat }
-        val maxSaturatedFat = allRecipes.maxOf { it.nutrition.saturatedFat }
-
-        val minCarbs = allRecipes.minOf { it.nutrition.carbohydrates }
-        val maxCarbs = allRecipes.maxOf { it.nutrition.carbohydrates }
+        val minCarbs = allRecipes.minOfOrNull { it.nutrition.carbohydrates } ?: return emptyList()
+        val maxCarbs = allRecipes.maxOfOrNull { it.nutrition.carbohydrates } ?: return emptyList()
 
         fun normalize(value: Double, min: Double, max: Double): Double {
             return if (max != min) (value - min) / (max - min) else 0.0
@@ -45,6 +45,6 @@ class GetHealthyFastFoodMealsUseCase(
             fatNorm + saturatedNorm + carbsNorm
         }
     }
-
-
 }
+
+class EmptyListThrowException(message: String = "List is empty") : RuntimeException(message)
