@@ -4,12 +4,11 @@ import model.Nutrition
 import java.time.LocalDate
 
 object DummyRecipes {
-    val healthyFastFoodRecipes = listOf(
-        // 1. Zucchini Noodles with Avocado Pesto
+    val healthyFastFoodRecipesNormalizationEqualZero = listOf(
         createDummyRecipe(
             name = "Zucchini Noodles with Avocado Pesto",
             id = "HEALTHY_001",
-            minutes = 15,
+            minutes = 13,
             contributorId = "user_health123",
             submitted = LocalDate.parse("2023-10-05"),
             tags = listOf("low-fat", "low-carb", "vegan", "quick"),
@@ -31,15 +30,119 @@ object DummyRecipes {
             description = "A light, refreshing meal packed with healthy fats and fiber.",
             ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
         ),
-
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 12,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        )
+    )
+    val healthyFastFoodRecipesHaveCarbsEqualNull = listOf(
+        createDummyRecipe(
+            minutes = 11,
+            nutrition = Nutrition(
+                fat = 8.0,
+                saturatedFat = 1.2,
+                carbohydrates = 0.0,
+                calories = 0.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0
+            )
+        )
+    )
+    val healthyFastFoodRecipesHaveFatEqualNull = listOf(
+        createDummyRecipe(
+            minutes = 11,
+            nutrition = Nutrition(
+                fat = 0.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0,
+                calories = 0.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0
+            )
+        )
+    )
+    val healthyFastFoodRecipesHaveSaturatedFatEqualNull = listOf(
+        createDummyRecipe(
+            minutes = 11,
+            nutrition = Nutrition(
+                fat = 8.0,
+                saturatedFat = 0.0,
+                carbohydrates = 18.0,
+                calories = 0.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0
+            )
+        )
+    )
+    val healthyFastFoodRecipesTakeTimeGreaterThanFifty = listOf(
+        createDummyRecipe(
+            minutes = 17,
+            nutrition = Nutrition(
+                calories = 0.0,
+                fat = 8.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            )
+        ),
+        createDummyRecipe(
+            minutes = 16,
+            nutrition = Nutrition(
+                calories = 0.0,
+                fat = 8.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            )
+        )
+    )
+    val healthyFastFoodRecipes = listOf(
+        // 1. Zucchini Noodles with Avocado Pesto
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            minutes = 15,
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            )
+        ),
         // 2. Turmeric Chickpea Stir-Fry
         createDummyRecipe(
             name = "Turmeric Chickpea Stir-Fry",
-            id = "HEALTHY_002",
             minutes = 12,
-            contributorId = "user_veganchef",
-            submitted = LocalDate.parse("2023-09-20"),
-            tags = listOf("high-protein", "gluten-free", "anti-inflammatory", "quick"),
             nutrition = Nutrition(
                 calories = 220.0,
                 fat = 4.5,
@@ -48,24 +151,12 @@ object DummyRecipes {
                 protein = 12.0,
                 saturatedFat = 0.6,
                 carbohydrates = 22.0
-            ),
-            steps = listOf(
-                "Sauté chickpeas with turmeric, cumin, and garlic.",
-                "Add spinach and cherry tomatoes.",
-                "Serve with a squeeze of lemon."
-            ),
-            description = "A protein-rich, anti-inflammatory dish ready in minutes.",
-            ingredients = listOf("chickpeas", "turmeric", "spinach", "lemon", "cherry tomatoes")
+            )
         ),
-
         // 3. Spicy Tuna Lettuce Wraps
         createDummyRecipe(
             name = "Spicy Tuna Lettuce Wraps",
-            id = "HEALTHY_003",
             minutes = 10,
-            contributorId = "user_fishlover",
-            submitted = LocalDate.parse("2023-11-01"),
-            tags = listOf("low-carb", "high-protein", "omega-3", "no-cook"),
             nutrition = Nutrition(
                 calories = 180.0,
                 fat = 5.0,
@@ -74,23 +165,12 @@ object DummyRecipes {
                 protein = 25.0,
                 saturatedFat = 1.0,
                 carbohydrates = 8.0
-            ),
-            steps = listOf(
-                "Mix canned tuna with Greek yogurt, sriracha, and lime juice.",
-                "Spoon into lettuce cups and top with diced cucumber."
-            ),
-            description = "A no-cook, high-protein lunch with a kick!",
-            ingredients = listOf("canned tuna", "Greek yogurt", "lettuce", "cucumber", "lime")
+            )
         ),
-
         // 4. Miso-Ginger Broccoli Bowl
         createDummyRecipe(
             name = "Miso-Ginger Broccoli Bowl",
-            id = "HEALTHY_004",
             minutes = 14,
-            contributorId = "user_asiafoodie",
-            submitted = LocalDate.parse("2023-08-15"),
-            tags = listOf("vegan", "low-sodium", "high-fiber", "immunity-boosting"),
             nutrition = Nutrition(
                 calories = 200.0,
                 fat = 6.0,
@@ -99,24 +179,12 @@ object DummyRecipes {
                 protein = 8.0,
                 saturatedFat = 0.8,
                 carbohydrates = 15.0
-            ),
-            steps = listOf(
-                "Steam broccoli and edamame for 5 mins.",
-                "Whisk miso paste, ginger, rice vinegar, and sesame oil for dressing.",
-                "Toss broccoli with dressing and serve over quinoa."
-            ),
-            description = "A fiber-rich bowl with immunity-boosting ingredients.",
-            ingredients = listOf("broccoli", "edamame", "miso paste", "ginger", "quinoa")
+            )
         ),
-
         // 5. Chia Seed Protein Pudding
         createDummyRecipe(
             name = "Chia Seed Protein Pudding",
-            id = "HEALTHY_005",
             minutes = 5,
-            contributorId = "user_breakfastking",
-            submitted = LocalDate.parse("2023-12-10"),
-            tags = listOf("no-cook", "high-protein", "low-sugar", "meal-prep"),
             nutrition = Nutrition(
                 calories = 190.0,
                 fat = 7.0,
@@ -125,13 +193,7 @@ object DummyRecipes {
                 protein = 15.0,
                 saturatedFat = 1.5,
                 carbohydrates = 12.0
-            ),
-            steps = listOf(
-                "Mix chia seeds, almond milk, and protein powder in a jar.",
-                "Refrigerate overnight and top with berries before serving."
-            ),
-            description = "A no-cook, protein-packed breakfast or snack.",
-            ingredients = listOf("chia seeds", "almond milk", "protein powder", "mixed berries")
+            )
         )
     )
 
