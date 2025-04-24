@@ -40,20 +40,20 @@ class GetSeaFoodRankingByProteinUseCaseTest {
     }
 
     @Test
-    fun `should return only six seafood meals if list only have six seafood meals`() {
+    fun `should return only seven seafood meals if list only have seven seafood meals`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.seafoodRecipes
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
-        assertThat(result).hasSize(6)
+        assertThat(result).hasSize(8)
     }
 
     @Test
     fun `should return only ten seafood meals if list have more than 10 seafood meals`() {
         //given
         every { recipesRepository.getRecipes() } returns
-                DummyRecipes.seafoodRecipes + DummyRecipes.seafoodRecipes + DummyRecipes.seafoodRecipes
+                DummyRecipes.seafoodRecipes + DummyRecipes.seafoodRecipes
 
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
@@ -88,6 +88,26 @@ class GetSeaFoodRankingByProteinUseCaseTest {
         //when
         val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
         //then
-        assertThat(result).hasSize(6)
+        assertThat(result).hasSize(8)
+    }
+
+    @Test
+    fun `should return meal if tags only contain seafood meal`() {
+        //given
+        every { recipesRepository.getRecipes() } returns listOf(DummyRecipes.seafoodRecipes[7])
+        //when
+        val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
+        //then
+        assertThat(result).hasSize(1)
+    }
+
+    @Test
+    fun `should return meal if ingredients only contain seafood meal`() {
+        //given
+        every { recipesRepository.getRecipes() } returns listOf(DummyRecipes.seafoodRecipes[8])
+        //when
+        val result = getSeaFoodRankingByProteinUseCase.getSeaFoodRanking()
+        //then
+        assertThat(result).hasSize(1)
     }
 }
