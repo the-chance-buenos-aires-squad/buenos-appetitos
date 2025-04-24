@@ -1,10 +1,7 @@
 package logic.useCases
 
 import com.google.common.truth.Truth.assertThat
-import dummyData.DummyIngredients
 import dummyData.DummyRecipes
-import dummyData.DummyTags
-import dummyData.createDummyRecipe
 import io.mockk.every
 import io.mockk.mockk
 import logic.customExceptions.NoRecipeFoundException
@@ -17,12 +14,11 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 
 class SweetsWithNoEggsUseCaseTest {
-    private lateinit var repository: RecipesRepository
+    private var repository: RecipesRepository = mockk()
     private lateinit var sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase
 
     @BeforeEach
     fun setUp() {
-        repository = mockk(relaxed = true)
         sweetsWithNoEggsUseCase = SweetsWithNoEggsUseCase(repository)
     }
 
