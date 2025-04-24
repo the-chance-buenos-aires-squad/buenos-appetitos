@@ -5,7 +5,7 @@ import org.example.model.GuessAttemptState
 
 class GuessGameUseCase(private val repository: RecipesRepository ) {
 
-  
+
      fun submit(userGuess: Int, preparationTime: Int, attempts: Int): GuessAttemptState {
         return if (userGuess == preparationTime)
             GuessAttemptState.CORRECT

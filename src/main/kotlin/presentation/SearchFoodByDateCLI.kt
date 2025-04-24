@@ -3,8 +3,9 @@ package org.example.presentation
 import org.example.logic.useCases.SearchFoodByAddDateUseCase
 import org.example.logic.useCases.SearchFoodByAddDateUseCase.DailyRecipe
 import org.example.model.Recipe
-import org.example.presentation.customExceptions.EmptyInputException
-import org.example.presentation.customExceptions.NoRecipeFoundException
+import logic.customExceptions.NoRecipeFoundException
+import org.example.presentation.displyUtils.displayDetails
+import org.example.presentation.inputHandlingUtils.handleUserInput
 import java.time.DateTimeException
 
 class SearchFoodByDateCLI(
@@ -14,9 +15,9 @@ class SearchFoodByDateCLI(
     fun start() {
         displaySearchByDateHeadMessage()
         val dateQuery: String = handleUserInput()
-        getDailyRecipesResult(dateQuery).let { result->
-            if (result.isNotEmpty()){
-                displayDailyRecipes(result,dateQuery)
+        getDailyRecipesResult(dateQuery).let { result ->
+            if (result.isNotEmpty()) {
+                displayDailyRecipes(result, dateQuery)
                 getChosenRecipe()
             }
 
@@ -28,12 +29,12 @@ class SearchFoodByDateCLI(
         println("-------------------------------")
         println("Id        Name")
         println("--        ----")
-        result.forEach {dailyRecipe->
+        result.forEach { dailyRecipe ->
             println("${dailyRecipe.id}        ${dailyRecipe.name}")
         }
     }
 
-    private fun getDailyRecipesResult(dateQuery : String):List<DailyRecipe> {
+    private fun getDailyRecipesResult(dateQuery: String): List<DailyRecipe> {
         try {
             val dailyRecipeResult: List<DailyRecipe> = searchFoodByAddDateUseCase.searchFoodByDate(dateQuery)
             return dailyRecipeResult
@@ -46,29 +47,17 @@ class SearchFoodByDateCLI(
         }
     }
 
-    private fun handleUserInput() = try {
-        readUserInput()
-    } catch (e: EmptyInputException) {
-        println("you didn't enter anything redirecting back to main menu")
-        ""
-    }
-
 
     private fun getChosenRecipe() {
         println("please choose which recipe you want to show more details....\n:")
         val chosenRecipeId: String = handleUserInput()
-        val detailedRecipe:Recipe = searchFoodByAddDateUseCase.getDetailedRecipeById(chosenRecipeId)
-//        println(detailedRecipe)
-        TODO("use extension display function from Amr4X4")
-    }
-
-
-
-
-    private fun readUserInput(): String {
-        val userInput = readln()
-        if (userInput.trim().isEmpty()) throw EmptyInputException()
-        return userInput
+        val detailedRecipe: Recipe? = searchFoodByAddDateUseCase.getDetailedRecipeById(chosenRecipeId)
+        detailedRecipe.let {
+            when (it) {
+                null -> println("incorrect input no such id found")
+                else -> it.displayDetails()
+            }
+        }
     }
 
 
