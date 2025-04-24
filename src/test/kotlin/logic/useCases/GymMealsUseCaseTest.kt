@@ -18,11 +18,6 @@ class GymMealsUseCaseTest {
         recipesRepository = mockk(relaxed = true)
         gymMealsUseCase = GymMealsUseCase(recipesRepository)
     }
-    /*
-     some of these test cases are not useful cuz we do not ask the users
-     to put the tolerance themselves or have a system to put tolerance for users based on
-     their information
-     */
 
     @Test
     fun `should return empty list if recipes is empty`() {
