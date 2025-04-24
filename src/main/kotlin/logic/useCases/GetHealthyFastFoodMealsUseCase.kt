@@ -26,23 +26,23 @@ class GetHealthyFastFoodMealsUseCase(
     }
 
     private fun sortedByNormalization(allRecipes: List<Recipe>): List<Recipe> {
-        val minFat = allRecipes.minOfOrNull { it.nutrition.fat } ?: return emptyList()
-        val maxFat = allRecipes.maxOfOrNull { it.nutrition.fat } ?: return emptyList()
+        val minFat = allRecipes.minOfOrNull { it.nutrition.fat }
+        val maxFat = allRecipes.maxOfOrNull { it.nutrition.fat }
 
-        val minSaturatedFat = allRecipes.minOfOrNull { it.nutrition.saturatedFat } ?: return emptyList()
-        val maxSaturatedFat = allRecipes.maxOfOrNull { it.nutrition.saturatedFat } ?: return emptyList()
+        val minSaturatedFat = allRecipes.minOfOrNull { it.nutrition.saturatedFat }
+        val maxSaturatedFat = allRecipes.maxOfOrNull { it.nutrition.saturatedFat }
 
-        val minCarbs = allRecipes.minOfOrNull { it.nutrition.carbohydrates } ?: return emptyList()
-        val maxCarbs = allRecipes.maxOfOrNull { it.nutrition.carbohydrates } ?: return emptyList()
+        val minCarbs = allRecipes.minOfOrNull { it.nutrition.carbohydrates }
+        val maxCarbs = allRecipes.maxOfOrNull { it.nutrition.carbohydrates }
 
         fun normalize(value: Double, min: Double, max: Double): Double {
             return if (max != min) (value - min) / (max - min) else 0.0
         }
 
         return allRecipes.sortedBy {
-            val fatNorm = normalize(it.nutrition.fat, minFat, maxFat)
-            val saturatedNorm = normalize(it.nutrition.saturatedFat, minSaturatedFat, maxSaturatedFat)
-            val carbsNorm = normalize(it.nutrition.carbohydrates, minCarbs, maxCarbs)
+            val fatNorm = normalize(it.nutrition.fat, minFat!!, maxFat!!)
+            val saturatedNorm = normalize(it.nutrition.saturatedFat, minSaturatedFat!!, maxSaturatedFat!!)
+            val carbsNorm = normalize(it.nutrition.carbohydrates, minCarbs!!, maxCarbs!!)
             fatNorm + saturatedNorm + carbsNorm
         }
     }
