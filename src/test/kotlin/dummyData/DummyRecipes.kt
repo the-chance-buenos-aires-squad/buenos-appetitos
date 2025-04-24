@@ -4,20 +4,145 @@ import model.Nutrition
 import java.time.LocalDate
 
 object DummyRecipes {
+    val healthyFastFoodRecipesNormalizationEqualZero = listOf(
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 13,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        ),
+        createDummyRecipe(
+            name = "Zucchini Noodles with Avocado Pesto",
+            id = "HEALTHY_001",
+            minutes = 12,
+            contributorId = "user_health123",
+            submitted = LocalDate.parse("2023-10-05"),
+            tags = listOf("low-fat", "low-carb", "vegan", "quick"),
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Spiralize zucchini into noodles.",
+                "Blend avocado, basil, garlic, lemon juice, and olive oil for pesto.",
+                "Toss zucchini noodles with pesto.",
+                "Top with cherry tomatoes and pine nuts."
+            ),
+            description = "A light, refreshing meal packed with healthy fats and fiber.",
+            ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
+        )
+    )
+    val healthyFastFoodRecipesHaveCarbsEqualNull = listOf(
+        createDummyRecipe(
+            minutes = 11,
+            nutrition = Nutrition(
+                fat = 8.0,
+                saturatedFat = 1.2,
+                carbohydrates = 0.0,
+                calories = 0.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0
+            )
+        )
+    )
+    val healthyFastFoodRecipesHaveFatEqualNull = listOf(
+        createDummyRecipe(
+            minutes = 11,
+            nutrition = Nutrition(
+                fat = 0.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0,
+                calories = 0.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0
+            )
+        )
+    )
+    val healthyFastFoodRecipesHaveSaturatedFatEqualNull = listOf(
+        createDummyRecipe(
+            minutes = 11,
+            nutrition = Nutrition(
+                fat = 8.0,
+                saturatedFat = 0.0,
+                carbohydrates = 18.0,
+                calories = 0.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0
+            )
+        )
+    )
+    val healthyFastFoodRecipesTakeTimeGreaterThanFifty = listOf(
+        createDummyRecipe(
+            minutes = 17,
+            nutrition = Nutrition(
+                calories = 0.0,
+                fat = 8.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            )
+        ),
+        createDummyRecipe(
+            minutes = 16,
+            nutrition = Nutrition(
+                calories = 0.0,
+                fat = 8.0,
+                sugar = 0.0,
+                sodium = 0.0,
+                protein = 0.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            )
+        )
+    )
     val healthyFastFoodRecipes = listOf(
         // 1. Zucchini Noodles with Avocado Pesto
         createDummyRecipe(
-            nutrition = DummyNutrition.heartHealthy,
+            name = "Zucchini Noodles with Avocado Pesto",
+            minutes = 15,
+            nutrition = Nutrition(
+                calories = 280.0,
+                fat = 8.0,
+                sugar = 4.0,
+                sodium = 200.0,
+                protein = 6.0,
+                saturatedFat = 1.2,
+                carbohydrates = 18.0
+            )
         ),
-
         // 2. Turmeric Chickpea Stir-Fry
         createDummyRecipe(
             name = "Turmeric Chickpea Stir-Fry",
-            id = "HEALTHY_002",
             minutes = 12,
-            contributorId = "user_veganchef",
-            submitted = LocalDate.parse("2023-09-20"),
-            tags = listOf("high-protein", "gluten-free", "anti-inflammatory", "quick"),
             nutrition = Nutrition(
                 calories = 220.0,
                 fat = 4.5,
@@ -26,24 +151,12 @@ object DummyRecipes {
                 protein = 12.0,
                 saturatedFat = 0.6,
                 carbohydrates = 22.0
-            ),
-            steps = listOf(
-                "Sauté chickpeas with turmeric, cumin, and garlic.",
-                "Add spinach and cherry tomatoes.",
-                "Serve with a squeeze of lemon."
-            ),
-            description = "A protein-rich, anti-inflammatory dish ready in minutes.",
-            ingredients = listOf("chickpeas", "turmeric", "spinach", "lemon", "cherry tomatoes")
+            )
         ),
-
         // 3. Spicy Tuna Lettuce Wraps
         createDummyRecipe(
             name = "Spicy Tuna Lettuce Wraps",
-            id = "HEALTHY_003",
             minutes = 10,
-            contributorId = "user_fishlover",
-            submitted = LocalDate.parse("2023-11-01"),
-            tags = listOf("low-carb", "high-protein", "omega-3", "no-cook"),
             nutrition = Nutrition(
                 calories = 180.0,
                 fat = 5.0,
@@ -52,23 +165,12 @@ object DummyRecipes {
                 protein = 25.0,
                 saturatedFat = 1.0,
                 carbohydrates = 8.0
-            ),
-            steps = listOf(
-                "Mix canned tuna with Greek yogurt, sriracha, and lime juice.",
-                "Spoon into lettuce cups and top with diced cucumber."
-            ),
-            description = "A no-cook, high-protein lunch with a kick!",
-            ingredients = listOf("canned tuna", "Greek yogurt", "lettuce", "cucumber", "lime")
+            )
         ),
-
         // 4. Miso-Ginger Broccoli Bowl
         createDummyRecipe(
             name = "Miso-Ginger Broccoli Bowl",
-            id = "HEALTHY_004",
             minutes = 14,
-            contributorId = "user_asiafoodie",
-            submitted = LocalDate.parse("2023-08-15"),
-            tags = listOf("vegan", "low-sodium", "high-fiber", "immunity-boosting"),
             nutrition = Nutrition(
                 calories = 200.0,
                 fat = 6.0,
@@ -77,24 +179,12 @@ object DummyRecipes {
                 protein = 8.0,
                 saturatedFat = 0.8,
                 carbohydrates = 15.0
-            ),
-            steps = listOf(
-                "Steam broccoli and edamame for 5 mins.",
-                "Whisk miso paste, ginger, rice vinegar, and sesame oil for dressing.",
-                "Toss broccoli with dressing and serve over quinoa."
-            ),
-            description = "A fiber-rich bowl with immunity-boosting ingredients.",
-            ingredients = listOf("broccoli", "edamame", "miso paste", "ginger", "quinoa")
+            )
         ),
-
         // 5. Chia Seed Protein Pudding
         createDummyRecipe(
             name = "Chia Seed Protein Pudding",
-            id = "HEALTHY_005",
             minutes = 5,
-            contributorId = "user_breakfastking",
-            submitted = LocalDate.parse("2023-12-10"),
-            tags = listOf("no-cook", "high-protein", "low-sugar", "meal-prep"),
             nutrition = Nutrition(
                 calories = 190.0,
                 fat = 7.0,
@@ -103,13 +193,7 @@ object DummyRecipes {
                 protein = 15.0,
                 saturatedFat = 1.5,
                 carbohydrates = 12.0
-            ),
-            steps = listOf(
-                "Mix chia seeds, almond milk, and protein powder in a jar.",
-                "Refrigerate overnight and top with berries before serving."
-            ),
-            description = "A no-cook, protein-packed breakfast or snack.",
-            ingredients = listOf("chia seeds", "almond milk", "protein powder", "mixed berries")
+            )
         )
     )
 
@@ -625,6 +709,7 @@ object DummyRecipes {
         createDummyRecipe(nutrition = DummyNutrition.nonKeto),
 
         )
+
 
 
     val countryRecipes = listOf(
@@ -1208,6 +1293,170 @@ object DummyRecipes {
         )
     )
 
+    val ingredientGameRecipes = listOf(
+        createDummyRecipe(
+            name = "easy linguine and clam sauce",
+            ingredients = listOf("linguine", "butter", "red pepper flakes", "garlic cloves", "shallot", "flour", "oregano", "parsley", "canned clams", "white wine", "heavy cream", "parmesan cheese")
+        ),
+        createDummyRecipe(
+            name = "easy linguine del mar",
+            ingredients = listOf("linguine", "tuna fish", "red onion", "olive oil", "spaghetti sauce", "garlic cloves", "parmigiano")
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potato salad",
+            ingredients = listOf("red potatoes", "salt & pepper", "sour cream", "cheddar cheese", "green onions", "bacon bits")
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potatoes 4 ways",
+            ingredients = listOf("baking potatoes", "alfredo sauce", "ham", "frozen cut broccoli in cheese sauce", "salsa", "sour cream", "guacamole", "colby-monterey jack cheese", "chili with beans")
+        ),
+        createDummyRecipe(
+            name = "easy low cal chicken potato soup",
+            ingredients = listOf("boneless skinless chicken breasts", "water", "chicken broth", "yellow onion", "celery ribs", "red potatoes", "fat free sour cream", "rosemary", "parsley", "season-all salt", "flavoring", "salt", "pepper", "frozen corn kernels", "broccoli florets", "fat-free cheddar cheese")
+        ),
+        createDummyRecipe(
+            name = "easy low carb bread",
+            ingredients = listOf("almond meal", "eggs")
+        ),
+        createDummyRecipe(
+            name = "easy low carb pizza sauce and pasta sauce base",
+            ingredients = listOf("tomato paste", "water", "italian seasoning", "granulated garlic", "ground paprika", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat zucchini parmesan",
+            ingredients = listOf("zucchini", "parmesan cheese", "cooking spray")
+        ),
+        createDummyRecipe(
+            name = "easy low fat after thanksgiving turkey barley soup",
+            ingredients = listOf("unsalted chicken stock", "barley", "fresh mushrooms", "fresh carrot", "celery", "onion", "chicken bouillon granules", "dried thyme", "ground black pepper", "cooked turkey breast", "parsley")
+        ),
+        createDummyRecipe(
+            name = "easy low fat cacik garlic yogurt dip",
+            ingredients = listOf("low-fat plain yogurt", "cucumber", "garlic cloves", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken enchilada casserole",
+            ingredients = listOf("flour tortillas", "cooked chicken", "low-fat condensed cream of chicken soup", "water", "taco seasoning mix", "black beans", "low-fat cheddar cheese", "lettuce")
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken souvlaki",
+            ingredients = listOf("1% fat buttermilk", "liquid honey", "salt", "pepper", "dried oregano", "dried basil", "garlic cloves", "boneless skinless chicken breast halves")
+        ),
+        createDummyRecipe(
+            name = "easy low fat cornbread",
+            ingredients = listOf("flour", "cornmeal", "sugar", "baking powder", "baking soda", "salt", "low-fat buttermilk", "egg")
+        ),
+        createDummyRecipe(
+            name = "easy low fat curried zucchini soup",
+            ingredients = listOf("extra virgin olive oil", "onion", "garlic cloves", "curry powder", "zucchini", "baking potato", "broth", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat french toast",
+            ingredients = listOf("italian bread", "egg whites", "orange juice", "nutmeg", "cinnamon", "brown sugar")
+        ),
+        createDummyRecipe(
+            name = "easy low fat individual peach cobblers",
+            ingredients = listOf("bisquick heart smart mix", "egg", "skim milk", "splenda sugar substitute", "peaches in light syrup")
+        ),
+        createDummyRecipe(
+            name = "easy low fat mayonnaise",
+            ingredients = listOf("eggs", "sugar", "cornflour", "low-fat milk", "white vinegar", "salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat mushroom sauce",
+            ingredients = listOf("mushrooms", "low-fat sour cream", "plain low-fat yogurt", "fresh ground black pepper")
+        ),
+        createDummyRecipe(
+            name = "easy low fat oven roasted peppered potato wedges",
+            ingredients = listOf("potatoes", "olive oil", "fresh ground black pepper", "sea salt")
+        ),
+        createDummyRecipe(
+            name = "easy low fat roasted red pepper dip",
+            ingredients = listOf("roasted red peppers", "nonfat plain yogurt", "raisins", "toasted sliced almonds", "paprika", "salt", "hot sauce")
+        )
+    )
+    val ingredientGameWithNoIngredientsRecipes = listOf(
+        createDummyRecipe(
+            name = "easy linguine and clam sauce",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy linguine del mar",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potato salad",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy loaded baked potatoes 4 ways",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low cal chicken potato soup",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low carb bread",
+            ingredients =listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low carb pizza sauce and pasta sauce base",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat zucchini parmesan",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat after thanksgiving turkey barley soup",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat cacik garlic yogurt dip",
+            ingredients =listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken enchilada casserole",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat chicken souvlaki",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat cornbread",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat curried zucchini soup",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat french toast",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat individual peach cobblers",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat mayonnaise",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat mushroom sauce",
+            ingredients =listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat oven roasted peppered potato wedges",
+            ingredients = listOf()
+        ),
+        createDummyRecipe(
+            name = "easy low fat roasted red pepper dip",
+            ingredients = listOf()
+        )
+    )
 
     /**
      * // Output:
@@ -1217,6 +1466,114 @@ object DummyRecipes {
      * // 4. Lobster Bisque - 28g
      * // 5. Crab Cakes - 25g
      */
+    val seaFoodMealButProteinIsNull = listOf(
+        //protein is null
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("seafood", "high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 0.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("salmon", "lemon", "olive oil", "asparagus")
+        )
+    )
+    val seaFoodRecipesTagsOnlyHaveMeal = listOf(
+        //tags only contain seafood
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("seafood", "high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 38.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("salsa", "lemon", "olive oil", "asparagus")
+        )
+    )
+    val seaFoodRecipesIngredientOnlyHaveMeal = listOf(
+        //ingredients only contain seafood
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 38.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("salmon", "lemon", "olive oil", "asparagus")
+        ),
+    )
+    val seaFoodCaseInSensetive = listOf(
+        //case in-sensitive SEAFOOD SALMON
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("SEAFOOD", "high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 38.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("SALMON", "lemon", "olive oil", "asparagus")
+        ),
+    )
     val seafoodRecipes = listOf(
         createDummyRecipe(
             name = "Grilled Salmon Steak",
@@ -1342,12 +1699,93 @@ object DummyRecipes {
             ),
             description = "Crispy Maryland-style crab cakes.",
             ingredients = listOf("crab meat", "breadcrumbs", "egg", "mayonnaise")
-        )
+        ),
     )
 
-
-    //Dummy Italian Group Recipes
-    val italianGroupRecipes = listOf(
+    val mealsForLargeGroupButNotItalianMeal = listOf(
+        createDummyRecipe(
+            name = "Classic Lasagna",
+            id = "ITALY_GROUP_001",
+            minutes = 90,
+            contributorId = "user_italiangrandma",
+            submitted = LocalDate.parse("2023-05-01"),
+            tags = listOf("Egypt", "for-large-groups", "oven-baked"),
+            nutrition = Nutrition(
+                calories = 350.0,
+                fat = 15.0,
+                sugar = 8.0,
+                sodium = 800.0,
+                protein = 20.0,
+                saturatedFat = 6.0,
+                carbohydrates = 35.0
+            ),
+            steps = listOf(
+                "Layer lasagna sheets with béchamel and meat sauce.",
+                "Add mozzarella and Parmesan cheese.",
+                "Repeat layers.",
+                "Bake at 375°F for 45 mins.",
+                "Let rest for 15 mins.",
+                "Slice into 12 portions."
+            ),
+            description = "A crowd-pleasing lasagna that serves 12 people.",
+            ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
+        ),
+        createDummyRecipe(
+            name = "Classic Lasagna",
+            id = "ITALY_GROUP_001",
+            minutes = 90,
+            contributorId = "user_italiangrandma",
+            submitted = LocalDate.parse("2023-05-01"),
+            tags = listOf("Qatar", "for-large-groups", "oven-baked"),
+            nutrition = Nutrition(
+                calories = 350.0,
+                fat = 15.0,
+                sugar = 8.0,
+                sodium = 800.0,
+                protein = 20.0,
+                saturatedFat = 6.0,
+                carbohydrates = 35.0
+            ),
+            steps = listOf(
+                "Layer lasagna sheets with béchamel and meat sauce.",
+                "Add mozzarella and Parmesan cheese.",
+                "Repeat layers.",
+                "Bake at 375°F for 45 mins.",
+                "Let rest for 15 mins.",
+                "Slice into 12 portions."
+            ),
+            description = "A crowd-pleasing lasagna that serves 12 people.",
+            ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
+        ),
+    )
+    val ItalianMealButNotForLargeGroup = listOf(
+        createDummyRecipe(
+            name = "Classic Lasagna",
+            id = "ITALY_GROUP_001",
+            minutes = 90,
+            contributorId = "user_italiangrandma",
+            submitted = LocalDate.parse("2023-05-01"),
+            tags = listOf("Italian", "oven-baked"),
+            nutrition = Nutrition(
+                calories = 350.0,
+                fat = 15.0,
+                sugar = 8.0,
+                sodium = 800.0,
+                protein = 20.0,
+                saturatedFat = 6.0,
+                carbohydrates = 35.0
+            ),
+            steps = listOf(
+                "Layer lasagna sheets with béchamel and meat sauce.",
+                "Add mozzarella and Parmesan cheese.",
+                "Repeat layers.",
+                "Bake at 375°F for 45 mins.",
+                "Let rest for 15 mins.",
+                "Slice into 12 portions."
+            ),
+            description = "A crowd-pleasing lasagna that serves 12 people.",
+            ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
+        ),
         createDummyRecipe(
             name = "Classic Lasagna",
             id = "ITALY_GROUP_001",
@@ -1375,6 +1813,39 @@ object DummyRecipes {
             description = "A crowd-pleasing lasagna that serves 12 people.",
             ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
         ),
+    )
+    val casInsensitiveMeal = listOf(
+        createDummyRecipe(
+            name = "Classic Lasagna",
+            id = "ITALY_GROUP_001",
+            minutes = 90,
+            contributorId = "user_italiangrandma",
+            submitted = LocalDate.parse("2023-05-01"),
+            tags = listOf("ITALIAN", "for-LARGE-groups", "oven-baked"),
+            nutrition = Nutrition(
+                calories = 350.0,
+                fat = 15.0,
+                sugar = 8.0,
+                sodium = 800.0,
+                protein = 20.0,
+                saturatedFat = 6.0,
+                carbohydrates = 35.0
+            ),
+            steps = listOf(
+                "Layer lasagna sheets with béchamel and meat sauce.",
+                "Add mozzarella and Parmesan cheese.",
+                "Repeat layers.",
+                "Bake at 375°F for 45 mins.",
+                "Let rest for 15 mins.",
+                "Slice into 12 portions."
+            ),
+            description = "A crowd-pleasing lasagna that serves 12 people.",
+            ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
+        ),
+    )
+
+    //Dummy Italian Group Recipes
+    val italianGroupRecipes = listOf(
         createDummyRecipe(
             name = "Baked Ziti al Forno",
             id = "ITALY_GROUP_002",
