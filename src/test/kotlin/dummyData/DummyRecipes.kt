@@ -1375,6 +1375,114 @@ object DummyRecipes {
      * // 4. Lobster Bisque - 28g
      * // 5. Crab Cakes - 25g
      */
+    val seaFoodMealButProteinIsNull = listOf(
+        //protein is null
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("seafood", "high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 0.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("salmon", "lemon", "olive oil", "asparagus")
+        )
+    )
+    val seaFoodRecipesTagsOnlyHaveMeal = listOf(
+        //tags only contain seafood
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("seafood", "high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 38.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("salsa", "lemon", "olive oil", "asparagus")
+        )
+    )
+    val seaFoodRecipesIngredientOnlyHaveMeal = listOf(
+        //ingredients only contain seafood
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 38.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("salmon", "lemon", "olive oil", "asparagus")
+        ),
+    )
+    val seaFoodCaseInSensetive = listOf(
+        //case in-sensitive SEAFOOD SALMON
+        createDummyRecipe(
+            name = "Grilled Salmon Steak",
+            id = "SEAFOOD_001",
+            minutes = 25,
+            contributorId = "user_seafoodlover",
+            submitted = LocalDate.parse("2023-09-01"),
+            tags = listOf("SEAFOOD", "high-protein", "keto"),
+            nutrition = Nutrition(
+                calories = 400.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 500.0,
+                protein = 38.0,
+                saturatedFat = 5.0,
+                carbohydrates = 3.0
+            ),
+            steps = listOf(
+                "Season salmon with lemon, salt, and pepper.",
+                "Grill for 6 minutes per side.",
+                "Serve with asparagus."
+            ),
+            description = "Juicy salmon steak with a charred finish.",
+            ingredients = listOf("SALMON", "lemon", "olive oil", "asparagus")
+        ),
+    )
     val seafoodRecipes = listOf(
         createDummyRecipe(
             name = "Grilled Salmon Steak",
@@ -1500,7 +1608,7 @@ object DummyRecipes {
             ),
             description = "Crispy Maryland-style crab cakes.",
             ingredients = listOf("crab meat", "breadcrumbs", "egg", "mayonnaise")
-        )
+        ),
     )
 
     val mealsForLargeGroupButNotItalianMeal = listOf(
