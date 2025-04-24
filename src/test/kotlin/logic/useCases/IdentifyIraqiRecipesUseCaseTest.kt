@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test
 
 class IdentifyIraqiRecipesUseCaseTest {
  private lateinit var iraqiRecipesUseCase: IdentifyIraqiRecipesUseCase
- val repository: RecipesRepository = mockk()
+ val repository: RecipesRepository = mockk(relaxed = true)
 
  @BeforeEach
  fun stetUp() {
@@ -27,7 +27,7 @@ class IdentifyIraqiRecipesUseCaseTest {
   //when
   val result = iraqiRecipesUseCase.getIraqiRecipes()
   //then
-  assertThat(result).isEqualTo(2)
+  assertThat(result.size).isEqualTo(2)
  }
 
  @Test
@@ -39,7 +39,7 @@ class IdentifyIraqiRecipesUseCaseTest {
   val result = iraqiRecipesUseCase.getIraqiRecipes()
 
   // Then
-  assertThat(result).isEqualTo(0)
+  assertThat(result.size).isEqualTo(0)
  }
 
  @Test
@@ -49,7 +49,7 @@ class IdentifyIraqiRecipesUseCaseTest {
   //when
   val result = DummyRecipes.iraqiRecipeOptions.filterByCountry("iraqi")
   //then
-  assertThat(result).isEqualTo(2)
+  assertThat(result.size).isEqualTo(2)
  }
 
 }
