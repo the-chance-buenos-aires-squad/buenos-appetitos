@@ -7,7 +7,6 @@ import io.mockk.mockk
 import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository
 import org.example.logic.customExceptions.NoSweetFreeEggRecipeFoundException
-import org.example.logic.useCases.SweetsWithNoEggsUseCase
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

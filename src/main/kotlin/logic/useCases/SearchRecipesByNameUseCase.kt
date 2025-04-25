@@ -1,5 +1,6 @@
 package org.example.logic.useCases
 
+import logic.useCases.FuzzySearchUseCase
 import org.example.logic.RecipesRepository
 import org.example.logic.utili.CommonUtilizes
 import org.example.model.Recipe
