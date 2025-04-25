@@ -1953,6 +1953,66 @@ object DummyRecipes {
     )
 
 
+    //GetRandom easy recipes
+    val testRecipesCorrectCase = listOf(
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(3) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 30,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(4) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(5) { "ingredient$it" },
+            steps = List(2) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 20,
+            ingredients = List(3) { "ingredient$it" },
+            steps = List(6) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 30,
+            ingredients = List(5) { "ingredient$it" },
+            steps = List(6) { "step$it" }
+        )
+    )
+    val allRecipesAccepted = List(15) {
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(3) { "step$it" }
+        )
+    }
+    val nonRecipesAccepted = listOf(
+        createDummyRecipe(
+            minutes = 32,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(3) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 15,
+            ingredients = List(8) { "ingredient$it" },
+            steps = List(4) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(4) { "ingredient$it" },
+            steps = List(9) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 35,
+            ingredients = List(8) { "ingredient$it" },
+            steps = List(8) { "step$it" }
+        )
+    )
+
+
+
     val allRecipes = healthyFastFoodRecipes + easyRecipes +
             eggFreeSweets + passingKetoRecipes +
             failingKetoRecipes + countryRecipes +
