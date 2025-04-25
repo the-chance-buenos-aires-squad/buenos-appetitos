@@ -1,5 +1,6 @@
 package org.example.presentation.displyUtils
 
+import logic.customExceptions.NoRecipeFoundException
 import org.example.model.Recipe
 import org.example.presentation.inputHandlingUtils.handleUserInput
 import java.util.NoSuchElementException
@@ -45,10 +46,10 @@ fun displayOptionsMenu(
         val newSuggestedRecipe:Recipe?
         try {
             newSuggestedRecipe = suggestRecipe()
-        }catch (e: IllegalStateException) {
+        }catch (e: NoRecipeFoundException) {
             println(e.message)
             break
-        }catch (e: NoSuchElementException){
+        }catch (e: RuntimeException){
             println("sorry there is no more recipes")
             break
         }

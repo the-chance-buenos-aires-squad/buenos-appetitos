@@ -1,6 +1,8 @@
-package org.example.logic.useCases
+package logic.useCases
 
+import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository
+import org.example.logic.customExceptions.NoSweetFreeEggRecipeFoundException
 import org.example.model.Recipe
 import kotlin.random.Random
 
@@ -11,8 +13,10 @@ class SweetsWithNoEggsUseCase(private val repository: RecipesRepository) {
 
 
     private fun loadSweetNoEggRecipes() {
-        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
-        sweetsNoEggRecipes.addAll(recipes.filterSweetsNoEggsRecipes())
+        val recipes = repository.getRecipes().also { if (it.isEmpty()) throw NoRecipeFoundException() }
+        sweetsNoEggRecipes.addAll(recipes.filterSweetsNoEggsRecipes()).also {
+            if (sweetsNoEggRecipes.isEmpty()) throw NoSweetFreeEggRecipeFoundException()
+        }
     }
 
     fun suggestSweetNoEggRecipe(): Recipe {

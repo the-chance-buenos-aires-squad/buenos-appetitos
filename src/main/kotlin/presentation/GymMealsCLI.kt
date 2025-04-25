@@ -1,10 +1,10 @@
 package org.example.presentation
 
-import org.example.logic.useCases.GymMealsUseCase
+import org.example.logic.useCases.GetCustomizedNutritionMealsUseCase
 import org.example.presentation.displyUtils.displayDetails
 import java.util.*
 
-class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
+class GymMealsCLI(private val getCustomizedNutritionMealsUseCase: GetCustomizedNutritionMealsUseCase) {
 
     private val scanner = Scanner(System.`in`)
 
@@ -15,7 +15,7 @@ class GymMealsCLI(private val gymMealsUseCase: GymMealsUseCase) {
             val calories = prompt("Enter desired calories: ")
             val protein = prompt("Enter desired protein (grams): ")
 
-            val meals = gymMealsUseCase.findMealsByNutrition(calories, protein)
+            val meals = getCustomizedNutritionMealsUseCase.findMealsByNutrition(calories, protein)
 
             if (meals.isEmpty()) {
                 println("❌ No meals found matching your fitness needs.")
