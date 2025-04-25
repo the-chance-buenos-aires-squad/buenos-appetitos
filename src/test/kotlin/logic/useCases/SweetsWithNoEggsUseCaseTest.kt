@@ -25,7 +25,7 @@ class SweetsWithNoEggsUseCaseTest {
     @Test
     fun `should return only sweets with no egg recipes when filtering from all recipes`() {
         //given
-        every { repository.getRecipes() } returns DummyRecipes.allRecipes
+        every { repository.getRecipes() } returns DummyRecipes.eggFreeSweets+DummyRecipes.failingSweetsNoEgg
 
         //When
         val sweetResultRecipe = sweetsWithNoEggsUseCase.suggestSweetNoEggRecipe()
