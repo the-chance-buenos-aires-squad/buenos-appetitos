@@ -571,281 +571,48 @@ object DummyRecipes {
     )
 
     val eggFreeSweets = listOf(
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+
+    )
+
+    val failingSweetsNoEgg= listOf(
         createDummyRecipe(
-            name = "Vegan Chocolate Avocado Mousse",
-            id = "EGGFREE_001",
-            minutes = 10,
-            contributorId = "user_vegandesserts",
-            submitted = LocalDate.parse("2023-05-12"),
-            tags = listOf("vegan", "egg-free", "gluten-free"),
-            nutrition = Nutrition(
-                calories = 200.0,
-                fat = 14.0,
-                sugar = 12.0,
-                sodium = 10.0,
-                protein = 4.0,
-                saturatedFat = 3.0,
-                carbohydrates = 18.0
-            ),
-            steps = listOf(
-                "Blend ripe avocado, cocoa powder, and maple syrup.",
-                "Add almond milk for consistency.",
-                "Chill for 1 hour before serving."
-            ),
-            description = "A creamy, egg-free chocolate mousse made with avocado.",
-            ingredients = listOf("avocado", "cocoa powder", "maple syrup", "almond milk")
+            tags = DummyTags.mealTypesWithOutDessert,
+            ingredients = DummyIngredients.sweetenersNoEgg
         ),
         createDummyRecipe(
-            name = "No-Bake Oatmeal Cookie Bites",
-            id = "EGGFREE_002",
-            minutes = 15,
-            contributorId = "user_healthybaker",
-            submitted = LocalDate.parse("2023-06-08"),
-            tags = listOf("egg-free", "no-bake", "vegan"),
-            nutrition = Nutrition(
-                calories = 150.0,
-                fat = 6.0,
-                sugar = 8.0,
-                sodium = 50.0,
-                protein = 3.0,
-                saturatedFat = 1.0,
-                carbohydrates = 22.0
-            ),
-            steps = listOf(
-                "Mix oats, peanut butter, honey, and dark chocolate chips.",
-                "Roll into balls and refrigerate."
-            ),
-            description = "Egg-free energy bites with oats and peanut butter.",
-            ingredients = listOf("oats", "peanut butter", "honey", "dark chocolate chips")
-        ),
-        createDummyRecipe(
-            name = "Coconut Chia Pudding",
-            id = "EGGFREE_003",
-            minutes = 5,
-            contributorId = "user_cleaneats",
-            submitted = LocalDate.parse("2023-07-20"),
-            tags = listOf("egg-free", "vegan", "high-fiber"),
-            nutrition = Nutrition(
-                calories = 180.0,
-                fat = 10.0,
-                sugar = 6.0,
-                sodium = 20.0,
-                protein = 5.0,
-                saturatedFat = 7.0,
-                carbohydrates = 15.0
-            ),
-            steps = listOf(
-                "Whisk chia seeds with coconut milk and vanilla extract.",
-                "Refrigerate overnight and top with mango slices."
-            ),
-            description = "A tropical, egg-free pudding with chia and coconut.",
-            ingredients = listOf("chia seeds", "coconut milk", "vanilla extract", "mango")
-        ),
-        createDummyRecipe(
-            name = "Almond Date Energy Balls",
-            id = "EGGFREE_004",
-            minutes = 15,
-            contributorId = "user_snackmaster",
-            submitted = LocalDate.parse("2023-08-03"),
-            tags = listOf("egg-free", "no-bake", "paleo"),
-            nutrition = Nutrition(
-                calories = 120.0,
-                fat = 5.0,
-                sugar = 10.0,
-                sodium = 5.0,
-                protein = 3.0,
-                saturatedFat = 0.5,
-                carbohydrates = 18.0
-            ),
-            steps = listOf(
-                "Blend dates, almonds, and cocoa powder in a food processor.",
-                "Roll into balls and coat with shredded coconut."
-            ),
-            description = "Naturally sweetened, egg-free energy snacks.",
-            ingredients = listOf("dates", "almonds", "cocoa powder", "shredded coconut")
-        ),
-        createDummyRecipe(
-            name = "Raspberry Sorbet",
-            id = "EGGFREE_005",
-            minutes = 240,
-            contributorId = "user_frozenTreats",
-            submitted = LocalDate.parse("2023-09-14"),
-            tags = listOf("egg-free", "dairy-free", "fruit-based"),
-            nutrition = Nutrition(
-                calories = 90.0,
-                fat = 0.2,
-                sugar = 20.0,
-                sodium = 2.0,
-                protein = 1.0,
-                saturatedFat = 0.0,
-                carbohydrates = 23.0
-            ),
-            steps = listOf(
-                "Blend frozen raspberries, lime juice, and agave syrup.",
-                "Freeze mixture for 4 hours.",
-                "Scrape with a fork to create sorbet texture."
-            ),
-            description = "A refreshing, egg-free sorbet with fresh raspberries.",
-            ingredients = listOf("raspberries", "lime juice", "agave syrup")
+            tags = DummyTags.mealTypesWithDessert,
+            ingredients = DummyIngredients.sweetenersWithEgg
         )
     )
 
     //Keto-Friendly Recipes (Pass Filter)
     val passingKetoRecipes = listOf(
-        createDummyRecipe(
-            name = "Garlic Butter Salmon with Avocado Salad",
-            id = "KETO_001",
-            minutes = 25,
-            contributorId = "user_ketochef1",
-            submitted = LocalDate.parse("2023-05-10"),
-            tags = listOf("keto", "high-fat", "low-carb"),
-            nutrition = Nutrition(
-                calories = 550.0,
-                fat = 45.0,
-                sugar = 3.0,
-                sodium = 600.0,
-                protein = 35.0,
-                saturatedFat = 8.0,
-                carbohydrates = 8.0
-            ),
-            steps = listOf(
-                "Season salmon with salt and pepper.",
-                "Pan-sear salmon in garlic butter.",
-                "Toss avocado, spinach, and olive oil for salad.",
-                "Serve salmon over salad."
-            ),
-            description = "A high-fat, low-carb keto staple.",
-            ingredients = listOf("salmon", "avocado", "spinach", "garlic", "butter")
-        ),
-        createDummyRecipe(
-            name = "Cheesy Bacon Egg Muffins",
-            id = "KETO_002",
-            minutes = 20,
-            contributorId = "user_ketobreakfast",
-            submitted = LocalDate.parse("2023-06-15"),
-            tags = listOf("keto", "high-protein", "egg-free"),
-            nutrition = Nutrition(
-                calories = 480.0,
-                fat = 42.0,
-                sugar = 2.0,
-                sodium = 800.0,
-                protein = 32.0,
-                saturatedFat = 12.0,
-                carbohydrates = 4.0
-            ),
-            steps = listOf(
-                "Preheat oven to 375°F.",
-                "Mix bacon, cheese, and cream in a muffin tin.",
-                "Bake for 15 minutes."
-            ),
-            description = "Easy keto breakfast muffins.",
-            ingredients = listOf("bacon", "cheddar", "heavy cream", "salt")
-        ),
-        createDummyRecipe(
-            name = "Keto Beef & Broccoli Stir-Fry",
-            id = "KETO_003",
-            minutes = 30,
-            contributorId = "user_ketoasian",
-            submitted = LocalDate.parse("2023-07-20"),
-            tags = listOf("keto", "high-protein", "low-carb"),
-            nutrition = Nutrition(
-                calories = 620.0,
-                fat = 50.0,
-                sugar = 5.0,
-                sodium = 900.0,
-                protein = 38.0,
-                saturatedFat = 14.0,
-                carbohydrates = 12.0
-            ),
-            steps = listOf(
-                "Slice beef into strips.",
-                "Sauté broccoli in sesame oil.",
-                "Cook beef with soy sauce.",
-                "Combine and simmer.",
-                "Garnish with sesame seeds."
-            ),
-            description = "A keto-friendly twist on takeout.",
-            ingredients = listOf("beef", "broccoli", "soy sauce", "sesame oil")
-        )
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
     )
 
     //Non-Keto Recipes (Fail Filter)
     val failingKetoRecipes = listOf(
-        createDummyRecipe(
-            name = "Sweet Potato & Chicken Bowl",
-            id = "NONKETO_001",
-            minutes = 35,
-            contributorId = "user_mealprep",
-            submitted = LocalDate.parse("2023-08-05"),
-            tags = listOf("high-carb", "balanced"),
-            nutrition = Nutrition(
-                calories = 400.0,
-                fat = 25.0,
-                sugar = 10.0,
-                sodium = 500.0,
-                protein = 30.0,
-                saturatedFat = 5.0,
-                carbohydrates = 45.0
-            ),
-            steps = listOf(
-                "Roast sweet potatoes.",
-                "Grill chicken breast.",
-                "Assemble bowl with quinoa.",
-                "Top with avocado."
-            ),
-            description = "A carb-heavy post-workout meal.",
-            ingredients = listOf("sweet potato", "chicken", "quinoa", "avocado")
-        ),
-        createDummyRecipe(
-            name = "Grilled Chicken Caesar Salad",
-            id = "NONKETO_002",
-            minutes = 15,
-            contributorId = "user_saladlover",
-            submitted = LocalDate.parse("2023-09-10"),
-            tags = listOf("low-fat", "high-protein"),
-            nutrition = Nutrition(
-                calories = 300.0,
-                fat = 25.0,
-                sugar = 4.0,
-                sodium = 700.0,
-                protein = 35.0,
-                saturatedFat = 6.0,
-                carbohydrates = 10.0
-            ),
-            steps = listOf(
-                "Grill chicken.",
-                "Toss lettuce with Caesar dressing.",
-                "Top with croutons."
-            ),
-            description = "Classic salad with croutons.",
-            ingredients = listOf("chicken", "romaine", "croutons", "Parmesan")
-        ),
-        createDummyRecipe(
-            name = "Coconut Curry Shrimp",
-            id = "NONKETO_003",
-            minutes = 25,
-            contributorId = "user_thaicuisine",
-            submitted = LocalDate.parse("2023-10-15"),
-            tags = listOf("high-saturated-fat", "seafood"),
-            nutrition = Nutrition(
-                calories = 450.0,
-                fat = 45.0,
-                sugar = 8.0,
-                sodium = 1000.0,
-                protein = 28.0,
-                saturatedFat = 18.0,
-                carbohydrates = 15.0
-            ),
-            steps = listOf(
-                "Sauté shrimp in coconut oil.",
-                "Add curry paste and coconut milk.",
-                "Simmer for 10 mins.",
-                "Serve over rice."
-            ),
-            description = "Creamy coconut curry with shrimp.",
-            ingredients = listOf("shrimp", "coconut milk", "curry paste", "rice")
+        createDummyRecipe(nutrition = DummyNutrition.nonKeto),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly.copy(fat = 2.4)),
+        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly.copy(protein = 2.4)),
+        createDummyRecipe(nutrition = DummyNutrition.nonKeto),
+        createDummyRecipe(nutrition = DummyNutrition.nonKeto),
+        createDummyRecipe(nutrition = DummyNutrition.nonKeto),
+
         )
-    )
+
 
 
     val countryRecipes = listOf(
@@ -1956,7 +1723,7 @@ object DummyRecipes {
             minutes = 90,
             contributorId = "user_italiangrandma",
             submitted = LocalDate.parse("2023-05-01"),
-            tags = listOf("Italian", "for-small-groups", "oven-baked"),
+            tags = listOf("Italian", "for-large-groups", "oven-baked"),
             nutrition = Nutrition(
                 calories = 350.0,
                 fat = 15.0,
@@ -2111,6 +1878,133 @@ object DummyRecipes {
             ingredients = listOf("ladyfingers", "mascarpone", "coffee", "cocoa")
         )
     )
+    val customizedNutritionMeals = listOf(
+        // 1. Spinach & Feta Omelet
+        createDummyRecipe(
+            name = "Spinach & Feta Omelet",
+            id = "EASY_001",
+            minutes = 10,
+            contributorId = "user_easychef",
+            submitted = LocalDate.parse("2023-01-05"),
+            tags = listOf("vegetarian", "high-protein", "quick"),
+            nutrition = Nutrition(
+                calories = 250.0,
+                fat = 15.0,
+                sugar = 2.0,
+                sodium = 400.0,
+                protein = 18.0,
+                saturatedFat = 5.0,
+                carbohydrates = 5.0
+            ),
+            steps = listOf(
+                "Whisk eggs with salt and pepper.",
+                "Cook spinach in a pan, add eggs, and sprinkle feta.",
+                "Fold and serve."
+            ),
+            description = "A protein-packed breakfast in 10 minutes.",
+            ingredients = listOf("eggs", "spinach", "feta cheese", "salt", "pepper")
+        ),
+
+        // 2. Caprese Salad
+        createDummyRecipe(
+            name = "Caprese Salad",
+            id = "EASY_002",
+            minutes = 5,
+            contributorId = "user_italianfood",
+            submitted = LocalDate.parse("2023-02-10"),
+            tags = listOf("vegetarian", "no-cook", "gluten-free"),
+            nutrition = Nutrition(
+                calories = 200.0,
+                fat = 12.0,
+                sugar = 3.0,
+                sodium = 150.0,
+                protein = 8.0,
+                saturatedFat = 4.0,
+                carbohydrates = 10.0
+            ),
+            steps = listOf(
+                "Slice tomatoes and mozzarella.",
+                "Layer with basil, drizzle olive oil, and season."
+            ),
+            description = "A fresh, no-cook Italian classic.",
+            ingredients = listOf("tomatoes", "mozzarella", "basil", "olive oil", "salt")
+        ),
+
+        // 3. Peanut Butter Banana Toast
+        createDummyRecipe(
+            name = "Peanut Butter Banana Toast",
+            id = "EASY_003",
+            minutes = 3,
+            contributorId = "user_breakfastlover",
+            submitted = LocalDate.parse("2023-03-15"),
+            tags = listOf("vegan", "quick", "5-ingredients"),
+            nutrition = Nutrition(
+                calories = 220.0,
+                fat = 10.0,
+                sugar = 12.0,
+                sodium = 100.0,
+                protein = 6.0,
+                saturatedFat = 2.0,
+                carbohydrates = 28.0
+            ),
+            steps = listOf("Spread peanut butter on toast and top with banana slices."),
+            description = "A 3-minute energy-boosting breakfast.",
+            ingredients = listOf("bread", "peanut butter", "banana")
+        ),
+
+        // 4. Veggie Stir-Fry
+        createDummyRecipe(
+            name = "Veggie Stir-Fry",
+            id = "EASY_004",
+            minutes = 20,
+            contributorId = "user_veggiequeen",
+            submitted = LocalDate.parse("2023-04-20"),
+            tags = listOf("vegan", "low-carb", "quick"),
+            nutrition = Nutrition(
+                calories = 180.0,
+                fat = 8.0,
+                sugar = 5.0,
+                sodium = 300.0,
+                protein = 4.0,
+                saturatedFat = 1.0,
+                carbohydrates = 15.0
+            ),
+            steps = listOf(
+                "Chop bell peppers, broccoli, and carrots.",
+                "Sauté garlic in oil.",
+                "Add veggies and stir-fry for 5 mins.",
+                "Season with soy sauce."
+            ),
+            description = "A colorful, crunchy stir-fry in 20 minutes.",
+            ingredients = listOf("bell peppers", "broccoli", "carrots", "soy sauce", "garlic")
+        ),
+
+        // 5. Avocado Tuna Wrap
+        createDummyRecipe(
+            name = "Avocado Tuna Wrap",
+            id = "EASY_005",
+            minutes = 15,
+            contributorId = "user_fishfan",
+            submitted = LocalDate.parse("2023-05-05"),
+            tags = listOf("high-protein", "low-carb", "quick"),
+            nutrition = Nutrition(
+                calories = 300.0,
+                fat = 15.0,
+                sugar = 2.0,
+                sodium = 400.0,
+                protein = 20.0,
+                saturatedFat = 2.5,
+                carbohydrates = 18.0
+            ),
+            steps = listOf(
+                "Mash avocado and mix with canned tuna.",
+                "Spread on a tortilla.",
+                "Add lettuce and roll."
+            ),
+            description = "A no-cook, protein-rich lunch.",
+            ingredients = listOf("tortilla", "avocado", "canned tuna", "lettuce")
+        )
+    )
 
 
     val allRecipes = healthyFastFoodRecipes + easyRecipes +
@@ -2118,7 +2012,8 @@ object DummyRecipes {
             failingKetoRecipes + countryRecipes +
             potatoRecipes + highCalorieRecipes +
             lowCalorieRecipes + seafoodRecipes +
-            italianGroupRecipes + searchTestRecipes
+            italianGroupRecipes + searchTestRecipes +
+            customizedNutritionMeals
 
 
 }

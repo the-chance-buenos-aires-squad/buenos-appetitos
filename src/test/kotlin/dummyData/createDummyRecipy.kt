@@ -11,8 +11,8 @@ fun createDummyRecipe(
     id: String = "RECIPE_${UUID.randomUUID().toString().take(4)}", // Semi-unique ID
     minutes: Int = 30,
     contributorId: String = "user_${(1..100).random()}", // Random user
-    submitted: LocalDate = LocalDate.now(),//use
-    tags: List<String> = listOf(DummyTags.mealTypes.random()), // Random meal type
+    submitted: LocalDate = LocalDate.now(),
+    tags: List<String> = listOf(DummyTags.mealTypesWithDessert.random()), // Random meal type
     nutrition: Nutrition = DummyNutrition.balanced,
     steps: List<String> = listOf("Default step 1", "Default step 2"),
     description: String? = "Default recipe description",
