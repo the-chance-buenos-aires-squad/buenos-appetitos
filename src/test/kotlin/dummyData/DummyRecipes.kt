@@ -1202,7 +1202,7 @@ object DummyRecipes {
                 "Top with chives before serving."
             ),
             description = "Decadent potato casserole with melted cheese.",
-            ingredients = listOf("potatoes", "cheddar", "heavy cream", "garlic", "salt")
+            ingredients = listOf("poTaToes", "cheddar", "heavy cream", "garlic", "salt")
         ),
         createDummyRecipe(
             name = "Potato and Chorizo Tacos",
@@ -1227,7 +1227,58 @@ object DummyRecipes {
                 "Serve in warm tortillas with salsa."
             ),
             description = "Spicy potato and chorizo street tacos.",
-            ingredients = listOf("potatoes", "chorizo", "corn tortillas", "salsa", "cilantro")
+            ingredients = listOf("Potatoes", "chorizo", "corn tortillas", "salsa", "cilantro")
+        )
+    )
+
+    val nonPotatoRecipes = listOf(
+        createDummyRecipe(
+            name = "Spaghetti Carbonara",
+            id = "PASTA_001",
+            minutes = 25,
+            contributorId = "user_italian",
+            submitted = LocalDate.parse("2023-03-15"),
+            tags = listOf("pasta", "italian", "main dish"),
+            nutrition = Nutrition(
+                calories = 450.0,
+                fat = 18.0,
+                sugar = 3.0,
+                sodium = 600.0,
+                protein = 20.0,
+                saturatedFat = 7.0,
+                carbohydrates = 50.0
+            ),
+            steps = listOf(
+                "Cook pasta until al dente.",
+                "Mix with egg, cheese, and pancetta.",
+                "Serve hot with black pepper."
+            ),
+            description = "Classic Italian pasta with creamy sauce.",
+            ingredients = listOf("spaghetti", "egg", "parmesan", "pancetta", "black pepper")
+        ),
+        createDummyRecipe(
+            name = "Chicken Caesar Salad",
+            id = "SALAD_002",
+            minutes = 15,
+            contributorId = "user_healthy",
+            submitted = LocalDate.parse("2023-02-20"),
+            tags = listOf("salad", "chicken", "healthy"),
+            nutrition = Nutrition(
+                calories = 350.0,
+                fat = 22.0,
+                sugar = 2.0,
+                sodium = 480.0,
+                protein = 25.0,
+                saturatedFat = 4.0,
+                carbohydrates = 12.0
+            ),
+            steps = listOf(
+                "Grill chicken breast.",
+                "Toss lettuce with Caesar dressing.",
+                "Top with grilled chicken, croutons, and parmesan."
+            ),
+            description = "A fresh Caesar salad with grilled chicken.",
+            ingredients = listOf("romaine lettuce", "chicken breast", "croutons", "parmesan", "Caesar dressing")
         )
     )
 
