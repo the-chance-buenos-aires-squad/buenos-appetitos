@@ -35,5 +35,7 @@ val presentationModule = module {
 
     single { IngredientGameCLI(get()) }
 
+    single { GuessGameCli(get()) }
+
     singleOf(::HolderCLi)
 }

@@ -1,107 +1,51 @@
 package org.example.logic.useCases
 
-import org.example.logic.RecipesRepository
-import org.example.model.Recipe
+import org.example.model.GuessAttemptResult
+import org.example.model.RecipeGuessGame
 
-class GuessGameUseCase(private val repository: RecipesRepository) {
+class GuessGameUseCase(
+    private val randomRecipeUseCase: RandomRecipeUseCase
+) {
 
-    private var attemptsLeft = MAX_ATTEMPTS
-    private var currentRecipe: Recipe? = null
-    private var currentCorrectTime: Int? = null
+    lateinit var recipeGuessGame: RecipeGuessGame
 
-    fun startGame(): Recipe? {
-        val recipes = repository.getRecipes()
-        if (recipes.isEmpty()) {
-            return null
-        }
-
-        val randomRecipe = recipes.random()
-        currentRecipe = randomRecipe
-        currentCorrectTime = randomRecipe.minutes
-
-        return randomRecipe
+    init {
+        startGame()
     }
 
-    fun handleGuess(input: String?): GuessAttemptResult {
-        if (!thereIsAttemptsLeft()) {
-            return GuessAttemptResult.GameOver(currentCorrectTime ?: 0)
-        }
+    fun processGuess(userGuess: Int): GuessAttemptResult {
 
-        try {
-            val validation = validateGuess(input)
-            val correctTime = currentCorrectTime ?: throw IllegalStateException("Game not properly initialized")
+        val newAttemptCount = recipeGuessGame.attemptCount + 1
+        val result = evaluateGuess(userGuess, recipeGuessGame.recipe.minutes, newAttemptCount)
 
-            when (checkGuess(validation.value, correctTime)) {
-                GuessResult.CORRECT -> return GuessAttemptResult.Correct(correctTime)
-                GuessResult.TOO_LOW -> {
-                    decrementAttempts()
-                    return GuessAttemptResult.TooLow(attemptsLeft)
-                }
-
-                GuessResult.TOO_HIGH -> {
-                    decrementAttempts()
-                    return GuessAttemptResult.TooHigh(attemptsLeft)
-                }
+        recipeGuessGame = when (result) {
+            is GuessAttemptResult.Correct, is GuessAttemptResult.GameOver -> {
+                recipeGuessGame.copy(attemptCount = newAttemptCount, isFinished = true)
             }
-        } catch (e: IllegalArgumentException) {
-            return GuessAttemptResult.InvalidInput(e.message ?: "Invalid input", attemptsLeft)
-        }
-    }
 
-    private fun checkGuess(guessedTime: Int, correctTime: Int): GuessResult {
-        return when {
-            guessedTime == correctTime -> GuessResult.CORRECT
-            guessedTime < correctTime -> GuessResult.TOO_LOW
-            else -> GuessResult.TOO_HIGH
-        }
-    }
-
-    private fun validateGuess(input: String?): GuessValidation {
-        if (input == null) {
-            throw IllegalArgumentException("Input cannot be null")
+            else -> recipeGuessGame.copy(attemptCount = newAttemptCount)
         }
 
-        return try {
-            val number = input.toInt()
-            if (number < 0) {
-                throw IllegalArgumentException("Preparation time cannot be negative")
-            } else {
-                GuessValidation(number)
-            }
-        } catch (e: NumberFormatException) {
-            throw IllegalArgumentException("Please enter a valid number")
-        }
+        return result
     }
 
-    fun getAttemptsLeft(): Int = attemptsLeft
-
-    private fun decrementAttempts() {
-        attemptsLeft--
+    fun getGameState(): RecipeGuessGame {
+        return recipeGuessGame
     }
 
-    fun thereIsAttemptsLeft(): Boolean = attemptsLeft > 0
-
-    fun resetGame() {
-        attemptsLeft = MAX_ATTEMPTS
-        currentRecipe = null
-        currentCorrectTime = null
+    private fun startGame() {
+        recipeGuessGame = RecipeGuessGame(recipe = randomRecipeUseCase.getRandomRecipe())
     }
 
-    private enum class GuessResult {
-        CORRECT, TOO_LOW, TOO_HIGH
+
+    private fun evaluateGuess(userGuess: Int, preparationTime: Int, attemptCount: Int): GuessAttemptResult = when {
+        userGuess == preparationTime -> GuessAttemptResult.Correct
+        attemptCount >= MAX_ATTEMPTS -> GuessAttemptResult.GameOver(preparationTime)
+        userGuess < preparationTime -> GuessAttemptResult.TooLow
+        else -> GuessAttemptResult.TooHigh
     }
 
-    data class GuessValidation(val value: Int)
-
-    sealed class GuessAttemptResult {
-        data class Correct(val correctTime: Int) : GuessAttemptResult()
-        data class TooLow(val attemptsLeft: Int) : GuessAttemptResult()
-        data class TooHigh(val attemptsLeft: Int) : GuessAttemptResult()
-        data class InvalidInput(val message: String, val attemptsLeft: Int) : GuessAttemptResult()
-        data class GameOver(val correctTime: Int) : GuessAttemptResult()
-    }
-
-    companion object {
+    private companion object {
         const val MAX_ATTEMPTS = 3
     }
 }
