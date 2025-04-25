@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import com.google.common.truth.Truth.assertThat
 import dummyData.DummyRecipes
+import dummyData.createDummyRecipe
 
 
 class GetLovePotatoUseCaseTest{
@@ -48,8 +49,13 @@ class GetLovePotatoUseCaseTest{
     @Test
     fun `should return max 10 potato recipes when more than max exists`() {
         // given
-        val potatoRecipes = DummyRecipes.potatoRecipes.take(20)
-        every { repository.getRecipes() } returns potatoRecipes
+        val potatoRecipes = DummyRecipes.potatoRecipes
+        val moreThanMaxPotatoRecipes = potatoRecipes + createDummyRecipe(
+            name = "Extra Potato Dish",
+            ingredients = listOf("potato", "cheese")
+        )
+
+        every { repository.getRecipes() } returns moreThanMaxPotatoRecipes
 
         // when
         val result = getLovePotatoUseCase.getRandomPotatoRecipes()
