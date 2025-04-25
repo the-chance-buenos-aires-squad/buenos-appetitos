@@ -1,15 +1,16 @@
 package org.example.presentation
 
-import org.example.logic.useCases.SearchFoodByAddDateUseCase
-import org.example.logic.useCases.SearchFoodByAddDateUseCase.DailyRecipe
+import org.example.logic.useCases.GetRecipesByDateUseCase
 import org.example.model.Recipe
-import logic.customExceptions.NoRecipeFoundException
+import org.example.logic.customExceptions.NoRecipeFoundByDateException
+import org.example.logic.utili.DateUtils.parseToLocalDate
 import org.example.presentation.displyUtils.displayDetails
 import org.example.presentation.inputHandlingUtils.handleUserInput
 import java.time.DateTimeException
+import java.time.format.DateTimeParseException
 
 class SearchFoodByDateCLI(
-    private val searchFoodByAddDateUseCase: SearchFoodByAddDateUseCase
+    private val searchFoodByAddDateUseCase: GetRecipesByDateUseCase
 ) {
 
     fun start() {
@@ -20,11 +21,10 @@ class SearchFoodByDateCLI(
                 displayDailyRecipes(result, dateQuery)
                 getChosenRecipe()
             }
-
         }
     }
 
-    private fun displayDailyRecipes(result: List<DailyRecipe>, dateQuery: String) {
+    private fun displayDailyRecipes(result: List<Recipe>, dateQuery: String) {
         println("Recipes result for date $dateQuery")
         println("-------------------------------")
         println("Id        Name")
@@ -32,13 +32,15 @@ class SearchFoodByDateCLI(
         result.forEach { dailyRecipe ->
             println("${dailyRecipe.id}        ${dailyRecipe.name}")
         }
+
     }
 
-    private fun getDailyRecipesResult(dateQuery: String): List<DailyRecipe> {
+    private fun getDailyRecipesResult(dateQuery: String): List<Recipe> {
         try {
-            val dailyRecipeResult: List<DailyRecipe> = searchFoodByAddDateUseCase.searchFoodByDate(dateQuery)
+            val isValidDate = parseToLocalDate(dateQuery)
+            val dailyRecipeResult: List<Recipe> = searchFoodByAddDateUseCase.getRecipesByDate(isValidDate)
             return dailyRecipeResult
-        } catch (e: NoRecipeFoundException) {
+        } catch (e: NoRecipeFoundByDateException) {
             println("${e.message}")
             return emptyList()
         } catch (e: DateTimeException) {
@@ -51,7 +53,7 @@ class SearchFoodByDateCLI(
     private fun getChosenRecipe() {
         println("please choose which recipe you want to show more details....\n:")
         val chosenRecipeId: String = handleUserInput()
-        val detailedRecipe: Recipe? = searchFoodByAddDateUseCase.getDetailedRecipeById(chosenRecipeId)
+        val detailedRecipe: Recipe? = searchFoodByAddDateUseCase.getFullRecipeById(chosenRecipeId)
         detailedRecipe.let {
             when (it) {
                 null -> println("incorrect input no such id found")
