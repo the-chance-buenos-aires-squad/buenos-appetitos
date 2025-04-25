@@ -1,12 +1,9 @@
 package org.example.logic.useCases
 
 import com.google.common.truth.Truth.assertThat
-import org.junit.jupiter.api.Assertions.*
-import org.junit.jupiter.params.ParameterizedTest
-import org.junit.jupiter.params.provider.CsvSource
 import kotlin.test.Test
 
-class KmpSearchUseCaseTest{
+class KmpSearchUseCaseTest {
     private val kmpUS = KmpSearchUseCase()
 
 
