@@ -12,6 +12,9 @@ class GetHighCalorieUseCase(private val repository: RecipesRepository) {
     private fun loadHighCalorieRecipes() {
         val recipes = repository.getRecipes().also { if (it.isEmpty()) throw IllegalStateException("No meals found") }
         highCalorieRecipes.addAll(recipes.filterHighCalorieRecipes())
+        if (highCalorieRecipes.isEmpty()) {
+            throw IllegalStateException("No high-calorie meals found")
+        }
     }
 
     fun suggestRandomHighCalorieRecipe(): Recipe {
