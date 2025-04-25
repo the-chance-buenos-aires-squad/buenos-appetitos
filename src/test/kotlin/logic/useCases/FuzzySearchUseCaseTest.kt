@@ -1,6 +1,7 @@
 package logic.useCases
 
 import com.google.common.truth.Truth.assertThat
+import org.example.logic.useCases.FuzzySearchUseCase
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

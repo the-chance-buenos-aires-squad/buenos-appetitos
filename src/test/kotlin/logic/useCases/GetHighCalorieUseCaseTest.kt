@@ -1,6 +1,5 @@
 package logic.useCases
 
-import com.google.common.truth.Truth.assertThat
 import dummyData.DummyNutrition
 import dummyData.DummyRecipes
 import dummyData.createDummyRecipe

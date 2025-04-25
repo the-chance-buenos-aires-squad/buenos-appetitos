@@ -1,4 +1,4 @@
-package org.example.logic.useCases
+package logic.useCases
 
 import com.google.common.truth.Truth.assertThat
 import dummyData.DummyRecipes
@@ -6,6 +6,7 @@ import io.mockk.every
 import io.mockk.mockk
 import org.example.logic.RecipesRepository
 import org.example.logic.customExceptions.NoRecipeFoundByDateException
+import org.example.logic.useCases.GetRecipesByDateUseCase
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
