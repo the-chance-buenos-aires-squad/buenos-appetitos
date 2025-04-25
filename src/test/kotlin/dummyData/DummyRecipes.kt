@@ -1369,6 +1369,34 @@ object DummyRecipes {
         )
     )
 
+    val searchByDateRecipes = listOf(
+        createDummyRecipe(
+            id = "136882",
+            name = "easy linguine and clam sauce",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "65816",
+            name = "easy loaded baked potato salad",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "177845",
+            name = "easy low carb bread",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "387627",
+            name = "easy low fat chicken enchilada casserole",
+            submitted = LocalDate.parse("2009-08-28")
+        ),
+        createDummyRecipe(
+            id = "374472",
+            name = "easy low fat cornbread",
+            submitted = LocalDate.parse("2009-05-26")
+        )
+    )
+
     /**
      * // Output:
      * // 1. Grilled Salmon Steak - 38g protein

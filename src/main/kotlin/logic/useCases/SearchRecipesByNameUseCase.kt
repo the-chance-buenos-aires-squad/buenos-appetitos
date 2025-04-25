@@ -2,6 +2,7 @@ package org.example.logic.useCases
 
 
 import org.example.logic.RecipesRepository
+import org.example.logic.useCases.KmpSearchUseCase
 import org.example.logic.utili.CommonUtilizes
 import org.example.model.Recipe
 
