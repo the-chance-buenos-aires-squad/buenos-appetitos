@@ -5,10 +5,9 @@ import org.example.model.Recipe
 
 
 class GetRandomEasyRecipesUseCase(private val repository: RecipesRepository) {
-    private val recipes = repository.getRecipes()
 
     fun suggestEasyRecipes(): List<Recipe> {
-        return recipes.getEasyRecipeList()
+        return repository.getRecipes().getEasyRecipeList()
     }
 
     companion object {

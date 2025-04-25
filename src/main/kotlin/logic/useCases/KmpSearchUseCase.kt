@@ -1,7 +1,6 @@
 package org.example.logic.useCases
 
 class KmpSearchUseCase {
-
     fun kmp(text: String, pattern: String): Int {
         val lps = computeLPSArray(pattern)
         var i = 0

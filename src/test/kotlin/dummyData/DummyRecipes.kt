@@ -198,7 +198,7 @@ object DummyRecipes {
     )
 
     // Use Case 2: Typo-Tolerant Search example
-    private val searchTestRecipes = listOf(
+     val searchTestRecipes = listOf(
         // 1. Cheezy Pasta Bake (typo test)
         createDummyRecipe(
             name = "Cheezy Pasta Bake",
@@ -1031,7 +1031,7 @@ object DummyRecipes {
                 "Top with chives before serving."
             ),
             description = "Decadent potato casserole with melted cheese.",
-            ingredients = listOf("potatoes", "cheddar", "heavy cream", "garlic", "salt")
+            ingredients = listOf("poTaToes", "cheddar", "heavy cream", "garlic", "salt")
         ),
         createDummyRecipe(
             name = "Potato and Chorizo Tacos",
@@ -1056,7 +1056,16 @@ object DummyRecipes {
                 "Serve in warm tortillas with salsa."
             ),
             description = "Spicy potato and chorizo street tacos.",
-            ingredients = listOf("potatoes", "chorizo", "corn tortillas", "salsa", "cilantro")
+            ingredients = listOf("Potatoes", "chorizo", "corn tortillas", "salsa", "cilantro")
+        )
+    )
+
+    val nonPotatoRecipes = listOf(
+        createDummyRecipe(
+            ingredients = listOf("spaghetti", "egg", "parmesan", "pancetta", "black pepper")
+        ),
+        createDummyRecipe(
+            ingredients = listOf("romaine lettuce", "chicken breast", "croutons", "parmesan", "Caesar dressing")
         )
     )
 
@@ -1357,6 +1366,34 @@ object DummyRecipes {
         createDummyRecipe(
             name = "easy low fat roasted red pepper dip",
             ingredients = listOf()
+        )
+    )
+
+    val searchByDateRecipes = listOf(
+        createDummyRecipe(
+            id = "136882",
+            name = "easy linguine and clam sauce",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "65816",
+            name = "easy loaded baked potato salad",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "177845",
+            name = "easy low carb bread",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "387627",
+            name = "easy low fat chicken enchilada casserole",
+            submitted = LocalDate.parse("2009-08-28")
+        ),
+        createDummyRecipe(
+            id = "374472",
+            name = "easy low fat cornbread",
+            submitted = LocalDate.parse("2009-05-26")
         )
     )
 
@@ -1942,6 +1979,66 @@ object DummyRecipes {
             ingredients = listOf("tortilla", "avocado", "canned tuna", "lettuce")
         )
     )
+
+
+    //GetRandom easy recipes
+    val testRecipesCorrectCase = listOf(
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(3) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 30,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(4) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(5) { "ingredient$it" },
+            steps = List(2) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 20,
+            ingredients = List(3) { "ingredient$it" },
+            steps = List(6) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 30,
+            ingredients = List(5) { "ingredient$it" },
+            steps = List(6) { "step$it" }
+        )
+    )
+    val allRecipesAccepted = List(15) {
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(3) { "step$it" }
+        )
+    }
+    val nonRecipesAccepted = listOf(
+        createDummyRecipe(
+            minutes = 32,
+            ingredients = List(2) { "ingredient$it" },
+            steps = List(3) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 15,
+            ingredients = List(8) { "ingredient$it" },
+            steps = List(4) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 25,
+            ingredients = List(4) { "ingredient$it" },
+            steps = List(9) { "step$it" }
+        ),
+        createDummyRecipe(
+            minutes = 35,
+            ingredients = List(8) { "ingredient$it" },
+            steps = List(8) { "step$it" }
+        )
+    )
+
 
 
     val allRecipes = healthyFastFoodRecipes + easyRecipes +
