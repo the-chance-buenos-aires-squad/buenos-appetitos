@@ -1,44 +1,51 @@
 package org.example.logic.useCases
 
-import org.example.model.GuessGameState
-import org.example.model.GuessAttemptState
+import org.example.model.GuessAttemptResult
+import org.example.model.RecipeGuessGame
 
 class GuessGameUseCase(
     private val randomRecipeUseCase: RandomRecipeUseCase
 ) {
 
-    fun startGame(): GuessGameState {
-      return GuessGameState(recipe = randomRecipeUseCase.getRandomRecipe())
+    lateinit var recipeGuessGame: RecipeGuessGame
+
+    init {
+        startGame()
     }
 
-    fun processGuess(state: GuessGameState, userGuess: Int?): Pair<GuessGameState, GuessAttemptState?> {
-        if (userGuess == null) {
-            return state to null
-        }
+    fun processGuess(userGuess: Int): GuessAttemptResult {
 
-        val newAttemptCount = state.attemptCount + 1
-        val result = evaluateGuess(userGuess, state.recipe.minutes, newAttemptCount)
+        val newAttemptCount = recipeGuessGame.attemptCount + 1
+        val result = evaluateGuess(userGuess, recipeGuessGame.recipe.minutes, newAttemptCount)
 
-        val newState = when (result) {
-            is GuessAttemptState.Correct, is GuessAttemptState.GameOver -> {
-                state.copy(attemptCount = newAttemptCount, isFinished = true)
+        recipeGuessGame = when (result) {
+            is GuessAttemptResult.Correct, is GuessAttemptResult.GameOver -> {
+                recipeGuessGame.copy(attemptCount = newAttemptCount, isFinished = true)
             }
 
-            else -> state.copy(attemptCount = newAttemptCount)
+            else -> recipeGuessGame.copy(attemptCount = newAttemptCount)
         }
 
-        return newState to result
+        return result
     }
 
-    private fun evaluateGuess(userGuess: Int, preparationTime: Int, attemptCount: Int): GuessAttemptState =
-        when {
-            userGuess == preparationTime -> GuessAttemptState.Correct
-            attemptCount >= MAX_ATTEMPTS -> GuessAttemptState.GameOver(preparationTime)
-            userGuess < preparationTime -> GuessAttemptState.TooLow
-            else -> GuessAttemptState.TooHigh
-        }
+    fun getGameState(): RecipeGuessGame {
+        return recipeGuessGame
+    }
 
-    companion object {
+    private fun startGame() {
+        recipeGuessGame = RecipeGuessGame(recipe = randomRecipeUseCase.getRandomRecipe())
+    }
+
+
+    private fun evaluateGuess(userGuess: Int, preparationTime: Int, attemptCount: Int): GuessAttemptResult = when {
+        userGuess == preparationTime -> GuessAttemptResult.Correct
+        attemptCount >= MAX_ATTEMPTS -> GuessAttemptResult.GameOver(preparationTime)
+        userGuess < preparationTime -> GuessAttemptResult.TooLow
+        else -> GuessAttemptResult.TooHigh
+    }
+
+    private companion object {
         const val MAX_ATTEMPTS = 3
     }
 }

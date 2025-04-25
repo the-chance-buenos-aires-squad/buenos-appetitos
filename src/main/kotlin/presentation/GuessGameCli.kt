@@ -1,43 +1,39 @@
 package org.example.presentation
 
 import org.example.logic.useCases.GuessGameUseCase
-import org.example.model.GuessGameState
+import org.example.model.RecipeGuessGame
 
 class GuessGameCli(
     private val guessGameUseCase: GuessGameUseCase
 ) {
 
     fun start() {
-        val gameState=  guessGameUseCase.startGame()
-            try {
-                println("The Recipe is \"${gameState.recipe.name}\"")
-                runGameLoop(gameState)
-            }catch (e: Exception) {
-                println("Error on the game start: ${e.message}")
-            }
+        val gameRecipe = guessGameUseCase.getGameState()
+        try {
+            println("The Recipe is \"${gameRecipe.recipe.name}\"")
+            runGameLoop(gameRecipe)
+        } catch (e: Exception) {
+            println("Error on the game start: ${e.message}")
+        }
     }
 
-    private fun runGameLoop(gameState: GuessGameState) {
+    private fun runGameLoop(gameState: RecipeGuessGame) {
         if (gameState.isFinished) {
             return
         }
-
         val userGuess = getUserGuess()
-        val (newState, result) = guessGameUseCase.processGuess(gameState, userGuess)
-
-        if (result == null) {
-            println("Invalid input. Please enter a number.")
-            runGameLoop(newState)
-            return
-        }
-
+        val result = guessGameUseCase.processGuess(userGuess)
         println(result.message)
-
-        runGameLoop(newState)
+        val currentState = guessGameUseCase.getGameState()
+        runGameLoop(currentState)
     }
 
-    private fun getUserGuess(): Int? {
+    private fun getUserGuess(): Int {
         print("Guess the preparation time (in minutes): ")
-        return readlnOrNull()?.toIntOrNull()
+        val userGuess = readln().toIntOrNull()
+        if (userGuess == null || userGuess < 0) {
+            println("Invalid input. Please enter a number.")
+        }
+        return userGuess ?: getUserGuess()
     }
 }
