@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import org.example.logic.useCases.SearchRecipesByNameUseCase
+import logic.useCases.SearchRecipesByNameUseCase
 import org.example.model.Recipe
 
 class SearchMealsByNameCLI(
