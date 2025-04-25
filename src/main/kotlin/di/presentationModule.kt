@@ -2,6 +2,7 @@ package di
 
 import IraqiRecipesCli
 import org.example.presentation.*
+import org.example.presentation.uiController.UiController
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -36,6 +37,7 @@ val presentationModule = module {
     single { IngredientGameCLI(get()) }
 
     single { GuessGameCli(get()) }
+    single { UiController() }
 
     singleOf(::HolderCLi)
 }
