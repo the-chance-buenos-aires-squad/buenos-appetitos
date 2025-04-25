@@ -1,4 +1,4 @@
-package presentation
+package org.example.presentation
 
 import IraqiRecipesCli
 import io.mockk.every
@@ -30,6 +30,7 @@ class HolderCLiTest {
 
     private val uiController: UiController = mockk(relaxed = true)
     private val cli: HolderCLi = HolderCLi(
+        uiController,
         searchFoodByAddDateClI,
         healthyFoodMealsCLI,
         guessGameCli,
@@ -45,54 +46,311 @@ class HolderCLiTest {
         exploreRecipesByCountryCli,
         iraqiRecipesCli,
         getKetoDietRecipeHelperCLI,
-        uiController
     )
 
 
     @Test
-    fun `testing holder`() {
+    fun `should print welcome message`() {
 
-        every { uiController.readInput() }.returnsMany("0")  // Simulate choosing "Exit"
+        //when
+        cli.startCLI(true)
 
-        cli.startCLI()
-
-
+        //then
         verify {
             uiController.printMessage("\nFood Change Mood - Menu:")
-            uiController.printMessage("1. Find healthy fast food meals")
-            uiController.printMessage("2. Search meals by name")
-            uiController.printMessage("3. Find Iraqi meals")
-            uiController.printMessage("4. Get easy food suggestions")
-            uiController.printMessage("5. Play guess game")
-            uiController.printMessage("6. Find sweets with no eggs")
-            uiController.printMessage("7. Keto diet helper")
-            uiController.printMessage("8. Search foods by date")
-            uiController.printMessage("9. Gym helper")
-            uiController.printMessage("10. Explore food cultures")
-            uiController.printMessage("11. Play ingredient game")
-            uiController.printMessage("12. Find potato dishes")
-            uiController.printMessage("13. High calorie meals")
-            uiController.printMessage("14. Seafood by protein content")
-            uiController.printMessage("15. Italian group meals")
-            uiController.printMessage("0. Exit")
         }
-
 
     }
 
 
     @Test
-    fun `testing holder2`() {
+    fun `should start Healthy Meals CLI on option 1`() {
 
-        every { uiController.readInput() }.returnsMany("1")  // Simulate choosing "Exit"
+        //given
+        val userInput = "1"
+        every { uiController.readInput() }.returns(userInput)
 
-        cli.startCLI()
+        //when
+        cli.startCLI(true)
 
-
+        //then
         verify {
             healthyFoodMealsCLI.start()
         }
 
+    }
+
+
+    @Test
+    fun `should start Search By Name CLI on option 2`() {
+
+        //given
+        val userInput = "2"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            searchMealsByNameCLI.start()
+        }
 
     }
+
+    @Test
+    fun `should start Iraqi Recipes CLI on option 3`() {
+
+        //given
+        val userInput = "3"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            iraqiRecipesCli.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Random Easy Recipes CLI on option 4`() {
+
+        //given
+        val userInput = "4"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            getRandomEasyRecipesCli.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Guess Game CLI on option 5`() {
+
+        //given
+        val userInput = "5"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            guessGameCli.start()
+        }
+
+    }
+
+    @Test
+    fun `should start No Egg Sweets CLI on option 6`() {
+
+        //given
+        val userInput = "6"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            sweetsWithNoEggsCLi.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Keto Diet CLI on option 7`() {
+
+        //given
+        val userInput = "7"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            getKetoDietRecipeHelperCLI.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Search By Date CLI on option 8`() {
+
+        //given
+        val userInput = "8"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            searchFoodByAddDateClI.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Gym Meals CLI on option 9`() {
+
+        //given
+        val userInput = "9"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            gymMealsCLI.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Recipes By Country CLI on option 10`() {
+
+        //given
+        val userInput = "10"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            exploreRecipesByCountryCli.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Ingredient Game CLI on option 11`() {
+
+        //given
+        val userInput = "11"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            ingredientGameCLI.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Potato Lovers CLI on option 12`() {
+
+        //given
+        val userInput = "12"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            getLovePotatoCLI.start()
+        }
+
+    }
+
+    @Test
+    fun `should start High Calorie CLI on option 13`() {
+
+        //given
+        val userInput = "13"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            highCalorieCli.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Seafood Ranking CLI on option 14`() {
+
+        //given
+        val userInput = "14"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            seaFoodRankingCLI.start()
+        }
+
+    }
+
+    @Test
+    fun `should start Italian Recipes CLI on option 15`() {
+
+        //given
+        val userInput = "15"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            suggestItalianRecipesForLargeGroupsCLI.start()
+        }
+
+    }
+
+    @Test
+    fun `should print goodbye message on option 0`() {
+
+        //given
+        val userInput = "0"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            uiController.printMessage("Thank you for using buenos-appetitos App!")
+        }
+
+    }
+
+    @Test
+    fun `should print invalid option message on wrong input`() {
+
+        //given
+        val userInput = "anyThing"
+        every { uiController.readInput() }.returns(userInput)
+
+        //when
+        cli.startCLI(true)
+
+        //then
+        verify {
+            uiController.printMessage("Invalid option. Please try again.")
+        }
+
+    }
+
 }

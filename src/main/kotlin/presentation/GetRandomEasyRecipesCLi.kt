@@ -6,7 +6,7 @@ import org.example.presentation.displyUtils.displayDetails
 
 class GetRandomEasyRecipesCLi(val getRandomEasyRecipesUseCase: GetRandomEasyRecipesUseCase) {
 
-    fun suggestRandomRecipes() {
+    fun start() {
         displayEasyRecipesHeadMessage()
         val easyRecipesList: List<Recipe> = getRandomEasyRecipesUseCase.suggestEasyRecipes()
         easyRecipesList.forEach { it.displayDetails() }
