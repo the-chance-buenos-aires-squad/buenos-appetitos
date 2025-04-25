@@ -4,47 +4,82 @@ import com.google.common.truth.Truth.assertThat
 import kotlin.test.Test
 
 class KmpSearchUseCaseTest {
-    private val kmpUS = KmpSearchUseCase()
+    private val kmpSearchUseCase = KmpSearchUseCase()
 
 
     @Test
     fun `should find exact match in text`() {
+        //given
         val text = "ABABDABACDABABCABAB"
         val pattern = "ABABCABAB"
-        assertThat(kmpUS.kmp(text, pattern)).isEqualTo(10) // Pattern starts at index 10
+
+        //when
+        val result = kmpSearchUseCase.kmp(text, pattern)
+
+        //then
+        assertThat(result).isEqualTo(10) // Pattern starts at index 10
     }
 
     @Test
     fun `should return -1 when no match exists`() {
+        //given
         val text = "ABCDEFGH"
         val pattern = "XYZ"
-        assertThat(kmpUS.kmp(text, pattern)).isEqualTo(-1)
+
+        //when
+        val result = kmpSearchUseCase.kmp(text, pattern)
+
+        //then
+        assertThat(result).isEqualTo(-1)
     }
 
     @Test
     fun `should match at start of text`() {
+        //given
         val text = "ABCABCDAB"
         val pattern = "ABC"
-        assertThat(kmpUS.kmp(text, pattern)).isEqualTo(0)
+
+        //when
+        val result = kmpSearchUseCase.kmp(text, pattern)
+        //then
+        assertThat(result).isEqualTo(0)
     }
 
     @Test
     fun `should match at end of text`() {
+        //given
         val text = "ABCDEFABC"
         val pattern = "ABC"
-        assertThat(kmpUS.kmp(text, pattern)).isEqualTo(0)
+
+        //when
+        val result = kmpSearchUseCase.kmp(text, pattern)
+
+        //then
+        assertThat(result).isEqualTo(0)
     }
 
     @Test
     fun `empty pattern should return -1`() {
+        //given
         val text = "ANY_TEXT"
-        assertThat(kmpUS.kmp(text, " ")).isEqualTo(-1) // By definition
+
+        //when
+        val result = kmpSearchUseCase.kmp(text, " ")
+
+        //then
+        assertThat(result).isEqualTo(-1) // By definition
     }
 
     @Test
     fun `should return -1 when end of text reached during partial match`() {
+        //given
         val text = "ABAB"
         val pattern = "ABABC" // Longer than text
-        assertThat(kmpUS.kmp(text, pattern)).isEqualTo(-1)
+
+        //when
+        val result = kmpSearchUseCase.kmp(text, pattern)
+
+        //then
+        assertThat(result).isEqualTo(-1)
     }
 }
