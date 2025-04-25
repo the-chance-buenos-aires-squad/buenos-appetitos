@@ -35,11 +35,11 @@ class GetRecipesByDateUseCaseTest {
     @Test
     fun `should return recipes when date matches`() {
         // Given
-        val validDate = LocalDate.parse("2005-09-11")
+        val validFormatDate = LocalDate.parse("2005-09-11")
         every { recipesRepository.getRecipes() } returns DummyRecipes.searchByDateRecipes
 
         // When
-        val filteredRecipes = getRecipesByDateUseCase.getRecipesByDate(validDate)
+        val filteredRecipes = getRecipesByDateUseCase.getRecipesByDate(validFormatDate)
 
         // Then
         assertThat(filteredRecipes).hasSize(3)
@@ -49,11 +49,11 @@ class GetRecipesByDateUseCaseTest {
     fun `should return recipe details when valid ID is provided`() {
         // Given
         val validId = "65816"
-        val validDate = LocalDate.parse("2005-09-11")
+        val validFormatDate = LocalDate.parse("2005-09-11")
         every { recipesRepository.getRecipes() } returns DummyRecipes.searchByDateRecipes
 
         // When
-        getRecipesByDateUseCase.getRecipesByDate(validDate)
+        getRecipesByDateUseCase.getRecipesByDate(validFormatDate)
         val filteredRecipes = getRecipesByDateUseCase.getFullRecipeById(validId)
 
         // Then
@@ -64,11 +64,11 @@ class GetRecipesByDateUseCaseTest {
     fun `should return null when invalid ID is provided`() {
         // Given
         val inValidId = "invalid_id"
-        val validDate = LocalDate.parse("2005-09-11")
+        val validFormatDate = LocalDate.parse("2005-09-11")
         every { recipesRepository.getRecipes() } returns DummyRecipes.searchByDateRecipes
 
         // When
-        getRecipesByDateUseCase.getRecipesByDate(validDate)
+        getRecipesByDateUseCase.getRecipesByDate(validFormatDate)
         val filteredRecipes = getRecipesByDateUseCase.getFullRecipeById(inValidId)
 
         // Then
