@@ -71,7 +71,7 @@ class GetRecipesByDateUseCaseTest {
         val filteredRecipes = getRecipesByDateUseCase.getFullRecipeById(validId)
 
         // Then
-        assertThat(filteredRecipes!!.id).isEqualTo(validId)
+        assertThat(requireNotNull(filteredRecipes).id).isEqualTo(validId)
     }
 
     @Test
