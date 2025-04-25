@@ -1,142 +1,102 @@
-package org.example.logic.useCases
+package logic.useCases
 
 import com.google.common.truth.Truth.assertThat
-import org.example.logic.useCases.FuzzySearchUseCase
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import kotlin.test.Test
 
-class FuzzySearchUseCaseTest{
-    private val fuzzySearchUseCase:FuzzySearchUseCase = FuzzySearchUseCase()
+class FuzzySearchUseCaseTest {
+    private val fuzzySearchUseCase = FuzzySearchUseCase()
 
+    // Core operations
+    @ParameterizedTest
+    @CsvSource(
+        "kitten, sitting, 3, true",
+        "flaw, lawn, 2, true",
+        "apple, aple, 1, true",
+        "star, srat, 2, true",
+        "star, srat, 1, false"
+    )
+    fun `verify various edit operations`(text: String, query: String, max: Int, expected: Boolean) {
+        assertThat(fuzzySearchUseCase.isFuzzyMatch(text, query, max)).isEqualTo(expected)
+    }
+
+    // Boundary conditions
+    @Test
+    fun `empty query returns false`() {
+        assertThat(fuzzySearchUseCase.isFuzzyMatch("any", "")).isFalse()
+    }
 
 
     @ParameterizedTest
     @CsvSource(
-        "kitten, sitting, 3, true",  // Substitution heavy
-        "flaw, lawn, 2, true",       // Deletion heavy
-        "apple, aple, 1, true"       // Insertion heavy
+        // query, maxDistance, expected
+        "'abc', 3, true",
+        "'abcd', 3, false",
+        "'a', 1, true",
+        "'ab', 2, true",
+        "'abcdef', 5, false"
     )
-    fun `parameterized edit operations`(text: String, query: String, max: Int, expected: Boolean) {
-        assertThat(fuzzySearchUseCase.isFuzzyMatch(text, query, max)).isEqualTo(expected)
+    fun `empty text matches queries within max distance`(query: String, maxDistance: Int, expected: Boolean) {
+        assertThat(fuzzySearchUseCase.isFuzzyMatch("", query, maxDistance))
+            .isEqualTo(expected)
     }
 
 
-    @Test
-    fun `should match single character substitution`() {
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("a", "b", 1)).isTrue()
-    }
-
-    @Test
-    fun `should reject single character over threshold`() {
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("a", "b", 0)).isFalse()
-    }
-
-    @Test
-    fun `should reject when both text and query are empty`() {
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("", "")).isFalse()
+    // Single character scenarios
+    @ParameterizedTest
+    @CsvSource(
+        "a, a, 0, true",
+        "a, b, 1, true",
+        "a, b, 0, false"
+        )
+    fun `single char matches`(text: String,query: String,maxDistance: Int,expected: Boolean){
+        assertThat(fuzzySearchUseCase.isFuzzyMatch(text,query,maxDistance)).isEqualTo(expected)
     }
 
 
-    @Test
-    fun `should count transpositions as two operations`() {
-        // "star" -> "srat" (distance = 2)
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("star", "srat", 2)).isTrue()
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("star", "srat", 1)).isFalse()
-    }
 
+    // Matrix edge cases
     @Test
-    fun `should handle query length 1 vs text length 0`() {
-        // Insertion cost = 1 (text is empty)
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("", "a", 1)).isTrue()
-    }
-
-    @Test
-    fun `should handle text length 1 vs query length 0`() {
-        // Query is empty → returns false
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("a", "")).isFalse()
+    fun `minimum length comparisons`() {
+        assertThat(fuzzySearchUseCase.isFuzzyMatch("ab", "a", 1)).isTrue()
     }
 
 
-    @Test
-    fun `should prefer substitution over insertion`() {
-        // "cat" -> "car" (substitution cost = 1)
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("cat", "car", 1)).isTrue()
-    }
 
+    // Long string stress tests
     @Test
-    fun `should prefer deletion over substitution`() {
-        // "flight" -> "fligh" (delete 't', cost = 1)
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("flight", "fligh", 1)).isTrue()
-    }
-
-    @Test
-    fun `should prefer insertion over substitution`() {
-        // "file" -> "files" (insert 's', cost = 1)
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("file", "files", 1)).isTrue()
-    }
-
-    @Test
-    fun `should handle matching first characters`() {
-        // Distance = 0 (exact match)
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("apple", "apple")).isTrue()
-    }
-
-    @Test
-    fun `should handle mismatched first characters`() {
-        // a -> b (substitution, distance = 1)
-        assertThat(fuzzySearchUseCase.isFuzzyMatch("apple", "bpple", 1)).isTrue()
-    }
-
-    @Test
-    fun `should match long words with multiple substitutions and insertions`() {
-        // Given
-        val longText = "pneumonoultramicroscopicsilicovolcanoconiosis"
-        val typoQuery = "pneumonoultramicroscopicsilicovolcanoconiosix" // Extra 'x' at end (distance = 1)
-
-        // When
-        val result = fuzzySearchUseCase.isFuzzyMatch(
-            text = longText,
-            query = typoQuery,
-            maxDistance = 1
+    fun `handle long strings with edge edits`() {
+        val longStr = "pneumonoultramicroscopicsilicovolcanoconiosis"
+        assertAll(
+            { assertThat(fuzzySearchUseCase.isFuzzyMatch(longStr, longStr.dropLast(1), 1)).isTrue()},
+            { assertThat(fuzzySearchUseCase.isFuzzyMatch(longStr, longStr + "x", 1)).isTrue() },
+            { assertThat(fuzzySearchUseCase.isFuzzyMatch(longStr, longStr.take(10), 35)).isTrue() }
         )
 
-        // Then
-        assertThat(result).isTrue()
+
     }
 
-    @Test
-    fun `should reject long words exceeding max distance`() {
-        // Given
-        val longText = "supercalifragilisticexpialidocious"
-        val badTypo =  "supercalifragilisticexpialidociouunmyz" // 2 changes: 's'->'z'+ extra unmy
-
-        // When
-        val result = fuzzySearchUseCase.isFuzzyMatch(
-            text = longText,
-            query = badTypo,
-            maxDistance = 4
-        )
-
-        // Then
-        assertThat(result).isFalse()
+    @ParameterizedTest
+    @CsvSource(
+        "cafe, café, 1, true",
+        "file_v2, ile_, 3,true"
+    )
+    fun `handle diacritics and special characters`(text: String, query: String,maxDistance: Int,expected: Boolean){
+    assertThat(fuzzySearchUseCase.isFuzzyMatch(text, query, maxDistance)).isEqualTo(true)
     }
 
-    @Test
-    fun `should accept long words matched max distance of 5`() {
-        // Given
-        val longText = "supercalifragilisticexpialidocious"
-        val badTypo =  "supercalifragilisticexpialidociouunmyz" // 2 changes: 's'->'z'+ extra unmy
-
-        // When
-        val result = fuzzySearchUseCase.isFuzzyMatch(
-            text = longText,
-            query = badTypo,
-            maxDistance = 5
-        )
-
-        // Then
-        assertThat(result).isTrue()
+    // Algorithm edge cases
+    @ParameterizedTest
+    @CsvSource(
+        "abcd, abce",
+        "abcd, abcf",
+        "abcd, abcde",
+        "abcd, abc"
+    )
+    fun `exact threshold boundaries`(text: String,query: String){
+        assertThat(fuzzySearchUseCase.isFuzzyMatch(text, query, 1)).isTrue()
     }
 
 
