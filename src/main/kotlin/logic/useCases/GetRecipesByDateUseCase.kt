@@ -3,6 +3,7 @@ package org.example.logic.useCases
 import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 import logic.customExceptions.NoRecipeFoundException
+import org.example.logic.customExceptions.NoRecipeFoundByDateException
 import java.time.LocalDate
 
 
@@ -10,30 +11,24 @@ class GetRecipesByDateUseCase(val repository: RecipesRepository) {
 
     private var lastSearchedRecipes: List<Recipe> = emptyList()
 
-    fun getRecipesByDate(dateQuery: String): List<DailyRecipe> {
-        val date = LocalDate.parse(dateQuery)
+    fun getRecipesByDate(date: LocalDate): List<Recipe> {
+
         val recipesSubmittedOnDate = repository.getRecipes().filter { it.submitted == date }
         recipesSubmittedOnDate.let {
             when {
-                it.isEmpty() -> throw NoRecipeFoundException(date = dateQuery)
+                it.isEmpty() -> throw NoRecipeFoundByDateException(date = date)
                 else -> {
                     lastSearchedRecipes = it
                 }
             }
         }
 
-        val dailyRecipes = recipesSubmittedOnDate.map { fullRecipe ->
-            DailyRecipe(id = fullRecipe.id, name = fullRecipe.name)
-        }
-        return dailyRecipes
+        return recipesSubmittedOnDate
     }
 
     fun getFullRecipeById(chosenRecipeId: String): Recipe? {
         return lastSearchedRecipes.find { it.id == chosenRecipeId }
     }
-
-
-    data class DailyRecipe(val id: String, val name: String)
 }
 
 
