@@ -34,7 +34,7 @@ val useCaseModule = module {
 
     single { IngredientGameUseCase(get()) }
 
-    single { SearchFoodByAddDateUseCase(get()) }
+    single { GetRecipesByDateUseCase(get()) }
 
     single { KmpSearchUseCase() }
     single { FuzzySearchUseCase() }

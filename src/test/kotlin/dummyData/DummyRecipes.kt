@@ -56,6 +56,7 @@ object DummyRecipes {
             ingredients = listOf("zucchini", "avocado", "basil", "lemon", "cherry tomatoes")
         )
     )
+
     val healthyFastFoodRecipesHaveCarbsEqualNull = listOf(
         createDummyRecipe(
             minutes = 11,
@@ -198,7 +199,7 @@ object DummyRecipes {
     )
 
     // Use Case 2: Typo-Tolerant Search example
-    private val searchTestRecipes = listOf(
+    val searchTestRecipes = listOf(
         // 1. Cheezy Pasta Bake (typo test)
         createDummyRecipe(
             name = "Cheezy Pasta Bake",
@@ -1590,6 +1591,34 @@ object DummyRecipes {
         createDummyRecipe(
             name = "easy low fat roasted red pepper dip",
             ingredients = listOf()
+        )
+    )
+
+    val searchByDateRecipes = listOf(
+        createDummyRecipe(
+            id = "136882",
+            name = "easy linguine and clam sauce",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "65816",
+            name = "easy loaded baked potato salad",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "177845",
+            name = "easy low carb bread",
+            submitted = LocalDate.parse("2005-09-11")
+        ),
+        createDummyRecipe(
+            id = "387627",
+            name = "easy low fat chicken enchilada casserole",
+            submitted = LocalDate.parse("2009-08-28")
+        ),
+        createDummyRecipe(
+            id = "374472",
+            name = "easy low fat cornbread",
+            submitted = LocalDate.parse("2009-05-26")
         )
     )
 

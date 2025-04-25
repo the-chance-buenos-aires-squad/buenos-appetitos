@@ -1,7 +1,7 @@
 package org.example.presentation
 
-import org.example.logic.useCases.SearchFoodByAddDateUseCase
-import org.example.logic.useCases.SearchFoodByAddDateUseCase.DailyRecipe
+import org.example.logic.useCases.GetRecipesByDateUseCase
+import org.example.logic.useCases.GetRecipesByDateUseCase.DailyRecipe
 import org.example.model.Recipe
 import logic.customExceptions.NoRecipeFoundException
 import org.example.presentation.displyUtils.displayDetails
@@ -9,7 +9,7 @@ import org.example.presentation.inputHandlingUtils.handleUserInput
 import java.time.DateTimeException
 
 class SearchFoodByDateCLI(
-    private val searchFoodByAddDateUseCase: SearchFoodByAddDateUseCase
+    private val searchFoodByAddDateUseCase: GetRecipesByDateUseCase
 ) {
 
     fun start() {
@@ -36,7 +36,7 @@ class SearchFoodByDateCLI(
 
     private fun getDailyRecipesResult(dateQuery: String): List<DailyRecipe> {
         try {
-            val dailyRecipeResult: List<DailyRecipe> = searchFoodByAddDateUseCase.searchFoodByDate(dateQuery)
+            val dailyRecipeResult: List<DailyRecipe> = searchFoodByAddDateUseCase.getRecipesByDate(dateQuery)
             return dailyRecipeResult
         } catch (e: NoRecipeFoundException) {
             println("${e.message}")
@@ -51,7 +51,7 @@ class SearchFoodByDateCLI(
     private fun getChosenRecipe() {
         println("please choose which recipe you want to show more details....\n:")
         val chosenRecipeId: String = handleUserInput()
-        val detailedRecipe: Recipe? = searchFoodByAddDateUseCase.getDetailedRecipeById(chosenRecipeId)
+        val detailedRecipe: Recipe? = searchFoodByAddDateUseCase.getFullRecipeById(chosenRecipeId)
         detailedRecipe.let {
             when (it) {
                 null -> println("incorrect input no such id found")
