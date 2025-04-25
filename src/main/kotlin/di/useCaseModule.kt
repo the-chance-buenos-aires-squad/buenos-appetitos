@@ -1,6 +1,7 @@
 package di
 
 import logic.useCases.ExploreRecipesByCountryUseCase
+import logic.useCases.GetKetoRecipeUseCase
 import logic.useCases.GetLovePotatoUseCase
 import logic.useCases.IdentifyIraqiRecipesUseCase
 import org.example.logic.useCases.*
@@ -30,7 +31,7 @@ val useCaseModule = module {
 
     single { GetLovePotatoUseCase(get()) }
 
-    single { GymMealsUseCase(get()) }
+    single { GetCustomizedNutritionMealsUseCase(get()) }
 
     single { IngredientGameUseCase(get()) }
 
