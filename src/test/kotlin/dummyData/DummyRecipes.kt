@@ -1031,7 +1031,7 @@ object DummyRecipes {
                 "Top with chives before serving."
             ),
             description = "Decadent potato casserole with melted cheese.",
-            ingredients = listOf("potatoes", "cheddar", "heavy cream", "garlic", "salt")
+            ingredients = listOf("poTaToes", "cheddar", "heavy cream", "garlic", "salt")
         ),
         createDummyRecipe(
             name = "Potato and Chorizo Tacos",
@@ -1056,7 +1056,16 @@ object DummyRecipes {
                 "Serve in warm tortillas with salsa."
             ),
             description = "Spicy potato and chorizo street tacos.",
-            ingredients = listOf("potatoes", "chorizo", "corn tortillas", "salsa", "cilantro")
+            ingredients = listOf("Potatoes", "chorizo", "corn tortillas", "salsa", "cilantro")
+        )
+    )
+
+    val nonPotatoRecipes = listOf(
+        createDummyRecipe(
+            ingredients = listOf("spaghetti", "egg", "parmesan", "pancetta", "black pepper")
+        ),
+        createDummyRecipe(
+            ingredients = listOf("romaine lettuce", "chicken breast", "croutons", "parmesan", "Caesar dressing")
         )
     )
 
