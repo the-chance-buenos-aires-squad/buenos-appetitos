@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import org.example.logic.useCases.SweetsWithNoEggsUseCase
+import logic.useCases.SweetsWithNoEggsUseCase
 import org.example.presentation.displyUtils.displayOptionsMenu
 
 class SweetsWithNoEggsCLi(private val sweetsWithNoEggsUseCase: SweetsWithNoEggsUseCase) {

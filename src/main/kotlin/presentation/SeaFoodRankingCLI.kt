@@ -6,8 +6,10 @@ class SeaFoodRankingCLI(private val getSeaFoodRankingByProteinUseCase: GetSeaFoo
 
     fun start() {
         println("----------  SeaFood Ranking  ------------")
+        var rank = 1
         getSeaFoodRankingByProteinUseCase.getSeaFoodRanking().forEach {
-            println("Rank: ${it.rank} | Name: ${it.name} | Protein: ${it.amountOfProtein}")
+            println("Rank: $rank | Name: ${it.name} | Protein: ${it.nutrition.protein}")
+            rank++
         }
     }
 }

@@ -9,7 +9,7 @@ class IngredientGameCLI(private val ingredientGameUseCase: IngredientGameUseCase
         ingredientGameUseCase.startNewGame()
         printIntroMessage()
 
-        while (!ingredientGameUseCase.isGameOver()) {
+        while (!ingredientGameUseCase.isGameEnd()) {
             playRound()
         }
 
@@ -17,18 +17,18 @@ class IngredientGameCLI(private val ingredientGameUseCase: IngredientGameUseCase
     }
 
     private fun playRound() {
-        val round = ingredientGameUseCase.generateRound()
+        val round = ingredientGameUseCase.createNewRound()
         displayRound(round)
 
         val userChoice = getUserChoice(round.questionChoices)
 
-        handleAnswer(userChoice, round.correct)
+        handleAnswer(userChoice)
 
         displayScore()
     }
 
     private fun printSuccessMessage() {
-        if (ingredientGameUseCase.getCurrentRound() == ingredientGameUseCase.getTotalRounds()) {
+        if (ingredientGameUseCase.getCurrentRound() == IngredientGameUseCase.totalIngredientGameRound) {
             println("\n🎉 You completed all rounds !")
         }
     }
@@ -36,11 +36,11 @@ class IngredientGameCLI(private val ingredientGameUseCase: IngredientGameUseCase
     private fun displayScore() = println("🎯 Final Score: ${ingredientGameUseCase.getScore()}")
 
 
-    private fun handleAnswer(selected: String?, correct: String) {
-        if (ingredientGameUseCase.checkAnswer(selected, correct)) {
+    private fun handleAnswer(selected: String?) {
+        if (selected != null && ingredientGameUseCase.checkAnswer(selected)) {
             println("✅ Correct! Your score: ${ingredientGameUseCase.getScore()}")
         } else {
-            println("❌ Wrong! The correct answer was: $correct")
+            println("❌ Wrong!")
         }
     }
 

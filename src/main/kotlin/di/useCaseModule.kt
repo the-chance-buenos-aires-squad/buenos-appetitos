@@ -1,8 +1,6 @@
 package di
 
-import logic.useCases.ExploreRecipesByCountryUseCase
-import logic.useCases.GetLovePotatoUseCase
-import logic.useCases.IdentifyIraqiRecipesUseCase
+import logic.useCases.*
 import org.example.logic.useCases.*
 import org.koin.dsl.module
 
@@ -12,7 +10,7 @@ val useCaseModule = module {
 
     single { GetHealthyFastFoodMealsUseCase(get()) }
 
-    single { GuessGameUseCase(get()) }
+    single { GuessGameUseCase(get() ) }
 
     single { GetSeaFoodRankingByProteinUseCase(get()) }
 
@@ -22,6 +20,8 @@ val useCaseModule = module {
 
     single { GetKetoRecipeUseCase(get()) }
 
+    single { RandomRecipeUseCase(get()) }
+
     single { IdentifyIraqiRecipesUseCase(get()) }
 
     single { GetHighCalorieUseCase(get()) }
@@ -30,14 +30,16 @@ val useCaseModule = module {
 
     single { GetLovePotatoUseCase(get()) }
 
-    single { GymMealsUseCase(get()) }
+    single { GetCustomizedNutritionMealsUseCase(get()) }
 
     single { IngredientGameUseCase(get()) }
 
     single { SearchFoodByAddDateUseCase(get()) }
 
     single { KmpSearchUseCase() }
+
     single { FuzzySearchUseCase() }
+
     single { SearchRecipesByNameUseCase(get(), get(), get()) }
 
 }
