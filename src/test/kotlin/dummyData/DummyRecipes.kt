@@ -1956,8 +1956,7 @@ object DummyRecipes {
             failingKetoRecipes + countryRecipes +
             potatoRecipes + highCalorieRecipes +
             lowCalorieRecipes + seafoodRecipes +
-            italianGroupRecipes + searchTestRecipes +
-            customizedNutritionMeals
+            italianGroupRecipes + searchTestRecipes
 
 
 }
