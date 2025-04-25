@@ -15,12 +15,20 @@ object DummyTags {
     )
 
     // Meal Types
-    val mealTypes = listOf(
+    val mealTypesWithDessert = listOf(
         "breakfast",
         "lunch",
         "dinner",
         "snack",
         "dessert",
+        "appetizer"
+    )
+
+    val mealTypesWithOutDessert = listOf(
+        "breakfast",
+        "lunch",
+        "dinner",
+        "snack",
         "appetizer"
     )
 
@@ -61,5 +69,5 @@ object DummyTags {
     )
 
     // Combined list of all tags
-    val allTags = dietary + mealTypes + cuisines + preparation + special
+    val allTags = dietary + mealTypesWithDessert + cuisines + preparation + special
 }

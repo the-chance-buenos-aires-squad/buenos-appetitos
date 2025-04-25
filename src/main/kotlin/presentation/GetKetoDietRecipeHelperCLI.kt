@@ -1,6 +1,6 @@
 package org.example.presentation
 
-import org.example.logic.useCases.GetKetoRecipeUseCase
+import logic.useCases.GetKetoRecipeUseCase
 import org.example.presentation.displyUtils.displayOptionsMenu
 
 

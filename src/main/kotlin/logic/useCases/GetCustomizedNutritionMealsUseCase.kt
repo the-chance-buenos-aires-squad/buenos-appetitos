@@ -4,7 +4,7 @@ import org.example.logic.RecipesRepository
 import org.example.model.Recipe
 import java.lang.Math.abs
 
-class GymMealsUseCase(private val repository: RecipesRepository) {
+class GetCustomizedNutritionMealsUseCase(private val repository: RecipesRepository) {
 
     fun findMealsByNutrition(calories: Int, protein: Int, tolerance: Int = 50): List<Recipe> {
         return repository.getRecipes()

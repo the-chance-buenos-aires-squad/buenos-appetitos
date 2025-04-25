@@ -1,8 +1,6 @@
 package di
 
-import logic.useCases.ExploreRecipesByCountryUseCase
-import logic.useCases.GetLovePotatoUseCase
-import logic.useCases.IdentifyIraqiRecipesUseCase
+import logic.useCases.*
 import org.example.logic.useCases.*
 import org.koin.dsl.module
 
@@ -30,7 +28,7 @@ val useCaseModule = module {
 
     single { GetLovePotatoUseCase(get()) }
 
-    single { GymMealsUseCase(get()) }
+    single { GetCustomizedNutritionMealsUseCase(get()) }
 
     single { IngredientGameUseCase(get()) }
 
