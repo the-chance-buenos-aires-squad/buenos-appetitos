@@ -13,7 +13,7 @@ import dummyData.createDummyRecipe
 
 class GetLovePotatoUseCaseTest{
 
-      private var repository: RecipesRepository = mockk()
+      private var repository: RecipesRepository = mockk(relaxed = true)
       private lateinit var getLovePotatoUseCase: GetLovePotatoUseCase
 
       @BeforeEach
