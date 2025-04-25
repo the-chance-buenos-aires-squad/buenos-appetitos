@@ -1,4 +1,4 @@
-package logic.useCases
+package org.example.logic.useCases
 
 class FuzzySearchUseCase {
 
