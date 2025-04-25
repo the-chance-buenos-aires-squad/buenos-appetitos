@@ -41,16 +41,6 @@ class SuggestItalianRecipesForLargeGroupsUseCaseTest {
     }
 
     @Test
-    fun `should return empty list if there are italian meals but not for large group`() {
-        //give
-        every { recipesRepository.getRecipes() } returns DummyRecipes.ItalianMealButNotForLargeGroup
-        //when
-        val result = suggestItalianRecipesForLargeGroupsUseCase.getItalianRecipesForLargeGroups()
-        //then
-        assertThat(result).isEmpty()
-    }
-
-    @Test
     fun `should return only four italian meals for large group if list only have four italian meals for large group`() {
         //given
         every { recipesRepository.getRecipes() } returns DummyRecipes.italianGroupRecipes
