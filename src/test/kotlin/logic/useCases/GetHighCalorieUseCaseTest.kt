@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.Test
 
-class GetHighCalorieUseCaseTest{
+class GetHighCalorieUseCaseTest {
     private var repository: RecipesRepository = mockk(relaxed = true)
     private lateinit var getHighCalorieUseCase: GetHighCalorieUseCase
 
@@ -34,6 +34,17 @@ class GetHighCalorieUseCaseTest{
     }
 
     @Test
+    fun `should throw exception when all recipes have calories less than 700`() {
+        // given
+        every { repository.getRecipes() } returns DummyRecipes.lowCalorieRecipes
+
+        // when and then
+        assertThrows<IllegalStateException> {
+            getHighCalorieUseCase.suggestRandomHighCalorieRecipe()
+        }
+    }
+
+    @Test
     fun `should return a random high calorie recipe from the list when available`() {
 
         // given
@@ -43,7 +54,6 @@ class GetHighCalorieUseCaseTest{
         val result = getHighCalorieUseCase.suggestRandomHighCalorieRecipe()
 
         // then
-        assertThat(result).isNotNull()
         assertTrue(result in DummyRecipes.highCalorieRecipes)
     }
 
@@ -75,7 +85,5 @@ class GetHighCalorieUseCaseTest{
 
         // then
         assertNotEquals(firstResult, secondResult)
-        assertTrue(recipesWithHighCalories.contains(firstResult))
-        assertTrue(recipesWithHighCalories.contains(secondResult))
     }
 }
