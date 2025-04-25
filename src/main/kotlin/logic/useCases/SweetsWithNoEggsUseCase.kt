@@ -1,4 +1,4 @@
-package org.example.logic.useCases
+package logic.useCases
 
 import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository

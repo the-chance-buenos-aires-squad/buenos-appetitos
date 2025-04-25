@@ -7,7 +7,6 @@ import io.mockk.mockk
 import logic.customExceptions.NoRecipeFoundException
 import org.example.logic.RecipesRepository
 import org.example.logic.customExceptions.NoSweetFreeEggRecipeFoundException
-import org.example.logic.useCases.SweetsWithNoEggsUseCase
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -26,7 +25,7 @@ class SweetsWithNoEggsUseCaseTest {
     @Test
     fun `should return only sweets with no egg recipes when filtering from all recipes`() {
         //given
-        every { repository.getRecipes() } returns DummyRecipes.allRecipes
+        every { repository.getRecipes() } returns DummyRecipes.eggFreeSweets+DummyRecipes.failingSweetsNoEgg
 
         //When
         val sweetResultRecipe = sweetsWithNoEggsUseCase.suggestSweetNoEggRecipe()
