@@ -1689,6 +1689,64 @@ object DummyRecipes {
             ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
         ),
     )
+
+    val ItalianMealButNotForLargeGroup = listOf(
+        createDummyRecipe(
+            name = "Classic Lasagna",
+            id = "ITALY_GROUP_001",
+            minutes = 90,
+            contributorId = "user_italiangrandma",
+            submitted = LocalDate.parse("2023-05-01"),
+            tags = listOf("Italian", "oven-baked"),
+            nutrition = Nutrition(
+                calories = 350.0,
+                fat = 15.0,
+                sugar = 8.0,
+                sodium = 800.0,
+                protein = 20.0,
+                saturatedFat = 6.0,
+                carbohydrates = 35.0
+            ),
+            steps = listOf(
+                "Layer lasagna sheets with béchamel and meat sauce.",
+                "Add mozzarella and Parmesan cheese.",
+                "Repeat layers.",
+                "Bake at 375°F for 45 mins.",
+                "Let rest for 15 mins.",
+                "Slice into 12 portions."
+            ),
+            description = "A crowd-pleasing lasagna that serves 12 people.",
+            ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
+        ),
+        createDummyRecipe(
+            name = "Classic Lasagna",
+            id = "ITALY_GROUP_001",
+            minutes = 90,
+            contributorId = "user_italiangrandma",
+            submitted = LocalDate.parse("2023-05-01"),
+            tags = listOf("Italian", "oven-baked"),
+            nutrition = Nutrition(
+                calories = 350.0,
+                fat = 15.0,
+                sugar = 8.0,
+                sodium = 800.0,
+                protein = 20.0,
+                saturatedFat = 6.0,
+                carbohydrates = 35.0
+            ),
+            steps = listOf(
+                "Layer lasagna sheets with béchamel and meat sauce.",
+                "Add mozzarella and Parmesan cheese.",
+                "Repeat layers.",
+                "Bake at 375°F for 45 mins.",
+                "Let rest for 15 mins.",
+                "Slice into 12 portions."
+            ),
+            description = "A crowd-pleasing lasagna that serves 12 people.",
+            ingredients = listOf("lasagna sheets", "ground beef", "tomato sauce", "mozzarella")
+        ),
+    )
+
     val casInsensitiveMeal = listOf(
         createDummyRecipe(
             name = "Classic Lasagna",
