@@ -33,7 +33,7 @@ object DummyTags {
     )
 
     // Cuisines
-    val cuisines = listOf(
+    val countriesTags = listOf(
         "Italian",
         "Mexican",
         "Japanese",
@@ -43,7 +43,7 @@ object DummyTags {
         "American",
         "French",
         "Thai",
-        "Greek"
+        "Greek",
     )
 
     // Preparation Styles
@@ -69,5 +69,5 @@ object DummyTags {
     )
 
     // Combined list of all tags
-    val allTags = dietary + mealTypesWithDessert + cuisines + preparation + special
+    val allTags = dietary + mealTypesWithDessert + countriesTags + preparation + special
 }
