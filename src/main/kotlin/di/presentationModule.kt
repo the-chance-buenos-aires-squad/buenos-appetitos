@@ -16,11 +16,11 @@ val presentationModule = module {
 
     single { GetRandomEasyRecipesCLi(get()) }
 
-    single { GetKetoDietRecipeHelperCLI(get()) }
+    single { GetKetoDietRecipeHelperCLI(get(),get()) }
 
     single { IraqiRecipesCli(get()) }
 
-    single { GetHighCalorieCli(get()) }
+    single { GetHighCalorieCli(get(),get()) }
 
     single { ExploreRecipesByCountryCli(get()) }
 
@@ -28,7 +28,7 @@ val presentationModule = module {
 
     single { GymMealsCLI(get()) }
 
-    single { SweetsWithNoEggsCLi(get()) }
+    single { SweetsWithNoEggsCLi(get(),get()) }
 
     single { SearchFoodByDateCLI(get()) }
 

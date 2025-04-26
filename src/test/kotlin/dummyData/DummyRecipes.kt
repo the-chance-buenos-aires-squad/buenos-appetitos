@@ -596,10 +596,13 @@ object DummyRecipes {
         )
     )
 
+    val firstKetoRecipe = createDummyRecipe(nutrition = DummyNutrition.ketoFriendly)
+    val secondKetoRecipe = createDummyRecipe(nutrition = DummyNutrition.ketoFriendly)
+
     //Keto-Friendly Recipes (Pass Filter)
     val passingKetoRecipes = listOf(
-        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
-        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
+        firstKetoRecipe,
+        secondKetoRecipe,
         createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
         createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
         createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
