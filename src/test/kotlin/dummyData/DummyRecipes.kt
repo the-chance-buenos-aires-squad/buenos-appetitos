@@ -198,7 +198,7 @@ object DummyRecipes {
     )
 
     // Use Case 2: Typo-Tolerant Search example
-     val searchTestRecipes = listOf(
+    val searchTestRecipes = listOf(
         // 1. Cheezy Pasta Bake (typo test)
         createDummyRecipe(
             name = "Cheezy Pasta Bake",
@@ -569,18 +569,23 @@ object DummyRecipes {
         )
     )
 
+    val firstEggFreeSweet =
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg)
+    val secondEggFreeSweet =
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg)
+
     val eggFreeSweets = listOf(
-        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
-        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        firstEggFreeSweet,
+        secondEggFreeSweet,
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
 
-    )
+        )
 
-    val failingSweetsNoEgg= listOf(
+    val failingSweetsNoEgg = listOf(
         createDummyRecipe(
             tags = DummyTags.mealTypesWithOutDessert,
             ingredients = DummyIngredients.sweetenersNoEgg
@@ -591,10 +596,13 @@ object DummyRecipes {
         )
     )
 
+    val firstKetoRecipe = createDummyRecipe(nutrition = DummyNutrition.ketoFriendly)
+    val secondKetoRecipe = createDummyRecipe(nutrition = DummyNutrition.ketoFriendly)
+
     //Keto-Friendly Recipes (Pass Filter)
     val passingKetoRecipes = listOf(
-        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
-        createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
+        firstKetoRecipe,
+        secondKetoRecipe,
         createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
         createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
         createDummyRecipe(nutrition = DummyNutrition.ketoFriendly),
@@ -611,7 +619,6 @@ object DummyRecipes {
         createDummyRecipe(nutrition = DummyNutrition.nonKeto),
 
         )
-
 
 
     val countryRecipes = listOf(
@@ -1069,61 +1076,67 @@ object DummyRecipes {
         )
     )
 
+
+    val firstHighCalorieRecipe = createDummyRecipe(
+        name = "Double Bacon Cheeseburger with Fries",
+        id = "HIGH_001",
+        minutes = 25,
+        contributorId = "user_comfortfood",
+        submitted = LocalDate.parse("2023-05-15"),
+        tags = listOf("high-calorie", "comfort-food", "fast-food"),
+        nutrition = Nutrition(
+            calories = 950.0,
+            fat = 55.0,
+            sugar = 10.0,
+            sodium = 1200.0,
+            protein = 45.0,
+            saturatedFat = 20.0,
+            carbohydrates = 65.0
+        ),
+        steps = listOf(
+            "Grill beef patties with salt and pepper.",
+            "Layer bacon strips and cheddar cheese on patties.",
+            "Toast burger buns.",
+            "Assemble with lettuce, tomato, and mayo.",
+            "Serve with crispy french fries."
+        ),
+        description = "A decadent burger with crispy bacon and melted cheese.",
+        ingredients = listOf("beef patty", "bacon", "cheddar", "burger bun", "fries")
+    )
+
+    val secondHighCalorieRecipe = createDummyRecipe(
+        name = "Creamy Lobster Mac & Cheese",
+        id = "HIGH_002",
+        minutes = 40,
+        contributorId = "user_gourmet",
+        submitted = LocalDate.parse("2023-06-20"),
+        tags = listOf("high-calorie", "seafood", "pasta"),
+        nutrition = Nutrition(
+            calories = 850.0,
+            fat = 50.0,
+            sugar = 5.0,
+            sodium = 1100.0,
+            protein = 35.0,
+            saturatedFat = 25.0,
+            carbohydrates = 60.0
+        ),
+        steps = listOf(
+            "Cook pasta until al dente.",
+            "Sauté lobster meat in butter.",
+            "Make cheese sauce with heavy cream and Gruyère.",
+            "Combine pasta, lobster, and sauce.",
+            "Top with breadcrumbs and bake.",
+            "Broil until golden."
+        ),
+        description = "Luxurious macaroni with lobster and three cheeses.",
+        ingredients = listOf("lobster", "pasta", "Gruyère", "heavy cream", "breadcrumbs")
+    )
+
+
     //High-Calorie Recipes (Pass Filter)
     val highCalorieRecipes = listOf(
-        createDummyRecipe(
-            name = "Double Bacon Cheeseburger with Fries",
-            id = "HIGH_001",
-            minutes = 25,
-            contributorId = "user_comfortfood",
-            submitted = LocalDate.parse("2023-05-15"),
-            tags = listOf("high-calorie", "comfort-food", "fast-food"),
-            nutrition = Nutrition(
-                calories = 950.0,
-                fat = 55.0,
-                sugar = 10.0,
-                sodium = 1200.0,
-                protein = 45.0,
-                saturatedFat = 20.0,
-                carbohydrates = 65.0
-            ),
-            steps = listOf(
-                "Grill beef patties with salt and pepper.",
-                "Layer bacon strips and cheddar cheese on patties.",
-                "Toast burger buns.",
-                "Assemble with lettuce, tomato, and mayo.",
-                "Serve with crispy french fries."
-            ),
-            description = "A decadent burger with crispy bacon and melted cheese.",
-            ingredients = listOf("beef patty", "bacon", "cheddar", "burger bun", "fries")
-        ),
-        createDummyRecipe(
-            name = "Creamy Lobster Mac & Cheese",
-            id = "HIGH_002",
-            minutes = 40,
-            contributorId = "user_gourmet",
-            submitted = LocalDate.parse("2023-06-20"),
-            tags = listOf("high-calorie", "seafood", "pasta"),
-            nutrition = Nutrition(
-                calories = 850.0,
-                fat = 50.0,
-                sugar = 5.0,
-                sodium = 1100.0,
-                protein = 35.0,
-                saturatedFat = 25.0,
-                carbohydrates = 60.0
-            ),
-            steps = listOf(
-                "Cook pasta until al dente.",
-                "Sauté lobster meat in butter.",
-                "Make cheese sauce with heavy cream and Gruyère.",
-                "Combine pasta, lobster, and sauce.",
-                "Top with breadcrumbs and bake.",
-                "Broil until golden."
-            ),
-            description = "Luxurious macaroni with lobster and three cheeses.",
-            ingredients = listOf("lobster", "pasta", "Gruyère", "heavy cream", "breadcrumbs")
-        ),
+        firstHighCalorieRecipe,
+        secondHighCalorieRecipe,
         createDummyRecipe(
             name = "Deep-Fried Chicken Basket",
             id = "HIGH_003",
@@ -1207,23 +1220,78 @@ object DummyRecipes {
     val ingredientGameRecipes = listOf(
         createDummyRecipe(
             name = "easy linguine and clam sauce",
-            ingredients = listOf("linguine", "butter", "red pepper flakes", "garlic cloves", "shallot", "flour", "oregano", "parsley", "canned clams", "white wine", "heavy cream", "parmesan cheese")
+            ingredients = listOf(
+                "linguine",
+                "butter",
+                "red pepper flakes",
+                "garlic cloves",
+                "shallot",
+                "flour",
+                "oregano",
+                "parsley",
+                "canned clams",
+                "white wine",
+                "heavy cream",
+                "parmesan cheese"
+            )
         ),
         createDummyRecipe(
             name = "easy linguine del mar",
-            ingredients = listOf("linguine", "tuna fish", "red onion", "olive oil", "spaghetti sauce", "garlic cloves", "parmigiano")
+            ingredients = listOf(
+                "linguine",
+                "tuna fish",
+                "red onion",
+                "olive oil",
+                "spaghetti sauce",
+                "garlic cloves",
+                "parmigiano"
+            )
         ),
         createDummyRecipe(
             name = "easy loaded baked potato salad",
-            ingredients = listOf("red potatoes", "salt & pepper", "sour cream", "cheddar cheese", "green onions", "bacon bits")
+            ingredients = listOf(
+                "red potatoes",
+                "salt & pepper",
+                "sour cream",
+                "cheddar cheese",
+                "green onions",
+                "bacon bits"
+            )
         ),
         createDummyRecipe(
             name = "easy loaded baked potatoes 4 ways",
-            ingredients = listOf("baking potatoes", "alfredo sauce", "ham", "frozen cut broccoli in cheese sauce", "salsa", "sour cream", "guacamole", "colby-monterey jack cheese", "chili with beans")
+            ingredients = listOf(
+                "baking potatoes",
+                "alfredo sauce",
+                "ham",
+                "frozen cut broccoli in cheese sauce",
+                "salsa",
+                "sour cream",
+                "guacamole",
+                "colby-monterey jack cheese",
+                "chili with beans"
+            )
         ),
         createDummyRecipe(
             name = "easy low cal chicken potato soup",
-            ingredients = listOf("boneless skinless chicken breasts", "water", "chicken broth", "yellow onion", "celery ribs", "red potatoes", "fat free sour cream", "rosemary", "parsley", "season-all salt", "flavoring", "salt", "pepper", "frozen corn kernels", "broccoli florets", "fat-free cheddar cheese")
+            ingredients = listOf(
+                "boneless skinless chicken breasts",
+                "water",
+                "chicken broth",
+                "yellow onion",
+                "celery ribs",
+                "red potatoes",
+                "fat free sour cream",
+                "rosemary",
+                "parsley",
+                "season-all salt",
+                "flavoring",
+                "salt",
+                "pepper",
+                "frozen corn kernels",
+                "broccoli florets",
+                "fat-free cheddar cheese"
+            )
         ),
         createDummyRecipe(
             name = "easy low carb bread",
@@ -1231,7 +1299,14 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low carb pizza sauce and pasta sauce base",
-            ingredients = listOf("tomato paste", "water", "italian seasoning", "granulated garlic", "ground paprika", "salt")
+            ingredients = listOf(
+                "tomato paste",
+                "water",
+                "italian seasoning",
+                "granulated garlic",
+                "ground paprika",
+                "salt"
+            )
         ),
         createDummyRecipe(
             name = "easy low fat zucchini parmesan",
@@ -1239,7 +1314,19 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low fat after thanksgiving turkey barley soup",
-            ingredients = listOf("unsalted chicken stock", "barley", "fresh mushrooms", "fresh carrot", "celery", "onion", "chicken bouillon granules", "dried thyme", "ground black pepper", "cooked turkey breast", "parsley")
+            ingredients = listOf(
+                "unsalted chicken stock",
+                "barley",
+                "fresh mushrooms",
+                "fresh carrot",
+                "celery",
+                "onion",
+                "chicken bouillon granules",
+                "dried thyme",
+                "ground black pepper",
+                "cooked turkey breast",
+                "parsley"
+            )
         ),
         createDummyRecipe(
             name = "easy low fat cacik garlic yogurt dip",
@@ -1247,19 +1334,55 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low fat chicken enchilada casserole",
-            ingredients = listOf("flour tortillas", "cooked chicken", "low-fat condensed cream of chicken soup", "water", "taco seasoning mix", "black beans", "low-fat cheddar cheese", "lettuce")
+            ingredients = listOf(
+                "flour tortillas",
+                "cooked chicken",
+                "low-fat condensed cream of chicken soup",
+                "water",
+                "taco seasoning mix",
+                "black beans",
+                "low-fat cheddar cheese",
+                "lettuce"
+            )
         ),
         createDummyRecipe(
             name = "easy low fat chicken souvlaki",
-            ingredients = listOf("1% fat buttermilk", "liquid honey", "salt", "pepper", "dried oregano", "dried basil", "garlic cloves", "boneless skinless chicken breast halves")
+            ingredients = listOf(
+                "1% fat buttermilk",
+                "liquid honey",
+                "salt",
+                "pepper",
+                "dried oregano",
+                "dried basil",
+                "garlic cloves",
+                "boneless skinless chicken breast halves"
+            )
         ),
         createDummyRecipe(
             name = "easy low fat cornbread",
-            ingredients = listOf("flour", "cornmeal", "sugar", "baking powder", "baking soda", "salt", "low-fat buttermilk", "egg")
+            ingredients = listOf(
+                "flour",
+                "cornmeal",
+                "sugar",
+                "baking powder",
+                "baking soda",
+                "salt",
+                "low-fat buttermilk",
+                "egg"
+            )
         ),
         createDummyRecipe(
             name = "easy low fat curried zucchini soup",
-            ingredients = listOf("extra virgin olive oil", "onion", "garlic cloves", "curry powder", "zucchini", "baking potato", "broth", "salt")
+            ingredients = listOf(
+                "extra virgin olive oil",
+                "onion",
+                "garlic cloves",
+                "curry powder",
+                "zucchini",
+                "baking potato",
+                "broth",
+                "salt"
+            )
         ),
         createDummyRecipe(
             name = "easy low fat french toast",
@@ -1267,7 +1390,13 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low fat individual peach cobblers",
-            ingredients = listOf("bisquick heart smart mix", "egg", "skim milk", "splenda sugar substitute", "peaches in light syrup")
+            ingredients = listOf(
+                "bisquick heart smart mix",
+                "egg",
+                "skim milk",
+                "splenda sugar substitute",
+                "peaches in light syrup"
+            )
         ),
         createDummyRecipe(
             name = "easy low fat mayonnaise",
@@ -1283,7 +1412,15 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low fat roasted red pepper dip",
-            ingredients = listOf("roasted red peppers", "nonfat plain yogurt", "raisins", "toasted sliced almonds", "paprika", "salt", "hot sauce")
+            ingredients = listOf(
+                "roasted red peppers",
+                "nonfat plain yogurt",
+                "raisins",
+                "toasted sliced almonds",
+                "paprika",
+                "salt",
+                "hot sauce"
+            )
         )
     )
     val ingredientGameWithNoIngredientsRecipes = listOf(
@@ -1309,7 +1446,7 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low carb bread",
-            ingredients =listOf()
+            ingredients = listOf()
         ),
         createDummyRecipe(
             name = "easy low carb pizza sauce and pasta sauce base",
@@ -1325,7 +1462,7 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low fat cacik garlic yogurt dip",
-            ingredients =listOf()
+            ingredients = listOf()
         ),
         createDummyRecipe(
             name = "easy low fat chicken enchilada casserole",
@@ -1357,7 +1494,7 @@ object DummyRecipes {
         ),
         createDummyRecipe(
             name = "easy low fat mushroom sauce",
-            ingredients =listOf()
+            ingredients = listOf()
         ),
         createDummyRecipe(
             name = "easy low fat oven roasted peppered potato wedges",
@@ -2038,7 +2175,6 @@ object DummyRecipes {
             steps = List(8) { "step$it" }
         )
     )
-
 
 
     val allRecipes = healthyFastFoodRecipes + easyRecipes +

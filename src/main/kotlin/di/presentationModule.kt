@@ -2,6 +2,7 @@ package di
 
 import IraqiRecipesCli
 import org.example.presentation.*
+import org.example.presentation.uiController.UiController
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
 
@@ -15,11 +16,11 @@ val presentationModule = module {
 
     single { GetRandomEasyRecipesCLi(get()) }
 
-    single { GetKetoDietRecipeHelperCLI(get()) }
+    single { GetKetoDietRecipeHelperCLI(get(),get()) }
 
     single { IraqiRecipesCli(get()) }
 
-    single { GetHighCalorieCli(get()) }
+    single { GetHighCalorieCli(get(),get()) }
 
     single { ExploreRecipesByCountryCli(get()) }
 
@@ -27,7 +28,7 @@ val presentationModule = module {
 
     single { GymMealsCLI(get()) }
 
-    single { SweetsWithNoEggsCLi(get()) }
+    single { SweetsWithNoEggsCLi(get(),get()) }
 
     single { SearchFoodByDateCLI(get()) }
 
@@ -36,6 +37,7 @@ val presentationModule = module {
     single { IngredientGameCLI(get()) }
 
     single { GuessGameCli(get()) }
+    single { UiController() }
 
     singleOf(::HolderCLi)
 }

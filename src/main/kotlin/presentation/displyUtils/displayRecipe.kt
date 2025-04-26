@@ -3,6 +3,7 @@ package org.example.presentation.displyUtils
 import logic.customExceptions.NoRecipeFoundException
 import org.example.model.Recipe
 import org.example.presentation.inputHandlingUtils.handleUserInput
+import org.example.presentation.uiController.UiController
 import java.util.NoSuchElementException
 
 fun Recipe.displayDetails() {
@@ -39,47 +40,48 @@ fun Recipe.displayRecipeNameDescription() {
 
 
 fun displayOptionsMenu(
+    uiController: UiController,
     mainMessage: String,
     suggestRecipe: () -> Recipe,
 ) {
     while (true) {
-        val newSuggestedRecipe:Recipe?
+        val newSuggestedRecipe: Recipe?
         try {
             newSuggestedRecipe = suggestRecipe()
-        }catch (e: NoRecipeFoundException) {
-            println(e.message)
+        } catch (e: NoRecipeFoundException) {
+            uiController.printMessage(e.message.toString())
             break
-        }catch (e: RuntimeException){
-            println("sorry there is no more recipes")
+        } catch (e: RuntimeException) {
+            uiController.printMessage("sorry there is no more recipes")
             break
         }
-        println("\n$mainMessage")
+        uiController.printMessage("\n$mainMessage")
         newSuggestedRecipe.displayRecipeNameDescription()
-        println("----------------------------")
-        println("1 - Like show me recipe details")
-        println("2 - Dislike (show another recipe)")
-        println("3 - Exit")
-        print("Please choose (1-3): ")
-        val userChoice = handleUserInput()
+        uiController.printMessage("----------------------------")
+        uiController.printMessage("1 - Like show me recipe details")
+        uiController.printMessage("2 - Dislike (show another recipe)")
+        uiController.printMessage("3 - Exit")
+        uiController.printMessage("Please choose (1-3): ", true)
+        val userChoice = uiController.readInput()
         when (userChoice) {
             "1" -> {
-                println("good here are the details >>>>>  \n${newSuggestedRecipe.displayDetails()}")
+                uiController.printMessage("good here are the details >>>>>  \n${newSuggestedRecipe.displayDetails()}")
                 break
             }
 
             "2" -> {
-                println("Okay, let's try another one!")
+                uiController.printMessage("Okay, let's try another one!")
                 continue
             }
 
             "3" -> {
-                println("Exiting...")
+                uiController.printMessage("Exiting...")
                 break
             }
 
             else -> {
-                println("Invalid input...")
-                println("Exiting...")
+                uiController.printMessage("Invalid input...")
+                uiController.printMessage("Exiting...")
                 break
             }
         }

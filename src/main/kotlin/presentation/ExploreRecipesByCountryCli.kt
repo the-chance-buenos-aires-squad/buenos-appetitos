@@ -8,7 +8,7 @@ class ExploreRecipesByCountryCli(
     private val exploreRecipesByCountryUseCase: ExploreRecipesByCountryUseCase
 ) {
 
-    fun startCli() {
+    fun start() {
         println("Please enter the country name to search for its recipes:")
         while (true) {
             print("Enter a country (or 'exit'): ")

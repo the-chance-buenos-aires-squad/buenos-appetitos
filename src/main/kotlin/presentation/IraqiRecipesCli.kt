@@ -4,7 +4,7 @@ import org.example.presentation.displyUtils.displayDetails
 class IraqiRecipesCli(
     private val identifyIraqiRecipesUseCase: IdentifyIraqiRecipesUseCase
 ) {
-    fun startCli() {
+    fun start() {
         println("Listing Iraqi Recipes")
 
         val results = identifyIraqiRecipesUseCase.getIraqiRecipes()
