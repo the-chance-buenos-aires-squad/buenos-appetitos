@@ -11,7 +11,7 @@ class ExploreRecipesByCountryCli(
     fun startCli() {
         println("Please enter the country name to search for its recipes:")
         while (true) {
-            print("Enter a country (or 'exit'): ")
+            print("Enter a Dummy (or 'exit'): ")
             val userInput = readlnOrNull()?.trim() ?: continue
 
             if (userInput.equals("exit", ignoreCase = true)) {

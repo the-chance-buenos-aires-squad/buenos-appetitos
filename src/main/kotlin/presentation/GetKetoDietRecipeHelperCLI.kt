@@ -10,7 +10,7 @@ class GetKetoDietRecipeHelperCLI(
 
     fun start() {
         displayOptionsMenu(
-            mainMessage = "------ Keto Recipes -----",
+            mainMessage = "------ Dummy Recipes -----",
             suggestRecipe = { getKetoRecipeUseCase.suggestRandomKetoRecipe() }
         )
     }

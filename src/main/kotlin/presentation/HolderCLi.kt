@@ -27,8 +27,10 @@ class HolderCLi(
         val scanner = Scanner(System.`in`)
         while (true) {
             println("\nFood Change Mood - Menu:")
+
             println("1. Find healthy fast food meals")
-            println("2. Search meals by name")
+
+            println("2. dummy meals by name")
             println("3. Find Iraqi meals")
             println("4. Get easy food suggestions")
             println("5. Play guess game")
