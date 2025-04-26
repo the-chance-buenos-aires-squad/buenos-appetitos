@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "develop", "main","task/setup-Jacoco" ]
   pull_request:
-    branches: [ "develop", "main", "task/setup-Jacoco" ]
+    branches: [ "*" ]
 
 jobs:
   build:
