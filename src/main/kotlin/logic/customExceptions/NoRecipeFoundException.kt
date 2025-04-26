@@ -1,5 +1,5 @@
 package logic.customExceptions
 
 class NoRecipeFoundException(
-    message: String = "No recipe found for date"
+    message: String = "No recipe found"
 ) : RuntimeException(message)
