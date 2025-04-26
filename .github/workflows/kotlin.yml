@@ -2,9 +2,13 @@ name: Kotlin CI
 
 on:
   push:
-    branches: [ "develop", "main","task/setup-Jacoco" ]
+    branches: [ "develop", "main" ]
   pull_request:
-    branches: [ "*" ]
+    branches: [ "develop", "main" ]
+
+permissions:
+  pull-requests: write
+  contents: read
 
 jobs:
   build:
@@ -20,15 +24,40 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
       - name: Build with Gradle
         run: ./gradlew build
+
       - name: Run tests
         run: ./gradlew test
 
+      - name: Run Coverage
+        run: ./gradlew test jacocoTestReport
+
       - name: Upload Report
-        uses: 'actions/upload-artifact@v3'
+        uses: actions/upload-artifact@v4
         with:
-          name: jacoco-report
-          path: |
-            ${{ github.workspace }}/target/site/jacoco/jacoco.xml
-            ${{ github.workspace }}/target/site/jacoco/index.html
+          name: report.xml
+          path: ${{ github.workspace }}/build/reports/jacoco/test/jacocoTestReport.xml
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.7.1
+        with:
+          paths: |
+            ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
+            ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 0
+          min-coverage-changed-files: 80
+          title: Code Coverage
+          update-comment: true
+
+      - name: Check Coverage Verification
+        run: ./gradlew jacocoTestCoverageVerification
+        continue-on-error: true # remove me
+
+      - name: Get the Coverage info
+        run: |
+          echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+          echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
