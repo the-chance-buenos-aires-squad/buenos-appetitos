@@ -45,10 +45,4 @@ jobs:
           update-comment: true
           pass-emoji: ':green_circle:'
           fail-emoji: ':red_circle:'
-
-      - name: Fail PR if overall coverage is less than 80%
-        if: ${{ steps.jacoco.outputs.coverage-overall < 80.0 }}
-        uses: actions/github-script@v6
-        with:
-        script: |
-          core.setFailed('Overall coverage is less than 80%!')
+          fail-build-on-coverage-threshold: true
