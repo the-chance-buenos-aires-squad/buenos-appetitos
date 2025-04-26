@@ -14,5 +14,6 @@ fun main() {
     }
 
     val holderCli: HolderCLi = getKoin().get()
+
     holderCli.startCLI()
 }
