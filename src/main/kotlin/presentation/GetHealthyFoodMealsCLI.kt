@@ -24,6 +24,8 @@ class GetHealthyFoodMealsCLI(
                         healthyRecipe.displayDetails()
                     }
             }
+
+
         } catch (exception: NoRecipeFoundException) {
             println("Error: ${exception.message}")
         }
