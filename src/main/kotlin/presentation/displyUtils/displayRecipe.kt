@@ -39,19 +39,19 @@ fun Recipe.displayRecipeNameDescription() {
 }
 
 
-fun     displayOptionsMenu(
+fun displayOptionsMenu(
     uiController: UiController,
     mainMessage: String,
     suggestRecipe: () -> Recipe,
 ) {
     while (true) {
-        val newSuggestedRecipe:Recipe?
+        val newSuggestedRecipe: Recipe?
         try {
             newSuggestedRecipe = suggestRecipe()
-        }catch (e: NoRecipeFoundException) {
+        } catch (e: NoRecipeFoundException) {
             uiController.printMessage(e.message.toString())
             break
-        }catch (e: RuntimeException){
+        } catch (e: RuntimeException) {
             uiController.printMessage("sorry there is no more recipes")
             break
         }
@@ -61,7 +61,7 @@ fun     displayOptionsMenu(
         uiController.printMessage("1 - Like show me recipe details")
         uiController.printMessage("2 - Dislike (show another recipe)")
         uiController.printMessage("3 - Exit")
-        uiController.printMessage("Please choose (1-3): ",true)
+        uiController.printMessage("Please choose (1-3): ", true)
         val userChoice = uiController.readInput()
         when (userChoice) {
             "1" -> {

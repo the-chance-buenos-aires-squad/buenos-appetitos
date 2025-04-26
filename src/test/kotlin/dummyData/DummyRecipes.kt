@@ -569,9 +569,14 @@ object DummyRecipes {
         )
     )
 
+    val firstEggFreeSweet =
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg)
+    val secondEggFreeSweet =
+        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg)
+
     val eggFreeSweets = listOf(
-        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
-        createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
+        firstEggFreeSweet,
+        secondEggFreeSweet,
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
         createDummyRecipe(tags = DummyTags.mealTypesWithDessert, ingredients = DummyIngredients.sweetenersNoEgg),
