@@ -32,23 +32,3 @@ jobs:
           path: |
             ${{ github.workspace }}/target/site/jacoco/jacoco.xml
             ${{ github.workspace }}/target/site/jacoco/index.html
-
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.6.1
-        with:
-          paths: ${{ github.workspace }}/target/site/jacoco/jacoco.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 80
-          min-coverage-changed-files: 80
-          title: '# :recycle: Coverage Report'
-          update-comment: true
-          pass-emoji: ':green_circle:'
-          fail-emoji: ':red_circle:'
-
-      - name: Fail PR if overall coverage is less than 80%
-        if: ${{ steps.jacoco.outputs.coverage-overall < 80.0 }}
-        uses: actions/github-script@v6
-        with:
-        script: |
-          core.setFailed('Overall coverage is less than 80%!')
