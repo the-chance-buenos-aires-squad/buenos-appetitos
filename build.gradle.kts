@@ -1,7 +1,6 @@
-import org.jetbrains.kotlin.js.translate.context.Namer.kotlin
-
 plugins {
     kotlin("jvm") version "2.0.20"
+    id("jacoco")
 }
 
 
@@ -11,6 +10,7 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
+
 
 dependencies {
     implementation("io.insert-koin:koin-core:4.0.4")
@@ -23,7 +23,37 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    testLogging {
+        showStandardStreams = true
+    }
+    finalizedBy(tasks.jacocoTestReport)
 }
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
+}
+
+tasks.jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = "0.8".toBigDecimal()
+            }
+        }
+    }
+}
+
+
+jacoco {
+    toolVersion = "0.8.13"
+}
+
+
 kotlin {
     jvmToolchain(21)
 }
